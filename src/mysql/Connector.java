@@ -8,7 +8,7 @@ import java.sql.Statement;
 //import com.mysql.jdbc.Driver;
 
 public class Connector {
-	public Connector() {
+	public static void Connect() {
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
