@@ -1,4 +1,4 @@
-package entity;
+package fields;
 
 import entity.Player;
 
