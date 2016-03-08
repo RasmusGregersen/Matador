@@ -22,7 +22,7 @@ public class Connector {
 			System.exit(1);
 		}
     }
-
+    
 	public Connection getConnection() {
     	return connection;
     }
