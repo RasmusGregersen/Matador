@@ -5,47 +5,36 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-//import com.mysql.jdbc.Driver;
 
 public class Connector {
-	static Connection conn = null;
-	static final String connectionUrl = "jdbc:mysql://dtu.czx5ninmk2ar.eu-west-1.rds.amazonaws.com:3306/Matador";
-	static final String connectionUser = "cdio";
-	static final String connectionPassword = "matador.CDIO";
+	private Connection connection;
+	private final String connectionUrl = "jdbc:mysql://dtu.czx5ninmk2ar.eu-west-1.rds.amazonaws.com:3306/Matador";
+	private final String connectionUser = "cdio";
+	private final String connectionPassword = "matador.CDIO";
 	
-	public static void Connect() {
-			try {	
-				new com.mysql.jdbc.Driver();
-				Class.forName("com.mysql.jdbc.Driver").newInstance();
-				conn = DriverManager.getConnection(connectionUrl, connectionUser, connectionPassword);
-				}
-			catch (Exception e) {
-				e.printStackTrace();
-				} 	
-			finally {
-				try { if (conn == null) conn.close(); } catch (SQLException e) { e.printStackTrace(); }
-			}
-
-	}
-	public static String getPlayer() {
-		Statement stmt = null;
-		ResultSet rs = null;
-		String name = null;
-		try {
-			Connector.Connect();
-			stmt = conn.createStatement();
-			rs = stmt.executeQuery("SELECT * FROM Player");
-			while (rs.next()) {
-				//String PlayerID = rs.getString("PlayerID");
-				name = rs.getString("Name");
-				//String Balance = rs.getString("Balance");
-
-			}
-		Connector.conn.close();
-		
-		} catch (SQLException e) {
+    public Connector() {
+        try {
+			Class.forName("com.mysql.jdbc.Driver");
+			connection = DriverManager.getConnection(connectionUrl, connectionUser, connectionPassword);
+		} 
+        catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
+			System.exit(1);
 		}
-		return name;
-	}
+    }
+
+	public Connection getConnection() {
+    	return connection;
+    }
+	
+	public ResultSet doQuery(String query) throws SQLException {
+        Statement stmt = connection.createStatement();
+        ResultSet res = stmt.executeQuery(query);
+        return res;
+    }
+    
+    public void doUpdate(String query) throws SQLException {
+        Statement stmt = connection.createStatement();
+        stmt.executeUpdate(query);
+    }
 }
