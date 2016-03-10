@@ -1,14 +1,43 @@
 package entity;
 
 import java.awt.Color;
-import entity.*;
+
+import fields.*;
 import desktop_fields.Street;
 import desktop_resources.GUI;
 
 public class Gameboard {
+	
+	private static Field[] fieldValue = new Field[21]; // Field array created
+	
+	public Field getField(int fieldID) { // getter for the array
+		return fieldValue[fieldID];
+		}
+	
+	public static void setField(int fieldID, Player player) { // method to trigger landOnField method.
+		fieldValue[fieldID - 1].landOnField(player);
+	}
+	
 	public Gameboard() // Constructor for GameBoard to fill Field array and create GUI.
 	{
 		desktop_fields.Field[] fieldGUI = new desktop_fields.Field[40];
+		
+		for (int i = 0; i<40; i++) {
+			
+			
+			
+			if (type = Street) {
+				
+			
+				
+				
+			}
+			fieldValue[i] = new getType(FieldID = i+1)
+			
+		}
+		
+		
+		
 		
 		fieldValue[0] = new Territory("Tribe Encampment", 100, 1000);
 		fieldGUI[0] = new Street.Builder()
@@ -17,6 +46,7 @@ public class Gameboard {
 				.setSubText(""+((Ownable)fieldValue[0]).getPrice())
 				.setRent(""+((Ownable)fieldValue[0]).getRent())
 				.setBgColor(Color.CYAN)
+				
 				.build();
 		
 		fieldValue[1] = new Fleet ("Second Sail", 4000);
