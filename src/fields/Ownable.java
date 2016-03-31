@@ -26,7 +26,7 @@ public abstract class Ownable extends Field {
 	@Override
 	public void landOnField(Player player) {
 	}	
-	
+
 	public abstract int getRent(); // Abstract method declared, to be inherited by child classes.
 	
 	
