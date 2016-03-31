@@ -1,16 +1,23 @@
 package entity;
 
 import java.awt.Color;
-
 import fields.*;
+import desktop_fields.*;
+import desktop_fields.Start;
 import desktop_fields.Street;
+import desktop_fields.Brewery;
+import desktop_fields.Chance;
+import desktop_fields.Jail;
+import desktop_fields.Shipping;
+import desktop_fields.Tax;
 import desktop_resources.GUI;
+import desktop_resources.buildings.*;
 
 public class Gameboard {
+	private static fields.Field[] fieldValue = new fields.Field[21]; // Field array created
+	private static desktop_fields.Field[] fieldGUI = new desktop_fields.Field[40];
 	
-	private static Field[] fieldValue = new Field[21]; // Field array created
-	
-	public Field getField(int fieldID) { // getter for the array
+	public fields.Field getField(int fieldID) { // getter for the array
 		return fieldValue[fieldID];
 		}
 	
@@ -20,33 +27,16 @@ public class Gameboard {
 	
 	public Gameboard() // Constructor for GameBoard to fill Field array and create GUI.
 	{
-		desktop_fields.Field[] fieldGUI = new desktop_fields.Field[40];
+		UpdateGUI();
+	}
+	public void UpdateGUI()
+	{
 		
-		for (int i = 0; i<40; i++) {
-			
-			
-			
-			if (type = Street) {
-				
-			
-				
-				
-			}
-			fieldValue[i] = new getType(FieldID = i+1)
-			
-		}
-		
-		
-		
-		
-		fieldValue[0] = new Territory("Tribe Encampment", 100, 1000);
-		fieldGUI[0] = new Street.Builder()
+		fieldValue[0] = new fields.Start("Start");
+		fieldGUI[0] = new Start.Builder()
 				.setTitle(fieldValue[0].getName())
 				.setDescription(fieldValue[0].getClass().getSimpleName())
-				.setSubText(""+((Ownable)fieldValue[0]).getPrice())
-				.setRent(""+((Ownable)fieldValue[0]).getRent())
-				.setBgColor(Color.CYAN)
-				
+				.setBgColor(Color.GREEN)
 				.build();
 		
 		fieldValue[1] = new Fleet ("Second Sail", 4000);
@@ -226,7 +216,6 @@ public class Gameboard {
 				.build();
 
 		GUI.create(fieldGUI);
-		
 		
 	}
 }
