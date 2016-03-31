@@ -15,10 +15,10 @@ import desktop_resources.GUI;
 import desktop_resources.buildings.*;
 
 public class Gameboard {
-	private static fields.Field[] fieldValue = new fields.Field[21]; // Field array created
+	private static fields.Field[] fieldValue = new fields.Field[40]; // Field array created
 	private static desktop_fields.Field[] fieldGUI = new desktop_fields.Field[40];
 	
-	public fields.Field getField(int fieldID) { // getter for the array
+	public static fields.Field getField(int fieldID) { // getter for the array
 		return fieldValue[fieldID];
 		}
 	
@@ -30,7 +30,7 @@ public class Gameboard {
 	{
 		UpdateGUI();
 	}
-	public void UpdateGUI()
+	public static void UpdateGUI()
 	{
 		
 		fieldValue[0] = new fields.Start("Start");
@@ -69,7 +69,7 @@ public class Gameboard {
 		fieldGUI[4] = new Tax.Builder()
 				.setTitle(fieldValue[4].getName())
 				.setDescription(fieldValue[4].getClass().getSimpleName())
-				.setSubText(""+((Ownable) fieldValue[4]).getPrice())
+				.setSubText("")
 				.setFgColor(null)
 				.setBgColor(null)
 				.build();	
@@ -380,7 +380,7 @@ public class Gameboard {
 		fieldGUI[38] = new Tax.Builder()
 				.setTitle(fieldValue[38].getName())
 				.setDescription(fieldValue[38].getClass().getSimpleName())
-				.setSubText(""+((Ownable) fieldValue[38]).getPrice())
+				.setSubText("")
 				.setFgColor(null)
 				.setBgColor(null)
 				.build();	

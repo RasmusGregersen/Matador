@@ -4,6 +4,8 @@ import java.lang.reflect.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import desktop_resources.GUI;
+import entity.Gameboard;
 import entity.Rules;
 import mysql.*;
 import mysql.Connector;
@@ -23,8 +25,13 @@ public class Game {
 //	         System.out.println("Name: " + name + "ID: " + id);
 //
 //	      }
-		Rules.rollDice();
-		System.out.println(Rules.getDie1() + " " + Rules.getDie2() + " " + Rules.getDiceSum());
+		
+		Gameboard.UpdateGUI();
+		Rules.SetupGame();
+
+		while (Rules.getWin() == false) {
+			Rules.Turn();
+		}
 		
 	}
 
