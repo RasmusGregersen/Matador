@@ -9,7 +9,10 @@ public class Brewery extends Ownable {
 	}
 
 	@Override
-	public int getRent() {
-		return Rules.getDiceSum()*100;
+	public int getRent() {	
+		if (super.getOwner().getBreweries() == 2)
+			return Rules.getDiceSum()*200;
+		else
+			return Rules.getDiceSum()*100;
 	}
 }
