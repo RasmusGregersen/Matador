@@ -1,5 +1,6 @@
 package fields;
 
+import desktop_resources.GUI;
 import entity.Player;
 
 public abstract class Ownable extends Field {
@@ -25,6 +26,38 @@ public abstract class Ownable extends Field {
 
 	@Override
 	public void landOnField(Player player) {
+		if (owner == null) { // Checks if field has no Owner.
+			if (player.getBalance() < price) {
+				GUI.displayChanceCard(player.getName() + ": You cannot afford this property.");
+			}
+			else if (GUI.getUserLeftButtonPressed(player.getName() + ": This Territory has no owner, would you like to buy it?", "Yes", "No")) 
+			{
+				player.withdrawBalance(price);
+				owner=player;
+				GUI.setOwner(player.getFieldPos(), player.getName());
+			}
+		}
+		else if (owner.getBalance() == 0) { // Checks if the owner is bankrupt.
+			if (player.getBalance() < price) {
+				GUI.displayChanceCard(player.getName() + ": You cannot afford this property.");
+			}
+			else if (GUI.getUserLeftButtonPressed(player.getName() + ": This Territory's owner is bankrupt, would you like to buy it?", "Yes", "No")) 
+			{
+				player.withdrawBalance(price);
+				owner=player;
+				GUI.setOwner(player.getFieldPos(), player.getName());
+			}
+		}
+		else if (player == owner) { // Checks if the actual player is the owner.
+			GUI.displayChanceCard(player.getName() + ": Welcome back!");
+		}
+		else { // Otherwise the field must be owned by another active player.
+			
+//			GUI.displayChanceCard(player.getName() + ": You have landed on " + owner.getName() + "'s Territory. Rent is " + rent);
+//			player.withdrawBalance(rent);
+//			super.getOwner().depositBalance(rent);
+//			GUI.setBalance(super.getOwner().getName(), super.getOwner().getBalance());
+		}	
 	}	
 
 	public abstract int getRent(); // Abstract method declared, to be inherited by child classes.
