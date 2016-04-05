@@ -8,7 +8,7 @@ public class Shipping extends Ownable {
 
 	@Override
 	public int getRent() {
-		return 0;
+		return 500;
 	}
 	
 }
