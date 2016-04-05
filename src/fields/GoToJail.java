@@ -2,9 +2,9 @@ package fields;
 
 import entity.Player;
 
-public class Jail extends Field {
+public class GoToJail extends Field {
 
-	public Jail(String name) {
+	public GoToJail(String name) {
 		super(name);
 	}
 
