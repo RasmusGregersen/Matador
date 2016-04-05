@@ -3,9 +3,10 @@ package entity;
 public class Player {
 	private String name;
 	private int balance = 30000;
+	private int brewery = 0;
 	private int fleets = 0;
 	private int FieldPos = 0;
-	private int laborcamps = 0;
+
 	
 	public Player(String name){
 		this.name = name;
@@ -40,19 +41,21 @@ public class Player {
 		fleets++;
 	}
 
-	public int getLaborcamps() {
-		return laborcamps;
+	public int getBreweries() {
+		return brewery;
 	}
-	public void setLaborcamps() {
-		laborcamps++;
+	public void setBrewery() {
+		brewery++;
 	}
 	public int getFieldPos() {
 		return FieldPos;
 	}
 	public void setFieldPos(int FieldPos) {
 		this.FieldPos = FieldPos + this.FieldPos;
-		if (this.FieldPos > 21)
-			this.FieldPos = this.FieldPos - 21;
+		if (this.FieldPos > 40) {
+			this.FieldPos = this.FieldPos - 40;
+			balance = balance + 4000;
+		}
 	}
 	
 }

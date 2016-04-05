@@ -2,7 +2,7 @@ package entity;
 
 import java.awt.Color;
 import java.lang.reflect.Array;
-
+import entity.Gameboard;
 import desktop_codebehind.Car;
 import desktop_resources.GUI;
 
@@ -10,15 +10,33 @@ public class Rules {
 	
 	private static Car[] cars = new Car[6];
 	private static Player[] players = new Player[6];
+	private static int playerCount;
 	
+	public static Player getPlayer(int playernumber) { // getter for the array
+		return players[playernumber];
+		}
 	
+	public static int getPlayers() {
+		return playerCount;
+	}
 	
 	// Turn Method
 	
 	public static void Turn(Player player) {
-		GUI.getUserButtonPressed("Press to Roll", "Roll");
+		GUI.getUserButtonPressed("It's " + player.getName() + "'s turn!", "Roll");
+		GUI.removeAllCars(player.getName());
 		Rules.rollDice();
 		GUI.setDice(Rules.getDie1(), Rules.getDie2());
+		player.setFieldPos(Rules.getDiceSum());
+		GUI.setCar(player.getFieldPos(), player.getName());
+		Gameboard.setField(player.getFieldPos(), player);
+		GUI.setBalance(player.getName(), player.getBalance());
+		if (player.getBalance() == 0) {
+			GUI.showMessage(player.getName() + " has gone bankrupt");
+			playerCount = playerCount - 1;
+			GUI.removeAllCars(player.getName());
+			player = null;
+		}
 	}
 	
 	// Win Conditions
@@ -35,7 +53,7 @@ public class Rules {
 	
 	public static void SetupGame() {
 		
-		int playerCount = GUI.getUserInteger("How many players do you wish to play", 2 , 6);	
+		playerCount = GUI.getUserInteger("How many players do you wish to play", 2 , 6);	
 		CarBuilder(playerCount);
 		
 		// Name Check	
