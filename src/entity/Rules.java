@@ -84,6 +84,24 @@ public class Rules {
 		}
 	}
 	
+	public static void Jailturn(Player player) {
+		if (player.getJailCard = true) {
+			GUI.displayChanceCard("Du har brugt dit Chancekort til at komme ud af fængslet!");
+			Turn(player);
+		}
+		
+		else if (GUI.getUserLeftButtonPressed("Vil du betale en bøde på 1000 og kom ud af fængsel","Ja","Nej")) {
+			if (player.getBalance() > 1000) {
+				player.withdrawBalance(1000);
+				// player.setjail = false
+				
+			}
+			
+			
+		}
+		
+		
+	}
 	
 	// Car Builder
 	
