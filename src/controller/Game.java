@@ -30,7 +30,7 @@ public class Game {
 		Rules.SetupGame();
 
 		while (Rules.getWin() == false) {
-			Rules.Turn();
+			
 		}
 		
 	}

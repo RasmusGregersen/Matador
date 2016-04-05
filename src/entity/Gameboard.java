@@ -14,10 +14,11 @@ import desktop_fields.Tax;
 import desktop_resources.GUI;
 import desktop_resources.buildings.*;
 
+
 public class Gameboard {
 	private static fields.Field[] fieldValue = new fields.Field[40]; // Field array created
 	private static desktop_fields.Field[] fieldGUI = new desktop_fields.Field[40];
-	
+
 	public static fields.Field getField(int fieldID) { // getter for the array
 		return fieldValue[fieldID];
 		}
@@ -32,7 +33,7 @@ public class Gameboard {
 	}
 	public static void UpdateGUI()
 	{
-		
+
 		fieldValue[0] = new fields.Start("Start");
 		fieldGUI[0] = new Start.Builder()
 				.setTitle(fieldValue[0].getName())
@@ -84,7 +85,7 @@ public class Gameboard {
 				.setFgColor(null)
 				.setBgColor(Color.GREEN)
 				.build();
-		
+
 		fieldValue[6] = new fields.Street("Roskildevej", 2000, 100);
 		fieldGUI[6] = new Street.Builder()
 				.setTitle(fieldValue[6].getName())

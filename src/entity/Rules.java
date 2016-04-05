@@ -11,7 +11,28 @@ public class Rules {
 	private static Car[] cars = new Car[6];
 	private static Player[] players = new Player[6];
 	
+	
+	
+	// Turn Method
+	
+	public static void Turn(Player player) {
+		GUI.getUserButtonPressed("Press to Roll", "Roll");
+		Rules.rollDice();
+		GUI.setDice(Rules.getDie1(), Rules.getDie2());
+	}
+	
+	// Win Conditions
+	
+	private static boolean win = false;
+	public static boolean getWin() {
+		return win;
+	}
+	public static void CheckWinConditions() {
+		// Skriv winconditions ind i if statement, og sæt win = true
+	}	
+	
 	// Game Setup
+	
 	public static void SetupGame() {
 		
 		int playerCount = GUI.getUserInteger("How many players do you wish to play", 2 , 6);	
@@ -43,10 +64,6 @@ public class Rules {
 			players[i] = tmp;
 			// Mangler at tage højde for at de skal have forskellige navne + biler er tilfældige.
 		}
-		
-		
-		
-		
 	}
 	
 	
@@ -116,21 +133,4 @@ public class Rules {
 		return dice[0]+dice[1];
 	}
 	
-	// Turn Method
-	
-	public static void Turn() {
-		GUI.getUserButtonPressed("Press to Roll", "Roll");
-		Rules.rollDice();
-		GUI.setDice(Rules.getDie1(), Rules.getDie2());
-	}
-	
-	// Win Conditions
-	
-	private static boolean win = false;
-	public static boolean getWin() {
-		return win;
-	}
-	public static void CheckWinConditions() {
-		// Skriv winconditions ind i if statement, og sæt win = true
-	}	
 }
