@@ -1,5 +1,7 @@
 package fields;
 
+import entity.Rules;
+
 public class Brewery extends Ownable {
 
 	public Brewery (String name, int price) {
@@ -7,8 +9,10 @@ public class Brewery extends Ownable {
 	}
 
 	@Override
-	public int getRent() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int getRent() {	
+		if (super.getOwner().getBreweries() == 2)
+			return Rules.getDiceSum()*200;
+		else
+			return Rules.getDiceSum()*100;
 	}
 }

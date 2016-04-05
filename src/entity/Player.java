@@ -3,8 +3,8 @@ package entity;
 public class Player {
 	private String name;
 	private int balance = 30000;
-	private int brewery = 0;
-	private int fleets = 0;
+	private int breweries = 0;
+	private int shipping = 0;
 	private int FieldPos = 0;
 
 	
@@ -34,18 +34,18 @@ public class Player {
 		this.name = name;
 	}
 	
-	public int getFleets() {
-		return fleets;
+	public int getShipping() {
+		return shipping;
 	}
-	public void setFleets() {
-		fleets++;
+	public void setShipping() {
+		shipping++;
 	}
 
 	public int getBreweries() {
-		return brewery;
+		return breweries;
 	}
-	public void setBrewery() {
-		brewery++;
+	public void setBreweries() {
+		breweries++;
 	}
 	public int getFieldPos() {
 		return FieldPos;

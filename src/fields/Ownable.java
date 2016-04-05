@@ -30,7 +30,7 @@ public abstract class Ownable extends Field {
 			if (player.getBalance() < price) {
 				GUI.displayChanceCard(player.getName() + ": You cannot afford this property.");
 			}
-			else if (GUI.getUserLeftButtonPressed(player.getName() + ": This Territory has no owner, would you like to buy it?", "Yes", "No")) 
+			else if (GUI.getUserLeftButtonPressed(player.getName() + ": This " + getClass().getSimpleName() + " has no owner, would you like to buy it?", "Yes", "No")) 
 			{
 				player.withdrawBalance(price);
 				owner=player;
@@ -41,7 +41,7 @@ public abstract class Ownable extends Field {
 			if (player.getBalance() < price) {
 				GUI.displayChanceCard(player.getName() + ": You cannot afford this property.");
 			}
-			else if (GUI.getUserLeftButtonPressed(player.getName() + ": This Territory's owner is bankrupt, would you like to buy it?", "Yes", "No")) 
+			else if (GUI.getUserLeftButtonPressed(player.getName() + ": This " + getClass().getSimpleName() + "'s owner is bankrupt, would you like to buy it?", "Yes", "No")) 
 			{
 				player.withdrawBalance(price);
 				owner=player;
@@ -52,13 +52,12 @@ public abstract class Ownable extends Field {
 			GUI.displayChanceCard(player.getName() + ": Welcome back!");
 		}
 		else { // Otherwise the field must be owned by another active player.
-			
-//			GUI.displayChanceCard(player.getName() + ": You have landed on " + owner.getName() + "'s Territory. Rent is " + rent);
-//			player.withdrawBalance(rent);
-//			super.getOwner().depositBalance(rent);
-//			GUI.setBalance(super.getOwner().getName(), super.getOwner().getBalance());
+			GUI.displayChanceCard(player.getName() + ": You have landed on " + owner.getName() + "'s Territory. Rent is " + getRent());
+			player.withdrawBalance(getRent());
+			owner.depositBalance(getRent());
+			GUI.setBalance(owner.getName(), owner.getBalance());
 		}	
-	}	
+	}
 
 	public abstract int getRent(); // Abstract method declared, to be inherited by child classes.
 	

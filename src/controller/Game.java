@@ -16,7 +16,7 @@ public class Game {
 		
 		Gameboard.UpdateGUI();
 		Rules.SetupGame();
-
+		
 		while (Rules.getWin() == false) {
 			if (Rules.getPlayer(0) != null)
 				Rules.Turn(Rules.getPlayer(0));
