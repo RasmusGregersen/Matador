@@ -31,12 +31,7 @@ public class Rules {
 		GUI.setCar(player.getFieldPos(), player.getName());
 		Gameboard.setField(player.getFieldPos(), player);
 		GUI.setBalance(player.getName(), player.getBalance());
-		if (player.getBalance() == 0) {
-			GUI.showMessage(player.getName() + " has gone bankrupt");
-			playerCount = playerCount - 1;
-			GUI.removeAllCars(player.getName());
-			player = null;
-		}
+		CheckLoseCondition(player);
 	}
 	
 	// Win Conditions
@@ -48,6 +43,20 @@ public class Rules {
 	public static void CheckWinConditions() {
 		// Skriv winconditions ind i if statement, og sæt win = true
 	}	
+	
+	// Lose Condition
+	public static void CheckLoseCondition(Player player) {
+		if (player.getBalance() == 0) {
+			GUI.showMessage(player.getName() + " has gone bankrupt");
+			playerCount = playerCount - 1;
+			GUI.removeAllCars(player.getName());
+			player = null;
+		}
+	// Pledge Rule
+		
+	public static void 
+	
+	}
 	
 	// Game Setup
 	
