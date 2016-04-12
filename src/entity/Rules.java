@@ -54,176 +54,106 @@ public class Rules {
 		}
 	}
 
-	// Pledge Rule
-	public static void Pledge (Player player) {
-		if(player.getBalance() < 0) {
-			GUI.showMessage(player.getName() + "Du har en negativ balance, og du bliver nød til, at pantsætte dine huse eller grunde");
-		}
 
-	}
+	// Game Setup
 
+	public static void SetupGame() {
 
-	// Property Option
+		playerCount = GUI.getUserInteger("How many players do you wish to play", 2 , 6);	
+		CarBuilder(playerCount);
 
-	public static void PropertyOption (Player player) {
-		String option1 = "Fortsætte turen";
-		String Pledge = "Pantsætte grund(e)";
-		String Auction = "Sælge Huse";
-
-		String option = GUI.getUserSelection("Hvilke af følgende ting vil du foretage dig?",option1,Pledge,Auction);
-		if (option.equals(Pledge)) {
-			PledgeOption(player);
-		}
-		else if (option.equals(Auction)) {
-			AuctionOption(player);
-		}
-
-	}
-
-
-	public static void PledgeOption (Player player) {
-		Pledge:
-			while(true) {
-				int field = GUI.getUserInteger("Hvilken grund ønsker du at pantsætte, indtast grundens nummer", 1, 40);
-				if (player != Gameboard.getField(field-1).getOwner()) {
-					GUI.showMessage("Du ejer ikke dette felt!");
-					continue Pledge;
-				}
-				else if (player == Gameboard.getField(field-1).getOwner()) {
-					if (GUI.getUserLeftButtonPressed("Vil du pantsætte " + Gameboard.getField(field-1).getName() + "?", "Ja", "Nej")) {
-						player.depositBalance((int) (Gameboard.getField(field-1).getPrice() * 0.9));
-						GUI.displayChanceCard("Der blev indsat " + (int)(Gameboard.getField(field-1).getPrice() * 0.9) + " på din balance");
-						// Sæt grund tilstand til pawned.
-					}
-					else
-						break;
-				}
-			}
-	}
-
-
-public static void AuctionOption (Player player) {
-
-}
-
-// Game Setup
-
-public static void SetupGame() {
-
-	playerCount = GUI.getUserInteger("How many players do you wish to play", 2 , 6);	
-	CarBuilder(playerCount);
-
-	// Name Check	
-	for (int i=0; i < playerCount; i++) {
-		Player tmp = new Player("");
-		EnterName:	
-			while (true) {
-				String name = GUI.getUserString("Please enter the name of player" + (i+1)).trim();
-				if (name.length() < 1 || name.length() > 15 || name.indexOf(" ") == 0){
-					GUI.showMessage("Invalid name!");
-					continue;
-				}
-
-				for(Player p : players){
-					if(p != null && p.getName().equals(name)) {
+		// Name Check	
+		for (int i=0; i < playerCount; i++) {
+			Player tmp = new Player("");
+			EnterName:	
+				while (true) {
+					String name = GUI.getUserString("Please enter the name of player" + (i+1)).trim();
+					if (name.length() < 1 || name.length() > 15 || name.indexOf(" ") == 0){
 						GUI.showMessage("Invalid name!");
-						continue EnterName;
+						continue;
 					}
+
+					for(Player p : players){
+						if(p != null && p.getName().equals(name)) {
+							GUI.showMessage("Invalid name!");
+							continue EnterName;
+						}
+					}
+
+					GUI.addPlayer(name, tmp.getBalance(), cars[i]);
+					tmp.setName(name);
+					break;
+
 				}
-
-				GUI.addPlayer(name, tmp.getBalance(), cars[i]);
-				tmp.setName(name);
-				break;
-
-			}
-		players[i] = tmp;
-		// Mangler at tage højde for at de skal have forskellige navne + biler er tilfældige.
-	}
-}
-
-public static void Jailturn(Player player) {
-	if (player.getJailcard() > 0) {
-		GUI.displayChanceCard("Du har brugt dit Chancekort til at komme ud af fængslet!");
-		Turn(player);
-	}
-
-	else if (GUI.getUserLeftButtonPressed("Vil du betale en bøde på 1000 og kom ud af fængsel","Ja","Nej")) {
-		if (player.getBalance() > 1000) {
-			player.withdrawBalance(1000);
-			// player.setjail = false
-
+			players[i] = tmp;
+			// Mangler at tage højde for at de skal have forskellige navne + biler er tilfældige.
 		}
-
-
 	}
 
+	// Car Builder
 
-}
-
-// Car Builder
-
-public static void CarBuilder(int playerCount) {
-	cars[0] = new Car.Builder()
-			.primaryColor(Color.BLUE)
-			.secondaryColor(Color.BLUE)
-			.typeCar()
-			.patternFill()
-			.build();
-	cars[1] = new Car.Builder() // chaining
-			.primaryColor(Color.GREEN)
-			.secondaryColor(Color.GREEN)
-			.typeCar()
-			.patternFill()
-			.build();
-	if (playerCount > 2) {
-		cars[2] = new Car.Builder() // chaining
-				.primaryColor(Color.ORANGE)
-				.secondaryColor(Color.ORANGE)
+	public static void CarBuilder(int playerCount) {
+		cars[0] = new Car.Builder()
+				.primaryColor(Color.BLUE)
+				.secondaryColor(Color.BLUE)
 				.typeCar()
 				.patternFill()
 				.build();
-		if (playerCount > 3) {
-			cars[3] = new Car.Builder() // chaining
-					.primaryColor(Color.YELLOW)
-					.secondaryColor(Color.YELLOW)
+		cars[1] = new Car.Builder() // chaining
+				.primaryColor(Color.GREEN)
+				.secondaryColor(Color.GREEN)
+				.typeCar()
+				.patternFill()
+				.build();
+		if (playerCount > 2) {
+			cars[2] = new Car.Builder() // chaining
+					.primaryColor(Color.ORANGE)
+					.secondaryColor(Color.ORANGE)
 					.typeCar()
 					.patternFill()
 					.build();
-			if (playerCount > 4) {
-				cars[4] = new Car.Builder() // chaining
-						.primaryColor(Color.WHITE)
-						.secondaryColor(Color.WHITE)
+			if (playerCount > 3) {
+				cars[3] = new Car.Builder() // chaining
+						.primaryColor(Color.YELLOW)
+						.secondaryColor(Color.YELLOW)
 						.typeCar()
 						.patternFill()
 						.build();
-				if (playerCount > 5) {
-					cars[5] = new Car.Builder() // chaining
-							.primaryColor(Color.CYAN)
-							.secondaryColor(Color.CYAN)
+				if (playerCount > 4) {
+					cars[4] = new Car.Builder() // chaining
+							.primaryColor(Color.WHITE)
+							.secondaryColor(Color.WHITE)
 							.typeCar()
 							.patternFill()
 							.build();
+					if (playerCount > 5) {
+						cars[5] = new Car.Builder() // chaining
+								.primaryColor(Color.CYAN)
+								.secondaryColor(Color.CYAN)
+								.typeCar()
+								.patternFill()
+								.build();
+					}
 				}
 			}
 		}
 	}
-}
 
-// Dice
+	// Dice
 
-private static int[] dice = new int [2];
-public static void rollDice() {
-	dice[0] = (int) Math.ceil(Math.random()*6);
-	dice[1] = (int) Math.ceil(Math.random()*6);
-}
-public static int getDie1() {
-	return Array.getInt(dice, 0);
-}
-public static int getDie2() {
-	return Array.getInt(dice, 1);
-}
-public static int getDiceSum() {
-	return dice[0]+dice[1];
-}
+	private static int[] dice = new int [2];
+	public static void rollDice() {
+		dice[0] = (int) Math.ceil(Math.random()*6);
+		dice[1] = (int) Math.ceil(Math.random()*6);
+	}
+	public static int getDie1() {
+		return Array.getInt(dice, 0);
+	}
+	public static int getDie2() {
+		return Array.getInt(dice, 1);
+	}
+	public static int getDiceSum() {
+		return dice[0]+dice[1];
+	}
 
 }
