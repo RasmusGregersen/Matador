@@ -7,6 +7,7 @@ public abstract class Ownable extends Field {
 	private int price;
 	private Player owner;
 	
+	@Override
 	public Player getOwner() {
 		return owner;
 	}
