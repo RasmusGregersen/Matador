@@ -1,5 +1,6 @@
 package fields;
 
+import desktop_resources.GUI;
 import entity.Player;
 
 public class Jail extends Field {
@@ -10,8 +11,7 @@ public class Jail extends Field {
 
 	@Override
 	public void landOnField(Player player) {
-		return;
-		
+		GUI.showMessage("Du er på besøg i fængsel");
 	}
 	
 }
