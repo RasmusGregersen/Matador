@@ -17,23 +17,36 @@ public class PlayerOptions {
 			}
 		}
 	}
-
-	public static void PropertyOption (Player player) {
-		String option1 = "Fortsætte turen";
+	
+	public static void Options (Player player) {
+		String Continue = "Giv turen videre";
+		String BuyProperty = "Køb hus eller hotel";
+		String SellProperty = "Sælg hus eller hotel";
 		String Pledge = "Pantsætte grund(e)";
-		String Auction = "Sælge Huse";
 
-		String option = GUI.getUserSelection("Hvilke af følgende ting vil du foretage dig?",option1,Pledge,Auction);
-		if (option.equals(Pledge)) {
-			PledgeOption(player);
+		String option = GUI.getUserSelection("Hvilke af følgende ting vil du foretage dig?",Continue,BuyProperty,SellProperty,Pledge);
+		if (option.equals(BuyProperty)) {
+			BuyProperty(player);
 		}
-		else if (option.equals(Auction)) {
-			AuctionOption(player);
+		else if (option.equals(SellProperty)) {
+			SellProperty(player);
 		}
+		else if (option.equals(Pledge)) {
+			Pledge(player);
+		}
+
 
 	}
-
-	public static void PledgeOption (Player player) {
+	
+	public static void BuyProperty (Player player) {
+		
+	}
+	
+	public static void SellProperty (Player player) {
+		
+	}
+	
+	public static void Pledge (Player player) {
 		Pledge:
 			while(true) {
 				int field = GUI.getUserInteger("Hvilken grund ønsker du at pantsætte, indtast grundens nummer", 1, 40);
@@ -52,6 +65,26 @@ public class PlayerOptions {
 				}
 			}
 	}
+	
+	public static void YoureScrewedmetoden (Player player) {
+		String option1 = "Fortsætte turen";
+		String Pledge = "Pantsætte grund(e)";
+		String Auction = "Sælge Huse";
+		String Surrender = "Jeg giver op!";
+
+		String option = GUI.getUserSelection("Hvilke af følgende ting vil du foretage dig?",option1,Pledge,Auction, Surrender);
+		if (option.equals(Pledge)) {
+			Pledge(player);
+		}
+		else if (option.equals(Auction)) {
+			AuctionOption(player);
+		}
+		else if (option.equals(Surrender)) {
+			
+		}
+
+	}
+
 
 
 	public static void AuctionOption (Player player) {

@@ -8,7 +8,7 @@ public class Player {
 	private int FieldPos = 0;
 	private int jailcard = 0;
 
-	
+
 	public Player(String name){
 		this.name = name;
 	}
