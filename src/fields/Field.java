@@ -14,5 +14,10 @@ public abstract class Field {
 	public String getName() {
 		return name;
 	}
+	
 	public abstract void landOnField(Player player);
+
+	public Player getOwner() {
+		return null;
+	}
 }
