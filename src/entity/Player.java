@@ -6,6 +6,7 @@ public class Player {
 	private int breweries = 0;
 	private int shipping = 0;
 	private int FieldPos = 0;
+	private int jailcard = 0;
 
 	
 	public Player(String name){
@@ -50,6 +51,17 @@ public class Player {
 	public int getFieldPos() {
 		return FieldPos;
 	}
+	
+	
+	
+	public int getJailcard() {
+		return jailcard;
+	}
+
+	public void setJailcard(int jailcard) {
+		this.jailcard = jailcard;
+	}
+
 	public void setFieldPos(int FieldPos) {
 		this.FieldPos = FieldPos + this.FieldPos;
 		if (this.FieldPos > 40) {
