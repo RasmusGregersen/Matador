@@ -6,6 +6,7 @@ import entity.Player;
 public abstract class Ownable extends Field {
 	private int price;
 	private Player owner;
+	private boolean pawned = false;
 	
 	@Override
 	public Player getOwner() {
@@ -21,8 +22,17 @@ public abstract class Ownable extends Field {
 		this.price = price;
 	}
 	
+	@Override
 	public int getPrice() {
 		return price;
+	}
+
+	public boolean isPawned() {
+		return pawned;
+	}
+
+	public void setPawned(boolean pawned) {
+		this.pawned = pawned;
 	}
 
 	@Override
@@ -37,6 +47,10 @@ public abstract class Ownable extends Field {
 				owner=player;
 				GUI.setOwner(player.getFieldPos(), player.getName());
 			}
+		}
+		else if (pawned == true) {
+			
+			
 		}
 		else if (owner.getBalance() == 0) { // Checks if the owner is bankrupt.
 			if (player.getBalance() < price) {

@@ -20,4 +20,8 @@ public abstract class Field {
 	public Player getOwner() {
 		return null;
 	}
+	
+	public int getPrice() {
+		return 0;
+	}
 }
