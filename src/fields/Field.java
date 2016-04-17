@@ -4,7 +4,6 @@ import entity.Player;
 
 public abstract class Field {
 	
-	private int FieldID;
 	private String name;
 	
 	public Field(String name){

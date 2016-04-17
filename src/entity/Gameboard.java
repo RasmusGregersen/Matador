@@ -1,7 +1,7 @@
 package entity;
 
 import java.awt.Color;
-import fields.*;
+
 import fields.Ownable;
 import desktop_fields.*;
 import desktop_fields.Start;
@@ -12,7 +12,6 @@ import desktop_fields.Jail;
 import desktop_fields.Shipping;
 import desktop_fields.Tax;
 import desktop_resources.GUI;
-import desktop_resources.buildings.*;
 
 
 public class Gameboard {

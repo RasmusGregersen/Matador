@@ -1,7 +1,5 @@
 package fields;
 
-import entity.Gameboard;
-
 public class Street extends Ownable {
 	
 	private int baserent;
