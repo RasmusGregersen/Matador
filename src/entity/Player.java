@@ -10,7 +10,16 @@ public class Player {
 	private int FieldPos = 0;
 	private int jailcard = 0;
 	private int ExtraTurns = 0;
+	private boolean jailed = false;
 
+
+	public boolean isJailed() {
+		return jailed;
+	}
+
+	public void setJailed(boolean jailed) {
+		this.jailed = jailed;
+	}
 
 	public int getExtraTurns() {
 		return ExtraTurns;
