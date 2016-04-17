@@ -19,6 +19,16 @@ public class Player {
 
 	public void setJailed(boolean jailed) {
 		this.jailed = jailed;
+		if (jailed == true) {
+			GUI.removeAllCars(name);
+			FieldPos = 31;
+			GUI.setCar(FieldPos, name);
+		}
+		if (jailed == false) {
+			GUI.removeAllCars(name);
+			FieldPos = 11;
+			GUI.setCar(FieldPos, name);
+		}
 	}
 
 	public int getExtraTurns() {
@@ -87,6 +97,7 @@ public class Player {
 			this.FieldPos = this.FieldPos - 40;
 			GUI.displayChanceCard("Du modtager hermed kr. 4000,- for at passere start");
 			balance = balance + 4000;
+			GUI.setBalance(name, balance);
 		}
 	}
 	

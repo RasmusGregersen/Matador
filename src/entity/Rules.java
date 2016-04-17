@@ -36,16 +36,23 @@ public class Rules {
 		Rules.ExtraTurn(player);
 	}
 
+	public static void GoToJail (Player player) {
+		GUI.removeAllCars(player.getName());
+		player.setJailed(true);
+	}
+	
+	
 	public static void ExtraTurn (Player player) {
 		if (Rules.getDie1() == Rules.getDie2()) {
 			if (player.getExtraTurns() == 2) {
-				// Go to Jail metode. 
+				GUI.showMessage("Du har har kørt for stærkt og ryger derfor direkte i fængsel");
+				Rules.GoToJail(player);
+				player.setExtraTurns(0);
 			}
-			else {
+			else if (player.isJailed() == false) {
 				player.setExtraTurns(player.getExtraTurns() + 1);
 				Turn(player);
 			}
-				
 		}
 		else
 			player.setExtraTurns(0);

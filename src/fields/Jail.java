@@ -2,6 +2,7 @@ package fields;
 
 import desktop_resources.GUI;
 import entity.Player;
+import entity.Rules;
 
 public class Jail extends Field {
 
@@ -11,7 +12,13 @@ public class Jail extends Field {
 
 	@Override
 	public void landOnField(Player player) {
-		GUI.showMessage("Du er på besøg i fængsel");
+		if (player.getFieldPos() == 11)
+			GUI.showMessage("Du er på besøg i fængsel");
+		else
+		{
+			GUI.showMessage("Du er sendt i fængsel!");
+			Rules.GoToJail(player);
+		}
 	}
-	
+
 }

@@ -311,7 +311,7 @@ public class Gameboard {
 				.setBgColor(Color.WHITE)
 				.build();	
 		
-		fieldValue[30] = new fields.GoToJail("Gå i fængsel");
+		fieldValue[30] = new fields.Jail("Gå i fængsel");
 		fieldGUI[30] = new Jail.Builder()
 				.setTitle(fieldValue[30].getName())
 				.setDescription("De fængsles! Slå to ens for at komme ud")
