@@ -32,6 +32,7 @@ public class Rules {
 		Gameboard.setField(player.getFieldPos(), player);
 		GUI.setBalance(player.getName(), player.getBalance());
 		CheckLoseCondition(player);
+		SaveGame();
 	}
 
 	// Win Conditions
@@ -58,35 +59,56 @@ public class Rules {
 	// Game Setup
 
 	public static void SetupGame() {
+		if (GUI.getUserLeftButtonPressed("Do you want to start a new game or load an existing game?", "New Game", "Load Game")) 
+		{
+			playerCount = GUI.getUserInteger("How many players do you wish to play", 2 , 6);	
+			CarBuilder(playerCount);
 
-		playerCount = GUI.getUserInteger("How many players do you wish to play", 2 , 6);	
-		CarBuilder(playerCount);
-
-		// Name Check	
-		for (int i=0; i < playerCount; i++) {
-			Player tmp = new Player("");
-			EnterName:	
-				while (true) {
-					String name = GUI.getUserString("Please enter the name of player" + (i+1)).trim();
-					if (name.length() < 1 || name.length() > 15 || name.indexOf(" ") == 0){
-						GUI.showMessage("Invalid name!");
-						continue;
-					}
-
-					for(Player p : players){
-						if(p != null && p.getName().equals(name)) {
+			// Name Check	
+			for (int i=0; i < playerCount; i++) {
+				Player tmp = new Player("");
+				EnterName:	
+					while (true) {
+						String name = GUI.getUserString("Please enter the name of player" + (i+1)).trim();
+						if (name.length() < 1 || name.length() > 15 || name.indexOf(" ") == 0){
 							GUI.showMessage("Invalid name!");
-							continue EnterName;
+							continue;
 						}
+
+						for(Player p : players){
+							if(p != null && p.getName().equals(name)) {
+								GUI.showMessage("Invalid name!");
+								continue EnterName;
+							}
+						}
+
+						GUI.addPlayer(name, tmp.getBalance(), cars[i]);
+						tmp.setName(name);
+						break;
+
 					}
+				players[i] = tmp;
+				// Mangler at tage højde for at de skal have forskellige navne + biler er tilfældige.
+			}
+		}
+		else {
+			LoadGame();
+		}
+	}
 
-					GUI.addPlayer(name, tmp.getBalance(), cars[i]);
-					tmp.setName(name);
-					break;
-
-				}
-			players[i] = tmp;
-			// Mangler at tage højde for at de skal have forskellige navne + biler er tilfældige.
+	public static void SaveGame() {
+		for (int i=0; i<6; i++) {
+			if (players[i] != null) {
+				//Gem Player variabler i DB 
+			}
+		}
+	}
+	
+	public static void LoadGame() {
+		for (int i=0; i<6; i++) {
+			if (players[i] != null) {
+				//Indlæs Player variabler fra DB
+			}
 		}
 	}
 
