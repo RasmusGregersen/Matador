@@ -23,6 +23,7 @@ public class Rules {
 	// Turn Method
 
 	public static void Turn(Player player) {
+		SaveGame();
 		GUI.getUserButtonPressed("It's " + player.getName() + "'s turn!", "Roll");
 		GUI.removeAllCars(player.getName());
 		Rules.rollDice();
@@ -32,9 +33,25 @@ public class Rules {
 		Gameboard.setField(player.getFieldPos(), player);
 		GUI.setBalance(player.getName(), player.getBalance());
 		CheckLoseCondition(player);
-		SaveGame();
+		Rules.ExtraTurn(player);
 	}
 
+	public static void ExtraTurn (Player player) {
+		if (Rules.getDie1() == Rules.getDie2()) {
+			if (player.getExtraTurns() == 2) {
+				// Go to Jail metode. 
+			}
+			else {
+				player.setExtraTurns(player.getExtraTurns() + 1);
+				Turn(player);
+			}
+				
+		}
+		else
+			player.setExtraTurns(0);
+	}
+	
+	
 	// Win Conditions
 
 	private static boolean win = false;

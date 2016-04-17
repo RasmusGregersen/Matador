@@ -1,5 +1,7 @@
 package entity;
 
+import desktop_resources.GUI;
+
 public class Player {
 	private String name;
 	private int balance = 30000;
@@ -7,7 +9,16 @@ public class Player {
 	private int shipping = 0;
 	private int FieldPos = 0;
 	private int jailcard = 0;
+	private int ExtraTurns = 0;
 
+
+	public int getExtraTurns() {
+		return ExtraTurns;
+	}
+
+	public void setExtraTurns(int i) {
+		ExtraTurns = i;
+	}
 
 	public Player(String name){
 		this.name = name;
@@ -53,7 +64,6 @@ public class Player {
 	}
 	
 	
-	
 	public int getJailcard() {
 		return jailcard;
 	}
@@ -66,6 +76,7 @@ public class Player {
 		this.FieldPos = FieldPos + this.FieldPos;
 		if (this.FieldPos > 40) {
 			this.FieldPos = this.FieldPos - 40;
+			GUI.displayChanceCard("Du modtager hermed kr. 4000,- for at passere start");
 			balance = balance + 4000;
 		}
 	}

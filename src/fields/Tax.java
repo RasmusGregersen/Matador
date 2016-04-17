@@ -22,11 +22,11 @@ public class Tax extends Field {
 			if (GUI.getUserLeftButtonPressed(player.getName() + ": Betal indkomstskat. Vælg at betale  " + tax*2 + " eller 10% af din totale beholdning.", "Fastsat Afgift", "10%" ))
 				player.withdrawBalance(tax*2);
 			else
-				player.withdrawBalance(player.getBalance()/10);
+				player.withdrawBalance(Math.round(player.getBalance()/10));
 		}
 		else if (player.getFieldPos()==39) {
 				GUI.showMessage("Ekstraordinær ska: tDu skal betale  på 2000");
-				player.withdrawBalance(player.getBalance()/10);
+				player.withdrawBalance(tax);
 		}
 	}
 }
