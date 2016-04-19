@@ -9,11 +9,21 @@ public class Street extends Ownable {
 	private int houserent3;
 	private int houserent4;
 	private int hotelrent;
-	private int houses = 0;
+	private int houses;
+	private String color;
 
+	@Override
+	public String getColor() {
+		return color;
+	}
+
+	public int getHouseprice() {
+		return houseprice;
+	}
 	
-	public Street(String name, int price, int baserent, int houserent1, int houserent2, int houserent3, int houserent4, int hotelrent, int houseprice){
+	public Street(String name, String color, int price, int baserent, int houserent1, int houserent2, int houserent3, int houserent4, int hotelrent, int houseprice){
 		super(name, price);
+		this.color = color;
 		this.baserent = baserent;
 		this.houseprice = houseprice;
 		this.houserent1 = houserent1;
@@ -23,16 +33,20 @@ public class Street extends Ownable {
 		this.hotelrent = hotelrent;
 	}
 
+	@Override
 	public int getHouses() {
 		return houses;
 	}
 
 	public void setHouses(int houses) {
-		this.houses = houses;
+		this.houses = this.houses + houses;
 	}
 
 	@Override
 	public int getRent() {
+		if (houses == 0) {
+			return baserent*2;
+		}
 		if (houses == 1) {
 			return houserent1;
 		}

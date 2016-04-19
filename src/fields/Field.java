@@ -16,7 +16,15 @@ public abstract class Field {
 	
 	public abstract void landOnField(Player player);
 
+	public int getHouses() {
+		return 0;
+	}
+	
 	public Player getOwner() {
+		return null;
+	}
+	
+	public String getColor() {
 		return null;
 	}
 	
