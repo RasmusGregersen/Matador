@@ -49,11 +49,13 @@ public class Player {
 	// Method to withdraw from the balance
 	public int withdrawBalance(int i) {
 		balance = balance - i;
+		GUI.setBalance(name, balance);
 		return balance;
 	}
 	// Method to deposit from the balance
 	public int depositBalance(int i) {
 		balance = balance + i;
+		GUI.setBalance(name, balance);
 		return balance;
 	}
 	// method to return player name.
@@ -93,16 +95,20 @@ public class Player {
 
 	public void setFieldPos(int FieldPos) {
 		this.FieldPos = FieldPos;
+		GUI.removeAllCars(name);
+		GUI.setCar(this.FieldPos, name);
 	}
 	
 	public void moveToFieldPos(int FieldPos) {
 		this.FieldPos = FieldPos + this.FieldPos;
 		if (this.FieldPos > 40) {
 			this.FieldPos = this.FieldPos - 40;
-			GUI.displayChanceCard("Du modtager hermed kr. 4000,- for at passere start");
+			GUI.showMessage("Du modtager hermed kr. 4000,- for at passere start");
 			balance = balance + 4000;
 			GUI.setBalance(name, balance);
 		}
+		GUI.removeAllCars(name);
+		GUI.setCar(this.FieldPos, name);
 	}
 	
 	
