@@ -108,6 +108,7 @@ public class Rules {
 
 					}
 				players[i] = tmp;
+				GUI.setCar(1, players[i].getName());
 				// Mangler at tage højde for at de skal have forskellige navne + biler er tilfældige.
 			}
 		}

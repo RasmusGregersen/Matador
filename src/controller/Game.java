@@ -1,5 +1,6 @@
 package controller;
 
+import entity.ChanceDeck;
 import entity.Gameboard;
 import entity.PlayerOptions;
 import entity.Rules;
@@ -8,9 +9,10 @@ import entity.Rules;
 public class Game {
 
 	public static void main(String[] args) {
-
 		Gameboard.UpdateGUI();
 		Rules.SetupGame();
+		ChanceDeck.CreateCards();
+		ChanceDeck.ShuffleDeck();
 		
 		while (Rules.getWin() == false) 
 		{

@@ -1,5 +1,6 @@
 package fields;
 
+import entity.ChanceDeck;
 import entity.Player;
 
 public class Chance extends Field {
@@ -10,7 +11,6 @@ public class Chance extends Field {
 
 	@Override
 	public void landOnField(Player player) {
-		// TODO Auto-generated method stub
-		
+		ChanceDeck.DrawCard(player);
 	}
 }

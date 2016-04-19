@@ -7,7 +7,7 @@ public class Player {
 	private int balance = 30000;
 	private int breweries = 0;
 	private int shipping = 0;
-	private int FieldPos = 0;
+	private int FieldPos = 1;
 	private int jailcard = 0;
 	private int ExtraTurns = 0;
 	private boolean jailed = false;
