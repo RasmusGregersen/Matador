@@ -27,7 +27,6 @@ public class PlayerOptions {
 			for (int i=0;i<3;i++) {
 				GUI.getUserButtonPressed("It's " + player.getName() + "'s turn!", "Roll");
 				Rules.rollDice();
-				GUI.setDice(Rules.getDie1(), Rules.getDie2());
 				if (Rules.getDie1() == Rules.getDie2()) {
 					GUI.showMessage("Du slap ud! Du rykker nu de antal øjne du slog, og får yderliger et ekstra kast.");
 					player.setJailed(false);
