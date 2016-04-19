@@ -31,7 +31,7 @@ public class Player {
 		this.jailed = jailed;
 		if (jailed == true) {
 			GUI.removeAllCars(name);
-			FieldPos = 31;
+			FieldPos = 11;
 			GUI.setCar(FieldPos, name);
 		}
 		if (jailed == false) {
