@@ -92,6 +92,10 @@ public class Player {
 	}
 
 	public void setFieldPos(int FieldPos) {
+		this.FieldPos = FieldPos;
+	}
+	
+	public void moveToFieldPos(int FieldPos) {
 		this.FieldPos = FieldPos + this.FieldPos;
 		if (this.FieldPos > 40) {
 			this.FieldPos = this.FieldPos - 40;
@@ -100,5 +104,6 @@ public class Player {
 			GUI.setBalance(name, balance);
 		}
 	}
+	
 	
 }

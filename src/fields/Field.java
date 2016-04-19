@@ -6,6 +6,10 @@ public abstract class Field {
 	
 	private String name;
 	
+	public int getRent() {
+		return 0;
+	}
+	
 	public Field(String name){
 		this.name = name;
 	}

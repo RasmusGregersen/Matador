@@ -28,7 +28,7 @@ public class Rules {
 		GUI.removeAllCars(player.getName());
 		Rules.rollDice();
 		GUI.setDice(Rules.getDie1(), Rules.getDie2());
-		player.setFieldPos(Rules.getDiceSum());
+		player.moveToFieldPos(Rules.getDiceSum());
 		GUI.setCar(player.getFieldPos(), player.getName());
 		Gameboard.setField(player.getFieldPos(), player);
 		GUI.setBalance(player.getName(), player.getBalance());

@@ -8,7 +8,6 @@ public class ChanceCard {
 		this.description = description;
 		this.effectnumber = effectnumber;
 	}
-	
 	public String getDescription() {
 		return description;
 	}
