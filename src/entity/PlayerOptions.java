@@ -5,15 +5,22 @@ import desktop_resources.GUI;
 public class PlayerOptions {
 
 	public static void Jailturn(Player player) {
-		if (player.getJailcard() > 0) {
+		if (player.getJailturns() == 3) {
+			player.setJailed(false);
+			GUI.showMessage("Du har nu været i fængsel i tre turer, og bliver derfor løsladt, men du er tvunget til, at betale en bøde på 1000 kr,-");
+			player.withdrawBalance(1000);
+			Rules.Turn(player);
+		}
+
+		else if (player.getJailcard() > 0) {
 			if (GUI.getUserLeftButtonPressed("Vil du bruge dit Chancekort til at komme ud af fængslet?", "Ja", "Nej")) {
 				player.setJailcard(player.getJailcard()-1);
 				player.setJailed(false);
 			}
 		}
 		if (GUI.getUserLeftButtonPressed("Vil du betale en bøde på 1000 og komme ud af fængsel","Ja","Nej") && player.getBalance() > 1000 && player.isJailed()) {
-				player.withdrawBalance(1000);
-				player.setJailed(false);
+			player.withdrawBalance(1000);
+			player.setJailed(false);
 		}
 		else {
 			GUI.showMessage("Du har nu 3 forsøg til at slå dobbelt, og komme ud af fængsel");
@@ -22,15 +29,18 @@ public class PlayerOptions {
 				Rules.rollDice();
 				GUI.setDice(Rules.getDie1(), Rules.getDie2());
 				if (Rules.getDie1() == Rules.getDie2()) {
-					GUI.showMessage("Du slap ud!");
+					GUI.showMessage("Du slap ud! Du rykker nu de antal øjne du slog, og får yderliger et ekstra kast.");
 					player.setJailed(false);
 					player.moveToFieldPos(Rules.getDiceSum());
+					Rules.ExtraTurn(player);
 					break;
-				}
+				}	
 			}
+			if (player.isJailed() == true) 
+				player.setJailturns(player.getJailturns()+1);
 		}
 	}
-	
+
 	public static void Options (Player player) {
 		String Continue = "Giv turen videre";
 		String BuyProperty = "Køb hus eller hotel";
@@ -50,15 +60,15 @@ public class PlayerOptions {
 
 
 	}
-	
+
 	public static void BuyProperty (Player player) {
-		
+
 	}
-	
+
 	public static void SellProperty (Player player) {
-		
+
 	}
-	
+
 	public static void Pledge (Player player) {
 		Pledge:
 			while(true) {
@@ -78,7 +88,7 @@ public class PlayerOptions {
 				}
 			}
 	}
-	
+
 	public static void YoureScrewedmetoden (Player player) {
 		String option1 = "Fortsætte turen";
 		String Pledge = "Pantsætte grund(e)";
@@ -93,7 +103,7 @@ public class PlayerOptions {
 			AuctionOption(player);
 		}
 		else if (option.equals(Surrender)) {
-			
+
 		}
 
 	}

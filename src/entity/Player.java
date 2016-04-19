@@ -11,7 +11,16 @@ public class Player {
 	private int jailcard = 0;
 	private int ExtraTurns = 0;
 	private boolean jailed = false;
+	private int Jailturns = 0;
 
+
+	public int getJailturns() {
+		return Jailturns;
+	}
+
+	public void setJailturns(int jailturns) {
+		Jailturns = jailturns;
+	}
 
 	public boolean isJailed() {
 		return jailed;
@@ -28,6 +37,7 @@ public class Player {
 			GUI.removeAllCars(name);
 			FieldPos = 11;
 			GUI.setCar(FieldPos, name);
+			Jailturns = 0;
 		}
 	}
 
