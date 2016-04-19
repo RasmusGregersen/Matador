@@ -24,6 +24,7 @@ public class PlayerOptions {
 				if (Rules.getDie1() == Rules.getDie2()) {
 					GUI.showMessage("Du slap ud!");
 					player.setJailed(false);
+					player.moveToFieldPos(Rules.getDiceSum());
 					break;
 				}
 			}
