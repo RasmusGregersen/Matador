@@ -12,6 +12,7 @@ public class Player {
 	private int ExtraTurns = 0;
 	private boolean jailed = false;
 	private int Jailturns = 0;
+	private int TotalAssets = 0;
 
 
 	public int getJailturns() {
@@ -119,6 +120,14 @@ public class Player {
 		}
 		GUI.removeAllCars(name);
 		GUI.setCar(this.FieldPos, name);
+	}
+
+	public int getTotalAssets() {
+		return TotalAssets;
+	}
+
+	public void setTotalAssets(int totalAssets) {
+		TotalAssets = totalAssets + TotalAssets;
 	}
 	
 	

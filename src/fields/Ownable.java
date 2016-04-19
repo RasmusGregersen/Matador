@@ -44,6 +44,7 @@ public abstract class Ownable extends Field {
 			else if (GUI.getUserLeftButtonPressed(player.getName() + ": This " + getClass().getSimpleName() + " has no owner, would you like to buy it?", "Yes", "No")) 
 			{
 				player.withdrawBalance(price);
+				player.setTotalAssets(price);
 				owner=player;
 				GUI.setOwner(player.getFieldPos(), player.getName());
 			}
