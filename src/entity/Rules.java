@@ -25,13 +25,9 @@ public class Rules {
 	public static void Turn(Player player) {
 		SaveGame();
 		GUI.getUserButtonPressed("It's " + player.getName() + "'s turn!", "Roll");
-		GUI.removeAllCars(player.getName());
 		Rules.rollDice();
-		GUI.setDice(Rules.getDie1(), Rules.getDie2());
 		player.moveToFieldPos(Rules.getDiceSum());
-		GUI.setCar(player.getFieldPos(), player.getName());
 		Gameboard.setField(player.getFieldPos(), player);
-		GUI.setBalance(player.getName(), player.getBalance());
 		CheckLoseCondition(player);
 		Rules.ExtraTurn(player);
 	}
@@ -191,6 +187,7 @@ public class Rules {
 	public static void rollDice() {
 		dice[0] = (int) Math.ceil(Math.random()*6);
 		dice[1] = (int) Math.ceil(Math.random()*6);
+		GUI.setDice(Rules.getDie1(), Rules.getDie2());
 	}
 	public static int getDie1() {
 		return Array.getInt(dice, 0);
