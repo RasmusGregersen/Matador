@@ -9,7 +9,7 @@ import entity.Rules;
 public class Game {
 
 	public static void main(String[] args) {
-		Gameboard.UpdateGUI();
+		Gameboard.CreateGUI();
 		Rules.SetupGame();
 		ChanceDeck.CreateCards();
 		ChanceDeck.ShuffleDeck();

@@ -8,8 +8,14 @@ public class ChanceDeck {
 	private static ChanceCard[] deck = new ChanceCard[33];
 	private static ChanceCard[] chancecards = new ChanceCard[33];
 	private static int pickCount = 0;
-	private static Random rnd = new Random();
 
+	public static void setPickCount() {
+		pickCount++;
+		if (pickCount == 33) {
+			ShuffleDeck();
+			pickCount = 0;
+		}
+	}
 
 	public static void CreateCards() {
 		chancecards[0] = new ChanceCard("De modtager Deres aktieudbytte. Modtag 1000 kr,- fra Banken",1);
@@ -48,6 +54,7 @@ public class ChanceDeck {
 	}
 
 	public static void ShuffleDeck() {
+		Random rnd = new Random();
 		for (int i=0;i<chancecards.length;i++) {
 			int RandomPosition = rnd.nextInt(chancecards.length);
 			deck[RandomPosition] = chancecards[i];
@@ -55,17 +62,16 @@ public class ChanceDeck {
 	}
 
 	public static void DrawCard(Player player) {
+		//String description = deck[pickCount].getDescription();
+		int effect = deck[pickCount].getEffect();
 		GUI.showMessage("Træk et \"prøv lykken\"-kort");
-		GUI.displayChanceCard(chancecards[pickCount].getDescription());
-		effect(player,chancecards[pickCount].getEffect());
-		pickCount++;
-		if (pickCount == 33) {
-			ShuffleDeck();
-			pickCount = 0;
-		}
+		//GUI.displayChanceCard(description);
+		effect(player,effect);
+		ChanceDeck.setPickCount();
 	}
 
 	public static void effect(Player player, int number) {
+		GUI.displayChanceCard(deck[number].getDescription());
 		switch (number) {
 		case 1:
 			player.depositBalance(1000);
@@ -95,7 +101,7 @@ public class ChanceDeck {
 			player.depositBalance(200);
 			break;
 		case 9:
-			player.depositBalance(1000);
+			player.withdrawBalance(1000);
 			break;
 		case 10:
 			int housecounter = 0;

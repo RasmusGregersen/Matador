@@ -112,14 +112,15 @@ public class Player {
 	
 	public void moveToFieldPos(int FieldPos) {
 		this.FieldPos = FieldPos + this.FieldPos;
-		GUI.removeAllCars(name);
-		GUI.setCar(this.FieldPos, name);
 		if (this.FieldPos > 40) {
 			this.FieldPos = this.FieldPos - 40;
 			GUI.showMessage("Du modtager hermed kr. 4000,- for at passere start");
 			balance = balance + 4000;
 			GUI.setBalance(name, balance);
 		}
+		GUI.removeAllCars(name);
+		GUI.setCar(this.FieldPos, name);
+
 	}
 
 	public int getTotalAssets() {

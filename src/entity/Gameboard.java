@@ -26,10 +26,6 @@ public class Gameboard {
 		fieldValue[fieldID - 1].landOnField(player);
 	}
 
-	public Gameboard() // Constructor for GameBoard to fill Field array and create GUI.
-	{
-		UpdateGUI();
-	}
 	public static boolean IsPropertyReady(Player player, String color)
 	{
 		int properties = 0;
@@ -55,7 +51,7 @@ public class Gameboard {
 		return out;
 	}
 
-	public static void UpdateGUI()
+	public static void CreateGUI()
 	{
 
 		fieldValue[0] = new fields.Start("START");

@@ -61,7 +61,12 @@ public class PlayerOptions {
 	}
 
 	public static void BuyProperty (Player player) {
-
+		// .
+		// Vis huspriser
+		// Check spiller har alle grunde
+		// Check balance mod samlet huspris.
+		
+		
 	}
 
 	public static void SellProperty (Player player) {
