@@ -17,7 +17,8 @@ public class Street extends Ownable {
 		return color;
 	}
 
-	public int getHouseprice() {
+	@Override
+	public int getHousePrice() {
 		return houseprice;
 	}
 	
@@ -37,7 +38,8 @@ public class Street extends Ownable {
 	public int getHouses() {
 		return houses;
 	}
-
+	
+	@Override
 	public void setHouses(int houses) {
 		this.houses = this.houses + houses;
 	}

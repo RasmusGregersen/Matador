@@ -41,12 +41,11 @@ public class PlayerOptions {
 	}
 
 	public static void Options (Player player) {
-		String Continue = "Giv turen videre";
+		String Moveon = "Giv turen videre";
 		String BuyProperty = "Køb hus eller hotel";
 		String SellProperty = "Sælg hus eller hotel";
 		String Pledge = "Pantsætte grund(e)";
-
-		String option = GUI.getUserSelection("Hvilke af følgende ting vil du foretage dig?",Continue,BuyProperty,SellProperty,Pledge);
+		String option = GUI.getUserSelection("Hvilke af følgende ting vil du foretage dig?",Moveon,BuyProperty,SellProperty,Pledge);
 		if (option.equals(BuyProperty)) {
 			BuyProperty(player);
 		}
@@ -56,17 +55,35 @@ public class PlayerOptions {
 		else if (option.equals(Pledge)) {
 			Pledge(player);
 		}
-
-
 	}
 
 	public static void BuyProperty (Player player) {
-		// .
-		// Vis huspriser
+		String Color1 = "Lyseblå",Color2 = "Orange",Color3 = "Grøn", Color4 = "Grå", Color5 = "Rød", Color6 = "Hvid", Color7 = "Gul", Color8 = "Mørkeblå";
+		String choice = GUI.getUserSelection("Hvilken farve ønsker du at købe Hus(e) på? ",Color1,Color2,Color3,Color4,Color5,Color6,Color7,Color8);
+		if (choice.equals(Color1)) {
+			if (Gameboard.getField(2).getOwner() == player && Gameboard.getField(4).getOwner() == player) {
+				int houses = GUI.getUserInteger("Husprisen er: " + Gameboard.getField(2).getHousePrice() + " Hvor mange vil du købe?",1,10);
+				if(player.getBalance() > (houses*Gameboard.getField(2).getHousePrice())) {
+					for (int i=0; i < houses; i ++) {
+						player.withdrawBalance(Gameboard.getField(2).getHousePrice());
+						
+					}
+				}
+				else {
+					GUI.showMessage("Du har ikke nok penge til, at købe det antal hus(e)");
+					Options(player);
+				}
+			}
+			else {
+				GUI.showMessage("Du ejer ikke alle grundene.");
+				Options(player);
+			}
+
+		}
 		// Check spiller har alle grunde
 		// Check balance mod samlet huspris.
-		
-		
+
+
 	}
 
 	public static void SellProperty (Player player) {

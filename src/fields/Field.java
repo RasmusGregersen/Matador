@@ -20,6 +20,13 @@ public abstract class Field {
 	
 	public abstract void landOnField(Player player);
 
+	public int getHousePrice() {
+		return 0;
+	}
+	
+	public void setHouses(int houses) {
+	}
+	
 	public int getHouses() {
 		return 0;
 	}
@@ -35,4 +42,6 @@ public abstract class Field {
 	public int getPrice() {
 		return 0;
 	}
+
+	
 }
