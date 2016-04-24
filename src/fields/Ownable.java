@@ -49,7 +49,7 @@ public abstract class Ownable extends Field {
 				GUI.setOwner(player.getFieldPos(), player.getName());
 			}
 		}
-		else if (pawned == true) {
+		else if (pawned) {
 			
 			
 		}

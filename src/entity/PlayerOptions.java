@@ -35,7 +35,7 @@ public class PlayerOptions {
 					break;
 				}	
 			}
-			if (player.isJailed() == true) 
+			if (player.isJailed())
 				player.setJailturns(player.getJailturns()+1);
 		}
 	}

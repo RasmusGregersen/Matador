@@ -45,7 +45,7 @@ public class Rules {
 				Rules.GoToJail(player);
 				player.setExtraTurns(0);
 			}
-			else if (player.isJailed() == false) {
+			else if (!player.isJailed()) {
 				player.setExtraTurns(player.getExtraTurns() + 1);
 				Turn(player);
 			}

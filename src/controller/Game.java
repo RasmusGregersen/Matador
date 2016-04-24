@@ -14,13 +14,13 @@ public class Game {
 		ChanceDeck.CreateCards();
 		ChanceDeck.ShuffleDeck();
 		
-		while (Rules.getWin() == false) 
+		while (!Rules.getWin())
 		{
-			for (int i=0;i<6;i++) 
+			for (int i=0;i<6;i++)
 			{
-				if (Rules.getPlayer(i) != null) 
+				if (Rules.getPlayer(i) != null)
 				{
-					if (Rules.getPlayer(i).isJailed()) 
+					if (Rules.getPlayer(i).isJailed())
 						PlayerOptions.Jailturn(Rules.getPlayer(i));
 					else
 						Rules.Turn(Rules.getPlayer(i));

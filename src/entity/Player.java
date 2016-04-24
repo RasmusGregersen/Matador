@@ -29,12 +29,12 @@ public class Player {
 
 	public void setJailed(boolean jailed) {
 		this.jailed = jailed;
-		if (jailed == true) {
+		if (jailed) {
 			GUI.removeAllCars(name);
 			FieldPos = 11;
 			GUI.setCar(FieldPos, name);
 		}
-		if (jailed == false) {
+		if (!jailed) {
 			GUI.removeAllCars(name);
 			FieldPos = 11;
 			GUI.setCar(FieldPos, name);

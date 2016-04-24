@@ -4,13 +4,6 @@ import java.awt.Color;
 
 import fields.Ownable;
 import desktop_fields.*;
-import desktop_fields.Start;
-import desktop_fields.Street;
-import desktop_fields.Brewery;
-import desktop_fields.Chance;
-import desktop_fields.Jail;
-import desktop_fields.Shipping;
-import desktop_fields.Tax;
 import desktop_resources.GUI;
 
 
