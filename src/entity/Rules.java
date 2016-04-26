@@ -31,6 +31,8 @@ public class Rules {
 		Gameboard.setField(player.getFieldPos(), player);
 		if (player.getBalance() <= 0)
 		PlayerOptions.YoureScrewedmetoden(player);
+		CheckWinConditions(player);
+		
 		
 
 		
@@ -65,10 +67,9 @@ public class Rules {
 		return win;
 	}
 	public static void CheckWinConditions(Player player) {
-		// Skriv winconditions ind i if statement, og sæt win = true
 		if(playerCount == 1) {
 			win = true;
-			GUI.showMessage(player.getName() + " har vundet spillet");
+			GUI.showMessage("Alle dine modstandere er slået ud og du har vundet spillet");
 		}
 	}	
 
