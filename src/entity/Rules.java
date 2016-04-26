@@ -81,7 +81,7 @@ public class Rules {
 	public static void SetupGame() {
 		if (GUI.getUserLeftButtonPressed("Vil du starte et nyt spil eller indlæse et gammelt?", "Nyt Spil", "Indlæs Spil")) 
 		{
-			playerCount = GUI.getUserInteger("Hvor mange spillere ønsker i, at spille?", 2 , 6);	
+			playerCount = GUI.getUserInteger("Hvor mange spillere ønsker i at spille?", 2 , 6);	
 			CarBuilder(playerCount);
 
 			// Name Check	
