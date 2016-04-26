@@ -40,10 +40,15 @@ public class Street extends Ownable {
 	}
 	
 	@Override
-	public void setHouses(int houses) {
+	public void addHouses(int houses) {
 		this.houses = this.houses + houses;
 	}
 
+	@Override
+	public void setHouses(int houses) {
+		this.houses = houses;
+	}
+	
 	@Override
 	public int getRent() {
 		if (houses == 0) {

@@ -25,7 +25,7 @@ public class Tax extends Field {
 				player.withdrawBalance(Math.round(player.getBalance()/10));
 		}
 		else if (player.getFieldPos()==39) {
-				GUI.showMessage("Ekstraordinær skat: Du skal betale  på 2000");
+				GUI.showMessage("Ekstraordinær skat: " + player.getName() + " skal betale  på 2000");
 				player.withdrawBalance(tax);
 		}
 	}

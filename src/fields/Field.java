@@ -24,10 +24,6 @@ public abstract class Field {
 		return 0;
 	}
 	
-	public void setHouses() {
-		
-	}
-	
 	public int getHouses() {
 		return 0;
 	}
@@ -37,11 +33,14 @@ public abstract class Field {
 	}
 	
 	public String getColor() {
-		return null;
+		return "";
 	}
 	
 	public int getPrice() {
 		return 0;
+	}
+
+	public void addHouses(int houses) {
 	}
 
 	public void setHouses(int houses) {

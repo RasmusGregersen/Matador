@@ -1,13 +1,14 @@
 package fields;
 
 import desktop_resources.GUI;
+import entity.Gameboard;
 import entity.Player;
 
 public abstract class Ownable extends Field {
 	private int price;
 	private Player owner;
 	private boolean pawned = false;
-	
+
 	@Override
 	public Player getOwner() {
 		return owner;
@@ -21,7 +22,7 @@ public abstract class Ownable extends Field {
 		super(name);
 		this.price = price;
 	}
-	
+
 	@Override
 	public int getPrice() {
 		return price;
@@ -47,11 +48,13 @@ public abstract class Ownable extends Field {
 				player.setTotalAssets(price);
 				owner=player;
 				GUI.setOwner(player.getFieldPos(), player.getName());
+				if (Gameboard.IsPropertyReady(player, Gameboard.getField(player.getFieldPos()).getColor()))
+					Gameboard.getField(player.getFieldPos()).setHouses(0);
 			}
 		}
 		else if (pawned) {
-			
-			
+
+
 		}
 		else if (owner.getBalance() == 0) { // Checks if the owner is bankrupt.
 			if (player.getBalance() < price) {
@@ -76,6 +79,6 @@ public abstract class Ownable extends Field {
 	}
 
 	public abstract int getRent(); // Abstract method declared, to be inherited by child classes.
-	
-	
+
+
 }

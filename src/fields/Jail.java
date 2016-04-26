@@ -13,10 +13,10 @@ public class Jail extends Field {
 	@Override
 	public void landOnField(Player player) {
 		if (player.getFieldPos() == 11)
-			GUI.showMessage("Du er på besøg i fængsel");
+			GUI.showMessage(player.getName() + "  er på besøg i fængsel");
 		else
 		{
-			GUI.showMessage("Du er sendt i fængsel!");
+			GUI.showMessage(player.getName() + "  er sendt i fængsel!");
 			Rules.GoToJail(player);
 		}
 	}

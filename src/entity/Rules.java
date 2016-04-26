@@ -24,7 +24,7 @@ public class Rules {
 
 	public static void Turn(Player player) {
 		SaveGame();
-		GUI.getUserButtonPressed("It's " + player.getName() + "'s turn!", "Roll");
+		PlayerOptions.Options(player);
 		Rules.rollDice();
 		player.moveToFieldPos(Rules.getDiceSum());
 		Gameboard.setField(player.getFieldPos(), player);
@@ -41,7 +41,7 @@ public class Rules {
 	public static void ExtraTurn (Player player) {
 		if (Rules.getDie1() == Rules.getDie2()) {
 			if (player.getExtraTurns() == 2) {
-				GUI.showMessage("Du har har kørt for stærkt og ryger derfor direkte i fængsel");
+				GUI.showMessage( player.getName() + " har har kørt for stærkt og ryger derfor direkte i fængsel");
 				Rules.GoToJail(player);
 				player.setExtraTurns(0);
 			}
