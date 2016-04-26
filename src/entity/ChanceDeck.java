@@ -87,10 +87,10 @@ public class ChanceDeck {
 			player.depositBalance(1000);
 			break;
 		case 7:
-			for (int i = 0; i < 6; i++) {
-				Rules.getPlayer(i).withdrawBalance(200);
-			}
-			player.depositBalance(200*Rules.getPlayers());
+			//for (int i = 0; i < 6; i++) {
+			//Rules.getPlayer(i).withdrawBalance(200);
+			//}
+			//player.depositBalance(200*Rules.getPlayers());
 			break;
 		case 8:
 			player.depositBalance(200);
