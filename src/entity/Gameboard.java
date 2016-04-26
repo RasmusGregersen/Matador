@@ -37,7 +37,7 @@ public class Gameboard {
 			}
 		}
 		
-		if (color.equals("CYAN") || color.equals("BLUE")) {
+		if (color.equals("Lyseblå") || color.equals("Mørkeblå")) {
 			if (properties == 2)
 				out = true;
 		}
@@ -60,7 +60,7 @@ public class Gameboard {
 				.setBgColor(Color.RED)
 				.build();
 
-		fieldValue[1] = new fields.Street("Rødovrevej", "CYAN" ,  1200, 50, 250, 750, 2250, 4000, 6000, 1000);
+		fieldValue[1] = new fields.Street("Rødovrevej", "Lyseblå" ,  1200, 50, 250, 750, 2250, 4000, 6000, 1000);
 		fieldGUI[1] = new Street.Builder()
 				.setTitle(fieldValue[1].getName())
 				.setDescription(fieldValue[1].getName())
@@ -74,7 +74,7 @@ public class Gameboard {
 		fieldGUI[2] = new Chance.Builder()
 				.build();	
 
-		fieldValue[3] = new fields.Street("Hvidovrevej", "CYAN", 1200, 50, 250, 750, 2250, 4000, 6000, 1000);
+		fieldValue[3] = new fields.Street("Hvidovrevej", "Lyseblå", 1200, 50, 250, 750, 2250, 4000, 6000, 1000);
 		fieldGUI[3] = new Street.Builder()
 				.setTitle(fieldValue[3].getName())
 				.setDescription(fieldValue[3].getName())
@@ -104,7 +104,7 @@ public class Gameboard {
 				.setBgColor(Color.GREEN)
 				.build();
 
-		fieldValue[6] = new fields.Street("Roskildevej","ORANGE", 2000, 100, 600, 1800, 5400, 8000, 11000, 1000);
+		fieldValue[6] = new fields.Street("Roskildevej","Orange", 2000, 100, 600, 1800, 5400, 8000, 11000, 1000);
 		fieldGUI[6] = new Street.Builder()
 				.setTitle(fieldValue[6].getName())
 				.setDescription(fieldValue[6].getName())
@@ -118,7 +118,7 @@ public class Gameboard {
 		fieldGUI[7] = new Chance.Builder()
 				.build();	
 
-		fieldValue[8] = new fields.Street("Valby Langgade", "ORANGE", 2000, 100, 600, 1800, 5400, 8000, 11000, 1000);
+		fieldValue[8] = new fields.Street("Valby Langgade", "Orange", 2000, 100, 600, 1800, 5400, 8000, 11000, 1000);
 		fieldGUI[8] = new Street.Builder()
 				.setTitle(fieldValue[8].getName())
 				.setDescription(fieldValue[8].getName())
@@ -128,7 +128,7 @@ public class Gameboard {
 				.setBgColor(Color.ORANGE)
 				.build();
 
-		fieldValue[9] = new fields.Street("Allégade", "ORANGE", 2400, 150, 800, 2000, 6000, 9000, 12000, 1000);
+		fieldValue[9] = new fields.Street("Allégade", "Orange", 2400, 150, 800, 2000, 6000, 9000, 12000, 1000);
 		fieldGUI[9] = new Street.Builder()
 				.setTitle(fieldValue[9].getName())
 				.setDescription(fieldValue[9].getName())
@@ -146,7 +146,7 @@ public class Gameboard {
 				.setPicture(null)
 				.build();	
 
-		fieldValue[11] = new fields.Street("Frederiksberg Allé", "GREEN", 2800, 200, 1000, 3000, 9000, 12500, 15000, 2000);
+		fieldValue[11] = new fields.Street("Frederiksberg Allé", "Grøn", 2800, 200, 1000, 3000, 9000, 12500, 15000, 2000);
 		fieldGUI[11] = new Street.Builder()
 				.setTitle(fieldValue[11].getName())
 				.setDescription(fieldValue[11].getName())
@@ -167,7 +167,7 @@ public class Gameboard {
 				.setBgColor(null)
 				.build();	
 
-		fieldValue[13] = new fields.Street("Bülowsvej", "GREEN", 2800, 200, 1000, 3000, 9000, 12500, 15000, 2000);
+		fieldValue[13] = new fields.Street("Bülowsvej", "Grøn", 2800, 200, 1000, 3000, 9000, 12500, 15000, 2000);
 		fieldGUI[13] = new Street.Builder()
 				.setTitle(fieldValue[13].getName())
 				.setDescription(fieldValue[13].getName())
@@ -177,7 +177,7 @@ public class Gameboard {
 				.setBgColor(Color.GREEN)
 				.build();
 
-		fieldValue[14] = new fields.Street("Gammel Kongevej", "GREEN", 3200, 250, 1250, 3750, 10000, 14000, 18000, 2000);
+		fieldValue[14] = new fields.Street("Gammel Kongevej", "Grøn", 3200, 250, 1250, 3750, 10000, 14000, 18000, 2000);
 		fieldGUI[14] = new Street.Builder()
 				.setTitle(fieldValue[14].getName())
 				.setDescription(fieldValue[14].getName())
@@ -198,7 +198,7 @@ public class Gameboard {
 				.setBgColor(Color.GREEN)
 				.build();
 
-		fieldValue[16] = new fields.Street("Bernstorfsvej", "GRAY", 3600, 300, 1400, 4000, 11000, 15000, 19000, 2000);
+		fieldValue[16] = new fields.Street("Bernstorfsvej", "Grå", 3600, 300, 1400, 4000, 11000, 15000, 19000, 2000);
 		fieldGUI[16] = new Street.Builder()
 				.setTitle(fieldValue[16].getName())
 				.setDescription(fieldValue[16].getName())
@@ -212,7 +212,7 @@ public class Gameboard {
 		fieldGUI[17] = new Chance.Builder()
 				.build();	
 
-		fieldValue[18] = new fields.Street("Hellerupvej", "GRAY", 3600, 300, 1400, 4000, 11000, 15000, 19000, 2000);
+		fieldValue[18] = new fields.Street("Hellerupvej", "Grå", 3600, 300, 1400, 4000, 11000, 15000, 19000, 2000);
 		fieldGUI[18] = new Street.Builder()
 				.setTitle(fieldValue[18].getName())
 				.setDescription(fieldValue[18].getName())
@@ -222,7 +222,7 @@ public class Gameboard {
 				.setBgColor(Color.GRAY)
 				.build();	
 
-		fieldValue[19] = new fields.Street("Strandvej", "GRAY", 4000, 350, 1600, 4400, 12000, 16000, 20000, 2000);
+		fieldValue[19] = new fields.Street("Strandvej", "Grå", 4000, 350, 1600, 4400, 12000, 16000, 20000, 2000);
 		fieldGUI[19] = new Street.Builder()
 				.setTitle(fieldValue[19].getName())
 				.setDescription(fieldValue[19].getName())
@@ -242,7 +242,7 @@ public class Gameboard {
 				.setBgColor(null)
 				.build();
 
-		fieldValue[21] = new fields.Street("Trianglen", "RED", 4400, 350, 1800, 5000, 14000, 17500, 21000, 3000);
+		fieldValue[21] = new fields.Street("Trianglen", "Rød", 4400, 350, 1800, 5000, 14000, 17500, 21000, 3000);
 		fieldGUI[21] = new Street.Builder()
 				.setTitle(fieldValue[21].getName())
 				.setDescription(fieldValue[21].getName())
@@ -256,7 +256,7 @@ public class Gameboard {
 		fieldGUI[22] = new Chance.Builder()
 				.build();
 
-		fieldValue[23] = new fields.Street("Østerbrogade", "RED", 4400, 350, 1800, 5000, 14000, 17500, 21000, 3000);
+		fieldValue[23] = new fields.Street("Østerbrogade", "Rød", 4400, 350, 1800, 5000, 14000, 17500, 21000, 3000);
 		fieldGUI[23] = new Street.Builder()
 				.setTitle(fieldValue[23].getName())
 				.setDescription(fieldValue[23].getName())
@@ -266,7 +266,7 @@ public class Gameboard {
 				.setBgColor(Color.RED)
 				.build();	
 
-		fieldValue[24] = new fields.Street("Grønningen", "RED", 4800, 400, 2000, 6000, 15000, 18500, 22000, 3000);
+		fieldValue[24] = new fields.Street("Grønningen", "Rød", 4800, 400, 2000, 6000, 15000, 18500, 22000, 3000);
 		fieldGUI[24] = new Street.Builder()
 				.setTitle(fieldValue[24].getName())
 				.setDescription(fieldValue[24].getName())
@@ -287,7 +287,7 @@ public class Gameboard {
 				.setBgColor(Color.GREEN)
 				.build();
 
-		fieldValue[26] = new fields.Street("Bredgade", "WHITE", 5200, 450, 2200, 6600, 16000, 19500, 23000, 3000);
+		fieldValue[26] = new fields.Street("Bredgade", "Hvid", 5200, 450, 2200, 6600, 16000, 19500, 23000, 3000);
 		fieldGUI[26] = new Street.Builder()
 				.setTitle(fieldValue[26].getName())
 				.setDescription(fieldValue[26].getName())
@@ -297,7 +297,7 @@ public class Gameboard {
 				.setBgColor(Color.WHITE)
 				.build();	
 
-		fieldValue[27] = new fields.Street("Kongens Nytorv", "WHITE", 5200, 450, 2200, 6600, 16000, 19500, 23000, 3000);
+		fieldValue[27] = new fields.Street("Kongens Nytorv", "Hvid", 5200, 450, 2200, 6600, 16000, 19500, 23000, 3000);
 		fieldGUI[27] = new Street.Builder()
 				.setTitle(fieldValue[27].getName())
 				.setDescription(fieldValue[27].getName())
@@ -318,7 +318,7 @@ public class Gameboard {
 				.setBgColor(null)
 				.build();
 
-		fieldValue[29] = new fields.Street("Østergade", "WHITE", 5600, 500, 2400, 7200, 17000, 20500, 24000, 3000);
+		fieldValue[29] = new fields.Street("Østergade", "Hvid", 5600, 500, 2400, 7200, 17000, 20500, 24000, 3000);
 		fieldGUI[29] = new Street.Builder()
 				.setTitle(fieldValue[29].getName())
 				.setDescription(fieldValue[29].getName())
@@ -336,7 +336,7 @@ public class Gameboard {
 				.setPicture(null)
 				.build();
 
-		fieldValue[31] = new fields.Street("Amagertorv", "YELLOW", 6000, 550, 2600, 7800, 18000, 22000, 25000, 4000);
+		fieldValue[31] = new fields.Street("Amagertorv", "Gul", 6000, 550, 2600, 7800, 18000, 22000, 25000, 4000);
 		fieldGUI[31] = new Street.Builder()
 				.setTitle(fieldValue[31].getName())
 				.setDescription(fieldValue[31].getName())
@@ -346,7 +346,7 @@ public class Gameboard {
 				.setBgColor(Color.YELLOW)
 				.build();	
 
-		fieldValue[32] = new fields.Street("Vimmelskaftet", "YELLOW", 6000, 550, 2600, 7800, 18000, 22000, 25000, 4000);
+		fieldValue[32] = new fields.Street("Vimmelskaftet", "Gul", 6000, 550, 2600, 7800, 18000, 22000, 25000, 4000);
 		fieldGUI[32] = new Street.Builder()
 				.setTitle(fieldValue[32].getName())
 				.setDescription(fieldValue[32].getName())
@@ -360,7 +360,7 @@ public class Gameboard {
 		fieldGUI[33] = new Chance.Builder()
 				.build();
 
-		fieldValue[34] = new fields.Street("Nygade", "YELLOW", 6400, 600, 3000, 9000, 20000, 24000, 28000, 4000);
+		fieldValue[34] = new fields.Street("Nygade", "Gul", 6400, 600, 3000, 9000, 20000, 24000, 28000, 4000);
 		fieldGUI[34] = new Street.Builder()
 				.setTitle(fieldValue[34].getName())
 				.setDescription(fieldValue[34].getName())
@@ -385,7 +385,7 @@ public class Gameboard {
 		fieldGUI[36] = new Chance.Builder()
 				.build();
 
-		fieldValue[37] = new fields.Street("Frederiksberggade", "BLUE", 7000, 700, 3500, 10000, 22000, 26000, 30000, 4000);
+		fieldValue[37] = new fields.Street("Frederiksberggade", "Mørkeblå", 7000, 700, 3500, 10000, 22000, 26000, 30000, 4000);
 		fieldGUI[37] = new Street.Builder()
 				.setTitle(fieldValue[37].getName())
 				.setDescription(fieldValue[37].getName())
@@ -404,7 +404,7 @@ public class Gameboard {
 				.setBgColor(null)
 				.build();	
 
-		fieldValue[39] = new fields.Street("Rådhuspladsen", "BLUE", 8000, 1000, 4000, 12000, 28000, 34000, 40000, 4000);
+		fieldValue[39] = new fields.Street("Rådhuspladsen", "Mørkeblå", 8000, 1000, 4000, 12000, 28000, 34000, 40000, 4000);
 		fieldGUI[39] = new Street.Builder()
 				.setTitle(fieldValue[39].getName())
 				.setDescription(fieldValue[39].getName())

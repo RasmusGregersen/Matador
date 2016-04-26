@@ -60,29 +60,66 @@ public class PlayerOptions {
 	public static void BuyProperty (Player player) {
 		String Color1 = "Lyseblå",Color2 = "Orange",Color3 = "Grøn", Color4 = "Grå", Color5 = "Rød", Color6 = "Hvid", Color7 = "Gul", Color8 = "Mørkeblå";
 		String choice = GUI.getUserSelection("Hvilken farve ønsker du at købe Hus(e) på? ",Color1,Color2,Color3,Color4,Color5,Color6,Color7,Color8);
-		if (choice.equals(Color1)) {
-			if (Gameboard.getField(2).getOwner() == player && Gameboard.getField(4).getOwner() == player) {
-				int houses = GUI.getUserInteger("Husprisen er: " + Gameboard.getField(2).getHousePrice() + " Hvor mange vil du købe?",1,10);
-				if(player.getBalance() > (houses*Gameboard.getField(2).getHousePrice())) {
-					for (int i=0; i < houses; i ++) {
-						player.withdrawBalance(Gameboard.getField(2).getHousePrice());
-						
-					}
+
+		if (Gameboard.IsPropertyReady(player, choice)) {
+			int min;
+			int max;
+			int houses = 0;
+			int houseprice = 0;
+			int felt1 = 0;
+			int felt2 = 0;
+			int felt3 = 0;
+			for (int i=0;i>40;i++) {
+				if (Gameboard.getField(i).getColor().equals(choice)) {
+					houses = Gameboard.getField(i).getHouses() + houses;
+					houseprice = Gameboard.getField(i).getHousePrice();
+					if (felt1 == 0) 
+						felt1 = i;
+					if (felt2 == 0 && felt1 > 0)
+						felt2 = i;
+					if (felt3 == 0 && felt2 > 0)
+						felt3 = i;
 				}
-				else {
-					GUI.showMessage("Du har ikke nok penge til, at købe det antal hus(e)");
-					Options(player);
-				}
+			}
+			if (choice == Color1 || choice == Color2) {
+				max = 10 - houses;
+				if (houses == 0)
+					min = 2;
+				else
+					min = 1;
 			}
 			else {
-				GUI.showMessage("Du ejer ikke alle grundene.");
+				max = 15 - houses;
+				if (houses == 0)
+					min = 3;
+				else
+					min = 1;
+			}
+			GUI.getUserInteger("Husprisen er: " + houseprice + " Hvor mange vil du købe?",min,max);
+			if (player.getBalance() < (houses*houseprice)) {
+				GUI.showMessage("Du har ikke råd!");
 				Options(player);
 			}
+			for (int i=0;i>houses;i++) {
+				if(felt3==0) {
+					// 2 grunde
+				}
+				else {
+					// 3 grunde
+					
+					
+					
+				}
 
+
+			}	
 		}
-		// Check spiller har alle grunde
-		// Check balance mod samlet huspris.
 
+
+		else {
+			GUI.showMessage("Du ejer ikke nok grunde til at bygge huse");
+			Options(player);
+		}
 
 	}
 
