@@ -56,8 +56,8 @@ public class ChanceDeck {
 
 	public void DrawCard(Player player) {
 		GUI.showMessage("Træk et \"prøv lykken\"-kort");
-		effect(player,deck[pickCount].getEffect());
 		GUI.displayChanceCard(deck[pickCount].getDescription());
+		effect(player,deck[pickCount].getEffect());
 		pickCount++;
 		if (pickCount > 32) {
 			ShuffleDeck();
@@ -152,7 +152,7 @@ public class ChanceDeck {
 				player.depositBalance(4000);
 			break;
 		case 14:
-			//Fængselkort		
+			player.setJailcard(1);	
 			break;
 		case 15:
 			if (player.getFieldPos() == 18 || player.getFieldPos() == 23 || player.getFieldPos() == 34 || player.getFieldPos() == 37)
