@@ -10,7 +10,12 @@ import desktop_resources.GUI;
 public class Gameboard {
 	private static fields.Field[] fieldValue = new fields.Field[40]; // Field array created
 	private static desktop_fields.Field[] fieldGUI = new desktop_fields.Field[40];
-
+	private static ChanceDeck chancedeck = new ChanceDeck();
+	
+	public static void DrawCard(Player player) {
+		chancedeck.DrawCard(player);
+	}
+	
 	public static fields.Field getField(int fieldID) { // getter for the array
 		return fieldValue[fieldID];
 	}
@@ -46,7 +51,6 @@ public class Gameboard {
 
 	public static void CreateGUI()
 	{
-
 		fieldValue[0] = new fields.Start("START");
 		fieldGUI[0] = new Start.Builder()
 				.setTitle(fieldValue[0].getName())
