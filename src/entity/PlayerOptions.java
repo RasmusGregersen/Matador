@@ -7,7 +7,7 @@ public class PlayerOptions {
 	public static void Jailturn(Player player) {
 		if (player.getJailturns() == 3) {
 			player.setJailed(false);
-			GUI.showMessage(" " + player.getName() + "  har nu været i fængsel i tre turer, og bliver derfor løsladt, men  " + player.getName() + "  er tvunget til, at betale en bøde på 1000 kr,-");
+			GUI.showMessage(player.getName() + "  har nu været i fængsel i tre turer, og bliver derfor løsladt, men  " + player.getName() + "  er tvunget til, at betale en bøde på 1000 kr,-");
 			player.withdrawBalance(1000);
 			Rules.Turn(player);
 		}
@@ -23,12 +23,12 @@ public class PlayerOptions {
 			player.setJailed(false);
 		}
 		else {
-			GUI.showMessage(" " + player.getName() + "  har nu 3 forsøg til at slå dobbelt, og komme ud af fængsel");
+			GUI.showMessage(player.getName() + "  har nu 3 forsøg til at slå dobbelt, og komme ud af fængsel");
 			for (int i=0;i<3;i++) {
-				GUI.getUserButtonPressed("It's " + player.getName() + "'s turn!", "Roll");
+				GUI.getUserButtonPressed("Det er " + player.getName() + "'s tur", "Rul terningen");
 				Rules.rollDice();
 				if (Rules.getDie1() == Rules.getDie2()) {
-					GUI.showMessage(" " + player.getName() + "  slap ud!  " + player.getName() + "  rykker nu de antal øjne  " + player.getName() + "  slog, og får yderliger et ekstra kast.");
+					GUI.showMessage(player.getName() + "  slap ud!  " + player.getName() + "  rykker nu de antal øjne som du slog, og får yderligere et ekstra kast.");
 					player.setJailed(false);
 					player.moveToFieldPos(Rules.getDiceSum());
 					Rules.ExtraTurn(player);
@@ -132,7 +132,7 @@ public class PlayerOptions {
 
 
 		else {
-			GUI.showMessage(" " + player.getName() + "  ejer ikke nok grunde til at bygge huse");
+			GUI.showMessage(player.getName() + " ejer ikke nok grunde til at bygge huse");
 			Options(player);
 		}
 
@@ -180,8 +180,6 @@ public class PlayerOptions {
 		}
 
 	}
-
-
 
 	public static void AuctionOption (Player player) {
 

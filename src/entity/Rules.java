@@ -41,7 +41,7 @@ public class Rules {
 	public static void ExtraTurn (Player player) {
 		if (Rules.getDie1() == Rules.getDie2()) {
 			if (player.getExtraTurns() == 2) {
-				GUI.showMessage( player.getName() + " har har kørt for stærkt og ryger derfor direkte i fængsel");
+				GUI.showMessage(player.getName() + " har har kørt for stærkt og ryger derfor direkte i fængsel");
 				Rules.GoToJail(player);
 				player.setExtraTurns(0);
 			}
@@ -68,7 +68,7 @@ public class Rules {
 	// Lose Condition
 	public static void CheckLoseCondition(Player player) {
 		if (player.getBalance() == 0) {
-			GUI.showMessage(player.getName() + " has gone bankrupt");
+			GUI.showMessage(player.getName() + " er gået bankerot og har ikke mulighed, for at komme tilbage i spillet");
 			playerCount = playerCount - 1;
 			GUI.removeAllCars(player.getName());
 			player = null;
@@ -79,9 +79,9 @@ public class Rules {
 	// Game Setup
 
 	public static void SetupGame() {
-		if (GUI.getUserLeftButtonPressed("Do you want to start a new game or load an existing game?", "New Game", "Load Game")) 
+		if (GUI.getUserLeftButtonPressed("Vil du starte et nyt spil eller indlæse et gammelt?", "Nyt Spil", "Indlæs Spil")) 
 		{
-			playerCount = GUI.getUserInteger("How many players do you wish to play", 2 , 6);	
+			playerCount = GUI.getUserInteger("Hvor mange spillere ønsker i, at spille?", 2 , 6);	
 			CarBuilder(playerCount);
 
 			// Name Check	
@@ -89,15 +89,15 @@ public class Rules {
 				Player tmp = new Player("");
 				EnterName:	
 					while (true) {
-						String name = GUI.getUserString("Please enter the name of player" + (i+1)).trim();
+						String name = GUI.getUserString("Indtast navnet på Player" + (i+1)).trim();
 						if (name.length() < 1 || name.length() > 15 || name.indexOf(" ") == 0){
-							GUI.showMessage("Invalid name!");
+							GUI.showMessage("Uacceptabelt navn!");
 							continue;
 						}
 
 						for(Player p : players){
 							if(p != null && p.getName().equals(name)) {
-								GUI.showMessage("Invalid name!");
+								GUI.showMessage("Uacceptabelt navn!");
 								continue EnterName;
 							}
 						}

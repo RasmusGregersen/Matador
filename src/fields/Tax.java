@@ -13,7 +13,6 @@ public class Tax extends Field {
 	
 	public int getTax() {
 		return tax;
-		
 	}
 
 	@Override

@@ -40,9 +40,9 @@ public abstract class Ownable extends Field {
 	public void landOnField(Player player) {
 		if (owner == null) { // Checks if field has no Owner.
 			if (player.getBalance() < price) {
-				GUI.displayChanceCard(player.getName() + ": You cannot afford this property.");
+				GUI.displayChanceCard(player.getName() + ": Har ikke råd til at købe denne grund...");
 			}
-			else if (GUI.getUserLeftButtonPressed(player.getName() + ": This " + getClass().getSimpleName() + " has no owner, would you like to buy it?", "Yes", "No")) 
+			else if (GUI.getUserLeftButtonPressed(player.getName() + ": This " + getClass().getSimpleName() + " har ikke nogen ejer. Er du interesseret i at købe den?", "Ja", "Nej")) 
 			{
 				player.withdrawBalance(price);
 				player.setTotalAssets(price);
@@ -58,9 +58,9 @@ public abstract class Ownable extends Field {
 		}
 		else if (owner.getBalance() == 0) { // Checks if the owner is bankrupt.
 			if (player.getBalance() < price) {
-				GUI.displayChanceCard(player.getName() + ": You cannot afford this property.");
+				GUI.displayChanceCard(player.getName() + ": Har ikke råd til at købe denne grund...");
 			}
-			else if (GUI.getUserLeftButtonPressed(player.getName() + ": This " + getClass().getSimpleName() + "'s owner is bankrupt, would you like to buy it?", "Yes", "No")) 
+			else if (GUI.getUserLeftButtonPressed(player.getName() + ": This " + getClass().getSimpleName() + " har ikke nogen ejer. Er du interesseret i at købe den?", "Ja", "Nej")) 
 			{
 				player.withdrawBalance(price);
 				owner=player;
@@ -71,7 +71,7 @@ public abstract class Ownable extends Field {
 			GUI.displayChanceCard(player.getName() + ": Welcome back!");
 		}
 		else { // Otherwise the field must be owned by another active player.
-			GUI.displayChanceCard(player.getName() + ": You have landed on " + owner.getName() + "'s Territory. Rent is " + getRent());
+			GUI.displayChanceCard(player.getName() + ": er landet på " + owner.getName() + "'s felt. Udlejen er " + getRent());
 			player.withdrawBalance(getRent());
 			owner.depositBalance(getRent());
 			GUI.setBalance(owner.getName(), owner.getBalance());
