@@ -31,6 +31,7 @@ public class Rules {
 		Gameboard.setField(player.getFieldPos(), player);
 		if (player.getBalance() <= 0)
 		PlayerOptions.YoureScrewedmetoden(player);
+		
 
 		
 	}
@@ -63,13 +64,17 @@ public class Rules {
 	public static boolean getWin() {
 		return win;
 	}
-	public static void CheckWinConditions() {
+	public static void CheckWinConditions(Player player) {
 		// Skriv winconditions ind i if statement, og sæt win = true
+		if(playerCount == 1) {
+			win = true;
+			GUI.showMessage(player.getName() + " har vundet spillet");
+		}
 	}	
 
 	// Lose Condition
 	public static void LoseCondition(Player player) {
-			GUI.showMessage(player.getName() + "har forladt spillet");
+			GUI.showMessage(player.getName() + " har forladt spillet");
 			playerCount = playerCount - 1;
 			GUI.removeAllCars(player.getName());
 			player = null;
