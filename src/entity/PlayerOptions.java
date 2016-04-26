@@ -280,20 +280,22 @@ public class PlayerOptions {
 		}
 
 		public static void YoureScrewedmetoden (Player player) {
-			String option1 = "Fortsætte turen";
 			String Pledge = "Pantsætte grund(e)";
 			String Auction = "Sælge Huse";
 			String Surrender = "Jeg giver op!";
-
-			String option = GUI.getUserSelection("Hvilke af følgende ting vil  " + player.getName() + "  foretage sig?",option1,Pledge,Auction, Surrender);
-			if (option.equals(Pledge)) {
-				Pledge(player);
+			if (player.getBalance() <= 0) {
+				GUI.showMessage(player.getName() + "Din balance er negativ. Tryk ok for at se dine muligheder");
+				String option = GUI.getUserSelection("Hvilke af følgende ting vil  " + player.getName() + "  foretage sig?",Pledge,Auction, Surrender);
+				if (option.equals(Pledge)) {
+					Pledge(player);
+				}
+				else if (option.equals(Auction)) {
+					AuctionOption(player);
+				}
+				else if (option.equals(Surrender)) {
+					Rules.LoseCondition(player);
 			}
-			else if (option.equals(Auction)) {
-				AuctionOption(player);
-			}
-			else if (option.equals(Surrender)) {
-
+			
 			}
 
 		}

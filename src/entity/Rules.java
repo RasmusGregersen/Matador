@@ -26,10 +26,13 @@ public class Rules {
 		SaveGame();
 		PlayerOptions.Options(player);
 		Rules.rollDice();
+		Rules.ExtraTurn(player);
 		player.moveToFieldPos(Rules.getDiceSum());
 		Gameboard.setField(player.getFieldPos(), player);
-		CheckLoseCondition(player);
-		Rules.ExtraTurn(player);
+		if (player.getBalance() == 0)
+		PlayerOptions.YoureScrewedmetoden(player);
+
+		
 	}
 
 	public static void GoToJail (Player player) {
@@ -54,7 +57,6 @@ public class Rules {
 			player.setExtraTurns(0);
 	}
 	
-	
 	// Win Conditions
 
 	private static boolean win = false;
@@ -66,15 +68,12 @@ public class Rules {
 	}	
 
 	// Lose Condition
-	public static void CheckLoseCondition(Player player) {
-		if (player.getBalance() == 0) {
-			GUI.showMessage(player.getName() + " er gået bankerot og har ikke mulighed, for at komme tilbage i spillet");
+	public static void LoseCondition(Player player) {
+			GUI.showMessage(player.getName() + "har forladt spillet");
 			playerCount = playerCount - 1;
 			GUI.removeAllCars(player.getName());
 			player = null;
 		}
-	}
-
 
 	// Game Setup
 
