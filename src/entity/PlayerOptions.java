@@ -284,7 +284,7 @@ public class PlayerOptions {
 			String Auction = "Sælge Huse";
 			String Surrender = "Jeg giver op!";
 			if (player.getBalance() <= 0) {
-				GUI.showMessage(player.getName() + "Din balance er negativ. Tryk ok for at se dine muligheder");
+				GUI.showMessage(player.getName() + " Din balance er negativ. Tryk ok for at se dine muligheder");
 				String option = GUI.getUserSelection("Hvilke af følgende ting vil  " + player.getName() + "  foretage sig?",Pledge,Auction, Surrender);
 				if (option.equals(Pledge)) {
 					Pledge(player);

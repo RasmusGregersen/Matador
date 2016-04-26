@@ -168,8 +168,8 @@ public class ChanceDeck {
 			Gameboard.setField(player.getFieldPos(), player);
 			break;
 		case 18:
-			player.moveToFieldPos(-3);
-			Gameboard.setField(player.getFieldPos(), player);
+			//player.moveToFieldPos(-3);
+			//Gameboard.setField(player.getFieldPos(), player);
 			break;
 		case 19:
 			housecounter = 0;
