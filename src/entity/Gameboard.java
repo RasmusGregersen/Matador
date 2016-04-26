@@ -37,7 +37,7 @@ public class Gameboard {
 			}
 		}
 		
-		if (color.equals("CYAN") || color.equals("BLUE")) {
+		if (color.equals("Lyseblå") || color.equals("Mørkeblå")) {
 			if (properties == 2)
 				out = true;
 		}

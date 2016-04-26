@@ -60,108 +60,117 @@ public class PlayerOptions {
 	public static void BuyProperty (Player player) {
 		String Color1 = "Lyseblå",Color2 = "Orange",Color3 = "Grøn", Color4 = "Grå", Color5 = "Rød", Color6 = "Hvid", Color7 = "Gul", Color8 = "Mørkeblå";
 		String choice = GUI.getUserSelection("Hvilken farve ønsker du at købe Hus(e) på? ",Color1,Color2,Color3,Color4,Color5,Color6,Color7,Color8);
-		int counter;
-		for (int e=0;e<40;e++) {
-			if (Gameboard.getField(e).getColor().equals(choice)) {
-				if (Gameboard.getField(e).getOwner() == player) {
-					counter++;
+
+		if (Gameboard.IsPropertyReady(player, choice)) {
+			int min;
+			int max;
+			int houses = 0;
+			int houseprice = 0;
+			int felt1 = 0;
+			int felt2 = 0;
+			int felt3 = 0;
+			for (int i=0;i>40;i++) {
+				if (Gameboard.getField(i).getColor().equals(choice)) {
+					houses = Gameboard.getField(i).getHouses() + houses;
+					houseprice = Gameboard.getField(i).getHousePrice();
+					if (felt1 == 0) 
+						felt1 = i;
+					if (felt2 == 0 && felt1 > 0)
+						felt2 = i;
+					if (felt3 == 0 && felt2 > 0)
+						felt3 = i;
 				}
 			}
-		}
-		if (choice.equals(Color1) || choice.equals(Color8)) {
-			if (counter < 2) {
-				GUI.showMessage("Du kan ikke bygge huse, da du ikke ejer begge grunde.");
+			if (choice == Color1 || choice == Color2) {
+				max = 10 - houses;
+				if (houses == 0)
+					min = 2;
+				else
+					min = 1;
+			}
+			else {
+				max = 15 - houses;
+				if (houses == 0)
+					min = 3;
+				else
+					min = 1;
+			}
+			GUI.getUserInteger("Husprisen er: " + houseprice + " Hvor mange vil du købe?",min,max);
+			if (player.getBalance() < (houses*houseprice)) {
+				GUI.showMessage("Du har ikke råd!");
 				Options(player);
 			}
-		}
-		else
-			if (counter < 3) {
-				GUI.showMessage("Du kan ikke bygge huse, da du ikke ejer alle 3 grunde.");
-				Options(player);
-			}
-		
-
-		int houses = GUI.getUserInteger("Husprisen er: " + Gameboard.getField(2).getHousePrice() + " Hvor mange vil du købe?",1,10);
-		if(player.getBalance() > (houses*Gameboard.getField(2).getHousePrice())) {
-			for (int i=0; i < houses; i ++) {
-				player.withdrawBalance(Gameboard.getField(2).getHousePrice());
-				if (Gameboard.getField(2).getHouses() >= Gameboard.getField(4).getHouses()){
-					Gameboard.getField(4).setHouses();
+			for (int i=0;i>houses;i++) {
+				if(felt3==0) {
+					// 2 grunde
 				}
 				else {
-					Gameboard.getField(2).setHouses();
+					// 3 grunde
+					
+					
+					
 				}
-			}
 
+
+			}	
 		}
 
 
-	}
-	else {
-		GUI.showMessage("Du har ikke nok penge til, at købe det antal hus(e)");
-		Options(player);
-	}
-}
-else {
-	GUI.showMessage("Du ejer ikke alle grundene.");
-	Options(player);
-}
-
-}
-// Check spiller har alle grunde
-// Check balance mod samlet huspris.
-
-
-}
-
-public static void SellProperty (Player player) {
-
-}
-
-public static void Pledge (Player player) {
-	Pledge:
-		while(true) {
-			int field = GUI.getUserInteger("Hvilken grund ønsker du at pantsætte, indtast grundens nummer", 1, 40);
-			if (player != Gameboard.getField(field-1).getOwner()) {
-				GUI.showMessage("Du ejer ikke dette felt!");
-				continue Pledge;
-			}
-			else if (player == Gameboard.getField(field-1).getOwner()) {
-				if (GUI.getUserLeftButtonPressed("Vil du pantsætte " + Gameboard.getField(field-1).getName() + "?", "Ja", "Nej")) {
-					player.depositBalance((int) (Gameboard.getField(field-1).getPrice() * 0.9));
-					GUI.displayChanceCard("Der blev indsat " + (int)(Gameboard.getField(field-1).getPrice() * 0.9) + " på din balance");
-					// Sæt grund tilstand til pawned.
-				}
-				else
-					break;
-			}
+		else {
+			GUI.showMessage("Du ejer ikke nok grunde til at bygge huse");
+			Options(player);
 		}
-}
-
-public static void YoureScrewedmetoden (Player player) {
-	String option1 = "Fortsætte turen";
-	String Pledge = "Pantsætte grund(e)";
-	String Auction = "Sælge Huse";
-	String Surrender = "Jeg giver op!";
-
-	String option = GUI.getUserSelection("Hvilke af følgende ting vil du foretage dig?",option1,Pledge,Auction, Surrender);
-	if (option.equals(Pledge)) {
-		Pledge(player);
-	}
-	else if (option.equals(Auction)) {
-		AuctionOption(player);
-	}
-	else if (option.equals(Surrender)) {
 
 	}
 
-}
+	public static void SellProperty (Player player) {
+
+	}
+
+	public static void Pledge (Player player) {
+		Pledge:
+			while(true) {
+				int field = GUI.getUserInteger("Hvilken grund ønsker du at pantsætte, indtast grundens nummer", 1, 40);
+				if (player != Gameboard.getField(field-1).getOwner()) {
+					GUI.showMessage("Du ejer ikke dette felt!");
+					continue Pledge;
+				}
+				else if (player == Gameboard.getField(field-1).getOwner()) {
+					if (GUI.getUserLeftButtonPressed("Vil du pantsætte " + Gameboard.getField(field-1).getName() + "?", "Ja", "Nej")) {
+						player.depositBalance((int) (Gameboard.getField(field-1).getPrice() * 0.9));
+						GUI.displayChanceCard("Der blev indsat " + (int)(Gameboard.getField(field-1).getPrice() * 0.9) + " på din balance");
+						// Sæt grund tilstand til pawned.
+					}
+					else
+						break;
+				}
+			}
+	}
+
+	public static void YoureScrewedmetoden (Player player) {
+		String option1 = "Fortsætte turen";
+		String Pledge = "Pantsætte grund(e)";
+		String Auction = "Sælge Huse";
+		String Surrender = "Jeg giver op!";
+
+		String option = GUI.getUserSelection("Hvilke af følgende ting vil du foretage dig?",option1,Pledge,Auction, Surrender);
+		if (option.equals(Pledge)) {
+			Pledge(player);
+		}
+		else if (option.equals(Auction)) {
+			AuctionOption(player);
+		}
+		else if (option.equals(Surrender)) {
+
+		}
+
+	}
 
 
 
-public static void AuctionOption (Player player) {
+	public static void AuctionOption (Player player) {
 
-}
+	}
 
 
 }
