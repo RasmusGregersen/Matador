@@ -132,6 +132,7 @@ public class PlayerOptions {
 					}
 				}
 			}	
+			Options(player);
 		}
 
 		else {
@@ -181,6 +182,7 @@ public class PlayerOptions {
 							HouseorHotel(felt2);
 							player.setTotalAssets(-(houseprice*1));
 							player.depositBalance((houseprice/2));
+							Options(player);
 						}
 						else {
 							Options(player);
@@ -210,6 +212,7 @@ public class PlayerOptions {
 							HouseorHotel(felt2);
 							player.setTotalAssets(-(houseprice*2));
 							player.depositBalance((houseprice*2/2));
+							Options(player);
 						}
 						else {
 							Options(player);
@@ -232,77 +235,98 @@ public class PlayerOptions {
 			player.setTotalAssets(-(houseprice*HouseChoice));
 			player.depositBalance((houseprice*HouseChoice/2));
 		}
-		
 
-			else {
-				GUI.showMessage(player.getName() + " har ikke ret til at sælge grunde her!");
+
+		else {
+			GUI.showMessage(player.getName() + " har ikke ret til at sælge grunde her!");
+			Options(player);
+		}
+	}
+
+	public static void SetPawned (Player player) {
+		while(true) {
+			int field = GUI.getUserInteger("Hvilken grund ønsker  " + player.getName() + "  at pantsætte, indtast grundens nummer", 1, 40);
+			if (player != Gameboard.getField(field).getOwner()) {
+				GUI.showMessage(" " + player.getName() + "  ejer ikke dette felt!");
 				Options(player);
 			}
-		}
-
-		public static void SetPawned (Player player) {
-				while(true) {
-					int field = GUI.getUserInteger("Hvilken grund ønsker  " + player.getName() + "  at pantsætte, indtast grundens nummer", 1, 40);
-					if (player != Gameboard.getField(field).getOwner()) {
-						GUI.showMessage(" " + player.getName() + "  ejer ikke dette felt!");
-						Options(player);
-					}
-					else if (player == Gameboard.getField(field).getOwner()) {
-						if (Gameboard.getField(field).getHouses() > 0) {
-							GUI.showMessage(player.getName() + " skal sælge dine huse, før du kan pantsætte din grund.");
-							Options(player);
-						}
-						if (GUI.getUserLeftButtonPressed("Vil  " + player.getName() + "  pantsætte " + Gameboard.getField(field).getName() + "?", "Ja", "Nej")) {
-							player.depositBalance((int) (Gameboard.getField(field).getPrice() * 0.9));
-							player.setTotalAssets(-(Gameboard.getField(field).getPrice()));
-							GUI.showMessage("Der blev indsat " + (int)(Gameboard.getField(field).getPrice() * 0.9) + " på din balance");
-							//HVORFOR FUCK GIVER DEN FEJL? RASMUS...
-							Gameboard.getField(field).setPawned(true);
-						}
-						else
-							break;
-					}
+			else if (player == Gameboard.getField(field).getOwner()) {
+				if (Gameboard.getField(field).getHouses() > 0) {
+					GUI.showMessage(player.getName() + " skal sælge dine huse, før du kan pantsætte din grund.");
+					Options(player);
 				}
-		}
-
-		public static void BuyPawned (Player player) {
-				
-		}
-		
-
-		public static void HouseorHotel (int felt) {
-			if (Gameboard.getField(felt).getHouses() < 5){
-				GUI.setHouses(felt, Gameboard.getField(felt).getHouses());
-			}
-			else {
-				GUI.setHotel(felt, true);
-			}
-		}
-
-		public static void YoureScrewedmetoden (Player player) {
-			String Pledge = "Pantsætte grund(e)";
-			String Auction = "Sælge Huse";
-			String Surrender = "Jeg giver op!";
-			if (player.getBalance() <= 0) {
-				GUI.showMessage(player.getName() + " Din balance er negativ. Tryk ok for at se dine muligheder");
-				String option = GUI.getUserSelection("Hvilke af følgende ting vil  " + player.getName() + "  foretage sig?",Pledge,Auction, Surrender);
-				if (option.equals(Pledge)) {
-					BuyPawned(player);
+				if (GUI.getUserLeftButtonPressed("Vil  " + player.getName() + "  pantsætte " + Gameboard.getField(field).getName() + "?", "Ja", "Nej")) {
+					player.depositBalance((int) (Gameboard.getField(field).getPrice() * 0.9));
+					player.setTotalAssets(-(Gameboard.getField(field).getPrice()));
+					GUI.showMessage("Der blev indsat " + (int)(Gameboard.getField(field).getPrice() * 0.9) + " på din balance");
+					Gameboard.getField(field).setPawned(true);
+					Options(player);
 				}
-				else if (option.equals(Auction)) {
-					AuctionOption(player);
-				}
-				else if (option.equals(Surrender)) {
-					Rules.LoseCondition(player);
+				else
+					break;
 			}
-			
-			}
-
 		}
+	}
 
-		public static void AuctionOption (Player player) {
-
+	public static void BuyPawned (Player player) {
+		while(true) {
+			int field = GUI.getUserInteger("Hvilken pantsat grund ønsker  " + player.getName() + "  at købe tilbage , indtast grundens nummer", 1, 40);
+			if (player != Gameboard.getField(field).getOwner()) {
+				GUI.showMessage(" " + player.getName() + "  ejer ikke dette felt!");
+				Options(player);
+			}
+			else if (player == Gameboard.getField(field).getOwner() && Gameboard.getField(field).isPawned() == false) {
+				if (Gameboard.getField(field).isPawned() == false) {
+					GUI.showMessage(player.getName() + "denne grund er ikke pantsat...");
+					Options(player);
+				}
+			else if (player == Gameboard.getField(field).getOwner() && Gameboard.getField(field).isPawned() == true) {
+				player.withdrawBalance(Gameboard.getField(field).getPrice());
+				player.setTotalAssets(Gameboard.getField(field).getPrice());
+				Gameboard.getField(field).setPawned(false);
+				GUI.showMessage("Du er nu igen ejer af: " + Gameboard.getField(field).getName());
+				Options(player);
+			}
+			}
 		}
 
 
 	}
+
+
+	public static void HouseorHotel (int felt) {
+		if (Gameboard.getField(felt).getHouses() < 5){
+			GUI.setHouses(felt, Gameboard.getField(felt).getHouses());
+		}
+		else {
+			GUI.setHotel(felt, true);
+		}
+	}
+
+	public static void YoureScrewedmetoden (Player player) {
+		String Pledge = "Pantsætte grund(e)";
+		String Auction = "Sælge Huse";
+		String Surrender = "Jeg giver op!";
+		if (player.getBalance() <= 0) {
+			GUI.showMessage(player.getName() + " Din balance er negativ. Tryk ok for at se dine muligheder");
+			String option = GUI.getUserSelection("Hvilke af følgende ting vil  " + player.getName() + "  foretage sig?",Pledge,Auction, Surrender);
+			if (option.equals(Pledge)) {
+				BuyPawned(player);
+			}
+			else if (option.equals(Auction)) {
+				AuctionOption(player);
+			}
+			else if (option.equals(Surrender)) {
+				Rules.LoseCondition(player);
+			}
+
+		}
+
+	}
+
+	public static void AuctionOption (Player player) {
+
+	}
+
+
+}
