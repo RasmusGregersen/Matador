@@ -50,7 +50,7 @@ public abstract class Ownable extends Field {
 				owner=player;
 				pawned=false;
 				GUI.setOwner(player.getFieldPos(), player.getName());
-				if (Gameboard.IsPropertyReady(player, Gameboard.getField(player.getFieldPos()-1).getColor()))
+				if (Gameboard.IsPropertyReady(player, Gameboard.getField(player.getFieldPos()).getColor()))
 					Gameboard.getField(player.getFieldPos()).setHouses(0);
 			}
 		}
