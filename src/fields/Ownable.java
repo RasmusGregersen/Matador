@@ -27,48 +27,35 @@ public abstract class Ownable extends Field {
 	public int getPrice() {
 		return price;
 	}
-
+	@Override
 	public boolean isPawned() {
 		return pawned;
 	}
-
+	
+	@Override
 	public void setPawned(boolean pawned) {
 		this.pawned = pawned;
 	}
 
 	@Override
 	public void landOnField(Player player) {
-		if (owner == null) { // Checks if field has no Owner.
+		if (owner == null || pawned==true) {
 			if (player.getBalance() < price) {
 				GUI.displayChanceCard(player.getName() + ": Har ikke råd til at købe denne grund...");
 			}
-			else if (GUI.getUserLeftButtonPressed(player.getName() + ": This " + getClass().getSimpleName() + " har ikke nogen ejer. Er du interesseret i at købe den?", "Ja", "Nej")) 
+			else if (GUI.getUserLeftButtonPressed(player.getName() + ": denne " + getClass().getSimpleName() + " er tilgængelig for salg. Er du interesseret i at købe den?", "Ja", "Nej")) 
 			{
 				player.withdrawBalance(price);
 				player.setTotalAssets(price);
 				owner=player;
+				pawned=false;
 				GUI.setOwner(player.getFieldPos(), player.getName());
 				if (Gameboard.IsPropertyReady(player, Gameboard.getField(player.getFieldPos()-1).getColor()))
 					Gameboard.getField(player.getFieldPos()).setHouses(0);
 			}
 		}
-		else if (pawned) {
-
-
-		}
-		else if (owner.getBalance() == 0) { // Checks if the owner is bankrupt.
-			if (player.getBalance() < price) {
-				GUI.displayChanceCard(player.getName() + ": Har ikke råd til at købe denne grund...");
-			}
-			else if (GUI.getUserLeftButtonPressed(player.getName() + ": This " + getClass().getSimpleName() + " har ikke nogen ejer. Er du interesseret i at købe den?", "Ja", "Nej")) 
-			{
-				player.withdrawBalance(price);
-				owner=player;
-				GUI.setOwner(player.getFieldPos(), player.getName());
-			}
-		}
 		else if (player == owner) { // Checks if the actual player is the owner.
-			GUI.displayChanceCard(player.getName() + ": Welcome back!");
+			GUI.displayChanceCard(player.getName() + ": Velkommen tilbage!");
 		}
 		else { // Otherwise the field must be owned by another active player.
 			GUI.displayChanceCard(player.getName() + ": er landet på " + owner.getName() + "'s felt. Udlejen er " + getRent());

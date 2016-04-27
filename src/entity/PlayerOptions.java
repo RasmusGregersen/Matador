@@ -44,20 +44,20 @@ public class PlayerOptions {
 		String Roll = "Rul med terningerne!";
 		String BuyProperty = "Køb hus eller hotel";
 		String SellProperty = "Sælg hus eller hotel";
-		String Pledge = "Pantsætte grund(e)";
-		String Pawned = "Køb pantsatte grunde tilbage";
-		String option = GUI.getUserSelection("Hvilke af følgende ting vil " + player.getName() + " foretage sig?",Roll,BuyProperty,SellProperty,Pledge,Pawned);
+		String SetPawned = "Pantsæt grund(e)";
+		String BuyPawned = "Køb pantsatte grunde tilbage";
+		String option = GUI.getUserSelection("Hvilke af følgende ting vil " + player.getName() + " foretage sig?",Roll,BuyProperty,SellProperty,SetPawned,BuyPawned);
 		if (option.equals(BuyProperty)) {
 			BuyProperty(player);
 		}
 		else if (option.equals(SellProperty)) {
 			SellProperty(player);
 		}
-		else if (option.equals(Pledge)) {
-			Pledge(player);
+		else if (option.equals(SetPawned)) {
+			SetPawned(player);
 		}
-		else if (option.equals(Pawned)) {
-			Pawned(player);
+		else if (option.equals(BuyPawned)) {
+			BuyPawned(player);
 		}
 	}
 
@@ -240,13 +240,12 @@ public class PlayerOptions {
 			}
 		}
 
-		public static void Pledge (Player player) {
-			Pledge:
+		public static void SetPawned (Player player) {
 				while(true) {
 					int field = GUI.getUserInteger("Hvilken grund ønsker  " + player.getName() + "  at pantsætte, indtast grundens nummer", 1, 40);
 					if (player != Gameboard.getField(field).getOwner()) {
 						GUI.showMessage(" " + player.getName() + "  ejer ikke dette felt!");
-						continue Pledge;
+						Options(player);
 					}
 					else if (player == Gameboard.getField(field).getOwner()) {
 						if (Gameboard.getField(field).getHouses() > 0) {
@@ -257,7 +256,8 @@ public class PlayerOptions {
 							player.depositBalance((int) (Gameboard.getField(field).getPrice() * 0.9));
 							player.setTotalAssets(-(Gameboard.getField(field).getPrice()));
 							GUI.showMessage("Der blev indsat " + (int)(Gameboard.getField(field).getPrice() * 0.9) + " på din balance");
-							// Sæt grund tilstand til pawned.
+							//HVORFOR FUCK GIVER DEN FEJL? RASMUS...
+							Gameboard.getField(field).setPawned(true);
 						}
 						else
 							break;
@@ -265,10 +265,10 @@ public class PlayerOptions {
 				}
 		}
 
-		private static void Pawned(Player player) {
-
-
+		public static void BuyPawned (Player player) {
+				
 		}
+		
 
 		public static void HouseorHotel (int felt) {
 			if (Gameboard.getField(felt).getHouses() < 5){
@@ -287,7 +287,7 @@ public class PlayerOptions {
 				GUI.showMessage(player.getName() + " Din balance er negativ. Tryk ok for at se dine muligheder");
 				String option = GUI.getUserSelection("Hvilke af følgende ting vil  " + player.getName() + "  foretage sig?",Pledge,Auction, Surrender);
 				if (option.equals(Pledge)) {
-					Pledge(player);
+					BuyPawned(player);
 				}
 				else if (option.equals(Auction)) {
 					AuctionOption(player);

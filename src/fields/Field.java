@@ -19,6 +19,13 @@ public abstract class Field {
 	}
 	
 	public abstract void landOnField(Player player);
+	
+	public boolean isPawned() {
+		return false;
+	}
+	
+	public void setPawned(boolean pawned) {
+	}
 
 	public int getHousePrice() {
 		return 0;
@@ -46,5 +53,4 @@ public abstract class Field {
 	public void setHouses(int houses) {
 	}
 
-	
 }
