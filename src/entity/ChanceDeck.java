@@ -112,7 +112,7 @@ public class ChanceDeck {
 			}
 			int total = 2300*hotelcounter + 800*housecounter;
 			player.withdrawBalance(total);
-			GUI.showMessage("Du ejer " + housecounter + " huse og " + hotelcounter + " hoteller. Derfor skal du betale " + total + " kr,- til Banken");
+			GUI.showMessage(player.getName() + housecounter + " huse og " + hotelcounter + " hoteller. Derfor skal du betale " + total + " kr,- til Banken");
 			break;
 		case 11:
 			if (player.getFieldPos() == 34 || player.getFieldPos() == 37)
@@ -188,7 +188,7 @@ public class ChanceDeck {
 			}
 			total = 2000*hotelcounter + 500*housecounter;
 			player.withdrawBalance(total);
-			GUI.showMessage("Du ejer " + housecounter + " huse og " + hotelcounter + " hoteller. Derfor skal du betale " + total + " kr,- til Banken");
+			GUI.showMessage(player.getName()  + housecounter + " huse og " + hotelcounter + " hoteller. Derfor skal du betale " + total + " kr,- til Banken");
 			break;
 		case 20:
 			player.withdrawBalance(3000);

@@ -45,7 +45,7 @@ public abstract class Ownable extends Field {
 			if (player.getBalance() < price) {
 				GUI.displayChanceCard(player.getName() + ": Har ikke råd til at købe denne grund...");
 			}
-			else if (GUI.getUserLeftButtonPressed(player.getName() + ": denne " + getClass().getSimpleName() + " er tilgængelig for salg. Er du interesseret i at købe den?", "Ja", "Nej")) {
+			else if (GUI.getUserLeftButtonPressed(player.getName() + " : denne grund er tilgængelig for salg. Er du interesseret i at købe den?", "Ja", "Nej")) {
 				player.withdrawBalance(price);
 				player.setTotalAssets(price);
 				owner=player;
