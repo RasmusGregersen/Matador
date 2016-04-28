@@ -17,7 +17,7 @@ public class Gameboard {
 	}
 	
 	public static fields.Field getField(int fieldID) { // getter for the array
-		return fieldValue[fieldID];
+		return fieldValue[fieldID - 1];
 	}
 
 	public static void setField(int fieldID, Player player) { // method to trigger landOnField method.

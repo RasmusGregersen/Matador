@@ -26,9 +26,9 @@ public class Rules {
 		SaveGame();
 		PlayerOptions.Options(player);
 		Rules.rollDice();
-		Rules.ExtraTurn(player);
 		player.moveToFieldPos(Rules.getDiceSum());
 		Gameboard.setField(player.getFieldPos(), player);
+		Rules.ExtraTurn(player);
 		if (player.getBalance() <= 0)
 			PlayerOptions.Bankrupt(player);
 		CheckWinConditions(player);
@@ -50,7 +50,7 @@ public class Rules {
 			}
 			else if (!player.isJailed()) {
 				player.setExtraTurns(player.getExtraTurns() + 1);
-				Turn(player);
+				PlayerOptions.Options(player);
 			}
 		}
 		else
