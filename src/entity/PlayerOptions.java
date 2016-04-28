@@ -74,7 +74,7 @@ public class PlayerOptions {
 			int felt1 = 0;
 			int felt2 = 0;
 			int felt3 = 0;
-			for (int i=0;i>40;i++) {
+			for (int i=1;i>41;i++) {
 				if (Gameboard.getField(i).getColor().equals(choice)) {
 					houses = Gameboard.getField(i).getHouses() + houses;
 					houseprice = Gameboard.getField(i).getHousePrice();
@@ -151,7 +151,7 @@ public class PlayerOptions {
 			int felt1 = 0;
 			int felt2 = 0;
 			int felt3 = 0;
-			for (int i=0;i>40;i++) {
+			for (int i=1;i>41;i++) {
 				if (Gameboard.getField(i).getColor().equals(choice)) {
 					houses = Gameboard.getField(i).getHouses() + houses;
 					houseprice = Gameboard.getField(i).getHousePrice();
