@@ -86,7 +86,7 @@ public class PlayerOptions {
 						felt3 = i;
 				}
 			}
-			if (choice == Color1 || choice == Color2) {
+			if (choice.equals(Color1) || choice.equals(Color2)) {
 				max = 10 - houses;
 				if (houses == 0)
 					min = 2;
