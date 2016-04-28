@@ -93,7 +93,6 @@ public class Player {
 	public void setBreweries() {
 		breweries++;
 	}
-
 	public int getFieldPos() {
 		return FieldPos;
 	}

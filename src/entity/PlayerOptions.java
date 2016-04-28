@@ -88,7 +88,7 @@ public class PlayerOptions {
 						felt3 = i;
 				}
 			}
-			if (choice.equals(Color1) || choice.equals(Color2)) {
+			if (choice.equals(Color1) || choice.equals(Color8)) {
 				max = 10 - houses;
 				if (houses == 0)
 					min = 2;
@@ -107,29 +107,33 @@ public class PlayerOptions {
 				GUI.showMessage(player.getName() + ": du har ikke råd!");
 				Options(player);
 			}
-			for (int i=0;i>HouseChoice;i++) {
+			for (int i=0;i<HouseChoice;i++) {
 				if(felt3==0) {
 					if (Gameboard.getField(felt1).getHouses() == Gameboard.getField(felt2).getHouses()) {
 						Gameboard.getField(felt2).addHouses(1);
+						player.withdrawBalance((houseprice));
 					}
 					else {
 						Gameboard.getField(felt1).addHouses(1);
+						player.withdrawBalance((houseprice));
 					}
 				}
 				else {
 					if (Gameboard.getField(felt1).getHouses() == Gameboard.getField(felt2).getHouses() && Gameboard.getField(felt2).getHouses() == Gameboard.getField(felt3).getHouses() ) {
 						Gameboard.getField(felt3).addHouses(1);
+						player.withdrawBalance((houseprice));
 					}
 					else if (Gameboard.getField(felt1).getHouses() == Gameboard.getField(felt2).getHouses() && Gameboard.getField(felt3).getHouses() > Gameboard.getField(felt2).getHouses()) {
 						Gameboard.getField(felt2).addHouses(1);
+						player.withdrawBalance((houseprice));
 					}
 					else if (Gameboard.getField(felt1).getHouses() < Gameboard.getField(felt2).getHouses()) {
 						Gameboard.getField(felt1).addHouses(1);
+						player.withdrawBalance((houseprice));
 					}
 				}
 			}
 			player.setTotalAssets(houseprice*HouseChoice);
-			player.withdrawBalance((houseprice*HouseChoice));
 			HouseorHotel(felt1);
 			HouseorHotel(felt2);
 			if (felt3 != 0)
@@ -170,7 +174,7 @@ public class PlayerOptions {
 				BankruptOrOptions(player);
 			}
 			int HouseChoice = GUI.getUserInteger(player.getName() +": Husprisen er: " + houseprice + " og du kan sælge dem for halvdelen. Hvor mange vil sælge?",1,houses);
-			for (int i=0;i>HouseChoice;i++) {
+			for (int i=0;i<HouseChoice;i++) {
 				if(felt3==0) {
 					if (houses-HouseChoice == 1) {
 						if(GUI.getUserLeftButtonPressed(player.getName() + ": du forsøger at sælge huse, så du kun har ét hus på en grund... Dette er i strid mod reglerne. Ønsker du, at sælge alle dine huse? ", "Yes", "No")) {
