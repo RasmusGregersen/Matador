@@ -29,7 +29,7 @@ public class Gameboard {
 		int properties = 0;
 		boolean out = false;
 		for (int i=0;i<40;i++) {
-			if (fieldValue[i].getColor().equals(color)) 
+			if (fieldValue[i].getColor().equals(color) && !fieldValue[i].getColor().equals(""))
 			{
 				if (fieldValue[i].getOwner() == player && fieldValue[i].isPawned() == false ) {
 					properties++;
