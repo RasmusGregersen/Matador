@@ -1,5 +1,7 @@
 package fields;
 
+import entity.Gameboard;
+
 public class Street extends Ownable {
 	
 	private int baserent;
@@ -51,9 +53,6 @@ public class Street extends Ownable {
 	
 	@Override
 	public int getRent() {
-		if (houses == 0) {
-			return baserent*2;
-		}
 		if (houses == 1) {
 			return houserent1;
 		}

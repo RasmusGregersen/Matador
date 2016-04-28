@@ -27,6 +27,12 @@ public abstract class Ownable extends Field {
 	public int getPrice() {
 		return price;
 	}
+
+	@Override
+	public int getHousePrice() {
+		return 0;
+	}
+
 	@Override
 	public boolean isPawned() {
 		return pawned;
@@ -58,10 +64,18 @@ public abstract class Ownable extends Field {
 			GUI.displayChanceCard(player.getName() + ": Velkommen tilbage!");
 		}
 		else { // Otherwise the field must be owned by another active player.
-			GUI.displayChanceCard(player.getName() + ": er landet på " + owner.getName() + "'s felt. Udlejen er " + getRent());
-			player.withdrawBalance(getRent());
-			owner.depositBalance(getRent());
-			GUI.setBalance(owner.getName(), owner.getBalance());
+			if (Gameboard.IsPropertyReady(owner, getColor())) {
+				GUI.displayChanceCard(player.getName() + ": er landet på " + owner.getName() + "'s felt. Udlejen er " + (getRent()*2));
+				player.withdrawBalance((getRent()*2));
+				owner.depositBalance((getRent()*2));
+				GUI.setBalance(owner.getName(), owner.getBalance());
+			}
+			else {
+				GUI.displayChanceCard(player.getName() + ": er landet på " + owner.getName() + "'s felt. Udlejen er " + getRent());
+				player.withdrawBalance(getRent());
+				owner.depositBalance(getRent());
+				GUI.setBalance(owner.getName(), owner.getBalance());
+			}
 		}	
 	}
 

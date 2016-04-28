@@ -16,9 +16,10 @@ public class PlayerOptions {
 			if (GUI.getUserLeftButtonPressed("Vil  " + player.getName() + "  bruge dit Chancekort til at komme ud af fængslet?", "Ja", "Nej")) {
 				player.setJailcard(player.getJailcard()-1);
 				player.setJailed(false);
+				Rules.Turn(player);
 			}
 		}
-		if (GUI.getUserLeftButtonPressed("Vil  " + player.getName() + "  betale en bøde på 1000 og komme ud af fængsel","Ja","Nej") && player.getBalance() > 1000 && player.isJailed()) {
+		else if (GUI.getUserLeftButtonPressed("Vil  " + player.getName() + "  betale en bøde på 1000 og komme ud af fængsel","Ja","Nej") && player.getBalance() > 1000) {
 			player.withdrawBalance(1000);
 			player.setJailed(false);
 		}
@@ -31,6 +32,7 @@ public class PlayerOptions {
 					GUI.showMessage(player.getName() + "  slap ud!  " + player.getName() + "  rykker nu de antal øjne som du slog, og får yderligere et ekstra kast.");
 					player.setJailed(false);
 					player.moveToFieldPos(Rules.getDiceSum());
+					Gameboard.setField(player.getFieldPos());
 					Rules.ExtraTurn(player);
 					break;
 				}	
@@ -74,15 +76,15 @@ public class PlayerOptions {
 			int felt1 = 0;
 			int felt2 = 0;
 			int felt3 = 0;
-			for (int i=1;i>41;i++) {
+			for (int i=1;i<41;i++) {
 				if (Gameboard.getField(i).getColor().equals(choice)) {
 					houses = Gameboard.getField(i).getHouses() + houses;
 					houseprice = Gameboard.getField(i).getHousePrice();
 					if (felt1 == 0) 
 						felt1 = i;
-					if (felt2 == 0 && felt1 > 0)
+					else if (felt2 == 0 && felt1 != 0)
 						felt2 = i;
-					if (felt3 == 0 && felt2 > 0)
+					else if (felt3 == 0 && felt2 != 0)
 						felt3 = i;
 				}
 			}
@@ -110,28 +112,27 @@ public class PlayerOptions {
 				if(felt3==0) {
 					if (Gameboard.getField(felt1).getHouses() == Gameboard.getField(felt2).getHouses()) {
 						Gameboard.getField(felt2).addHouses(1);
-						HouseorHotel(felt2);
 					}
 					else {
 						Gameboard.getField(felt1).addHouses(1);
-						HouseorHotel(felt1);
 					}
 				}
 				else {
 					if (Gameboard.getField(felt1).getHouses() == Gameboard.getField(felt2).getHouses() && Gameboard.getField(felt2).getHouses() == Gameboard.getField(felt3).getHouses() ) {
 						Gameboard.getField(felt3).addHouses(1);
-						HouseorHotel(felt3);
 					}
 					else if (Gameboard.getField(felt1).getHouses() == Gameboard.getField(felt2).getHouses() && Gameboard.getField(felt3).getHouses() > Gameboard.getField(felt2).getHouses()) {
 						Gameboard.getField(felt2).addHouses(1);
-						HouseorHotel(felt2);
 					}
 					else if (Gameboard.getField(felt1).getHouses() < Gameboard.getField(felt2).getHouses()) {
 						Gameboard.getField(felt1).addHouses(1);
-						HouseorHotel(felt1);
 					}
 				}
-			}	
+			}
+			HouseorHotel(felt1);
+			HouseorHotel(felt2);
+			if (felt3 != 0)
+				HouseorHotel(felt3);
 			Options(player);
 		}
 
@@ -151,15 +152,15 @@ public class PlayerOptions {
 			int felt1 = 0;
 			int felt2 = 0;
 			int felt3 = 0;
-			for (int i=1;i>41;i++) {
+			for (int i=1;i<41;i++) {
 				if (Gameboard.getField(i).getColor().equals(choice)) {
 					houses = Gameboard.getField(i).getHouses() + houses;
 					houseprice = Gameboard.getField(i).getHousePrice();
 					if (felt1 == 0) 
 						felt1 = i;
-					if (felt2 == 0 && felt1 > 0)
+					else if (felt2 == 0 && felt1 > 0)
 						felt2 = i;
-					if (felt3 == 0 && felt2 > 0)
+					else if (felt3 == 0 && felt2 > 0)
 						felt3 = i;
 				}
 			}
