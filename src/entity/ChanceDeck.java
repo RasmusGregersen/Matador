@@ -193,7 +193,7 @@ public class ChanceDeck {
 			player.withdrawBalance(3000);
 			break;
 		case 21:
-			if (player.getBalance() + player.getTotalAssets() > 15000) {
+			if (player.getBalance() + player.getTotalAssets() < 15000) {
 				player.depositBalance(40000);
 				GUI.showMessage("Dine samlede aktiver og passiver udgør: " + player.getTotalAssets()+player.getBalance() + " Og du har dermed vundet matadorlegatet!");
 			}
