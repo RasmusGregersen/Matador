@@ -176,11 +176,10 @@ public class PlayerOptions {
 					String No = "Nej";
 					if (TempTotal-HouseChoice < 2 && TempTotal-HouseChoice > 0) {
 						if(GUI.getUserLeftButtonPressed(player.getName() + " forsøger at sælge huse, så du kun har ét hus på en grund... Dette er i strid mod reglerne. Ønsker du, at sælge alle dine huse? ", Yes, No)) {
-							Gameboard.getField(felt2).addHouses(-1);
+							Gameboard.getField(felt2).setHouses(0);
 							HouseorHotel(felt2);
 							player.setTotalAssets(-(houseprice*1));
 							player.depositBalance((houseprice/2));
-							BankruptOrOptions(player);
 						}
 						else {
 							BankruptOrOptions(player);
@@ -210,7 +209,6 @@ public class PlayerOptions {
 							HouseorHotel(felt2);
 							player.setTotalAssets(-(houseprice*2));
 							player.depositBalance((houseprice*2/2));
-							BankruptOrOptions(player);
 						}
 						else {
 							BankruptOrOptions(player);
@@ -232,6 +230,7 @@ public class PlayerOptions {
 			}
 			player.setTotalAssets(-(houseprice*HouseChoice));
 			player.depositBalance((houseprice*HouseChoice/2));
+			BankruptOrOptions(player);
 		}
 
 
