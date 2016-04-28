@@ -231,11 +231,13 @@ public class PlayerOptions {
 			if (player != Gameboard.getField(field).getOwner()) {
 				GUI.showMessage(player.getName() + "  ejer ikke dette felt!");
 				BankruptOrOptions(player);
+                break;
 			}
 			else if (player == Gameboard.getField(field).getOwner()) {
 				if (Gameboard.getField(field).getHouses() > 0) {
 					GUI.showMessage(player.getName() + " skal sælge dine huse, før du kan pantsætte din grund.");
 					BankruptOrOptions(player);
+                    break;
 				}
 				if (GUI.getUserLeftButtonPressed("Vil  " + player.getName() + "  pantsætte " + Gameboard.getField(field).getName() + "?", "Ja", "Nej")) {
 					player.depositBalance((int) (Gameboard.getField(field).getPrice() * 0.9));
@@ -244,6 +246,7 @@ public class PlayerOptions {
 					Gameboard.getField(field).setPawned(true);
 					GUI.setSubText(field, "Pantsat!");
 					BankruptOrOptions(player);
+                    break;
 				}
 				else
 					break;
