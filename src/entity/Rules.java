@@ -30,20 +30,17 @@ public class Rules {
 		player.moveToFieldPos(Rules.getDiceSum());
 		Gameboard.setField(player.getFieldPos(), player);
 		if (player.getBalance() <= 0)
-		PlayerOptions.YoureScrewedmetoden(player);
+			PlayerOptions.Bankrupt(player);
 		CheckWinConditions(player);
-		
-		
 
-		
 	}
 
 	public static void GoToJail (Player player) {
 		GUI.removeAllCars(player.getName());
 		player.setJailed(true);
 	}
-	
-	
+
+
 	public static void ExtraTurn (Player player) {
 		if (Rules.getDie1() == Rules.getDie2()) {
 			if (player.getExtraTurns() == 2) {
@@ -59,7 +56,7 @@ public class Rules {
 		else
 			player.setExtraTurns(0);
 	}
-	
+
 	// Win Conditions
 
 	private static boolean win = false;
@@ -75,11 +72,11 @@ public class Rules {
 
 	// Lose Condition
 	public static void LoseCondition(Player player) {
-			GUI.showMessage(player.getName() + " har forladt spillet");
-			playerCount = playerCount - 1;
-			GUI.removeAllCars(player.getName());
-			player = null;
-		}
+		GUI.showMessage(player.getName() + " har forladt spillet");
+		playerCount = playerCount - 1;
+		GUI.removeAllCars(player.getName());
+		player = null;
+	}
 
 	// Game Setup
 
@@ -129,7 +126,7 @@ public class Rules {
 			}
 		}
 	}
-	
+
 	public static void LoadGame() {
 		for (int i=0; i<6; i++) {
 			if (players[i] != null) {
