@@ -278,7 +278,7 @@ public class PlayerOptions {
 			else if (player == Gameboard.getField(field).getOwner() && Gameboard.getField(field).isPawned() == false) {
 				if (Gameboard.getField(field).isPawned() == false) {
 					GUI.showMessage(player.getName() + "denne grund er ikke pantsat...");
-					BankruptOrOptions(player);
+					Options(player);
 				}
 			else if (player == Gameboard.getField(field).getOwner() && Gameboard.getField(field).isPawned() == true) {
 				player.withdrawBalance(Gameboard.getField(field).getPrice());
