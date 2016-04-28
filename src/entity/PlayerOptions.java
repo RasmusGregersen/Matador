@@ -207,10 +207,10 @@ public class PlayerOptions {
 					if (Gameboard.getField(felt1).getHouses() == Gameboard.getField(felt2).getHouses() && Gameboard.getField(felt2).getHouses() == Gameboard.getField(felt3).getHouses() ) {
 						Gameboard.getField(felt1).addHouses(-1);
 					}
-					else if (Gameboard.getField(felt1).getHouses() == Gameboard.getField(felt2).getHouses() && Gameboard.getField(felt3).getHouses() > Gameboard.getField(felt2).getHouses()) {
+					else if (Gameboard.getField(felt2).getHouses()  > Gameboard.getField(felt1).getHouses() && Gameboard.getField(felt2).getHouses() == Gameboard.getField(felt3).getHouses() ) {
 						Gameboard.getField(felt2).addHouses(-1);
 					}
-					else if (Gameboard.getField(felt1).getHouses() < Gameboard.getField(felt2).getHouses()) {
+					else if (Gameboard.getField(felt1).getHouses() == Gameboard.getField(felt2).getHouses() && Gameboard.getField(felt2).getHouses() < Gameboard.getField(felt3).getHouses()) {
 						Gameboard.getField(felt3).addHouses(-1);
 					}
 				}
