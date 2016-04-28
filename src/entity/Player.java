@@ -105,6 +105,11 @@ public class Player {
 	}
 
 	public void setFieldPos(int FieldPos) {
+		if (this.FieldPos > FieldPos) {
+			GUI.showMessage("Du modtager hermed kr. 4000,- for at passere start");
+			balance = balance + 4000;
+			GUI.setBalance(name, balance);
+		}
 		this.FieldPos = FieldPos;
 		GUI.removeAllCars(name);
 		GUI.setCar(this.FieldPos, name);

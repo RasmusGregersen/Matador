@@ -260,11 +260,12 @@ public class PlayerOptions {
 			if (player != Gameboard.getField(field).getOwner()) {
 				GUI.showMessage(" " + player.getName() + "  ejer ikke dette felt!");
 				Options(player);
+				break;
 			}
 			else if (player == Gameboard.getField(field).getOwner() && !Gameboard.getField(field).isPawned()) {
-				if (!Gameboard.getField(field).isPawned()) {
 					GUI.showMessage(player.getName() + "denne grund er ikke pantsat...");
 					Options(player);
+					break;
 				}
 			else if (player == Gameboard.getField(field).getOwner() && Gameboard.getField(field).isPawned()) {
 				player.withdrawBalance(Gameboard.getField(field).getPrice());
@@ -273,7 +274,7 @@ public class PlayerOptions {
 				Gameboard.getField(field).setPawned(false);
 				GUI.showMessage("Du er nu igen ejer af: " + Gameboard.getField(field).getName());
 				Options(player);
-			}
+				break;
 			}
 		}
 	}

@@ -88,7 +88,8 @@ public class ChanceDeck {
 			break;
 		case 7:
 			for (int i = 0; i < 6; i++) {
-			Rules.getPlayer(i).withdrawBalance(200);
+			if(Rules.getPlayer(i) != null)
+				Rules.getPlayer(i).withdrawBalance(200);
 			}
 			player.depositBalance(200*Rules.getPlayers());
 			break;
@@ -193,12 +194,12 @@ public class ChanceDeck {
 			player.withdrawBalance(3000);
 			break;
 		case 21:
-			if (player.getBalance() + player.getTotalAssets() < 15000) {
+			if ((player.getBalance() + player.getTotalAssets()) < 15000) {
 				player.depositBalance(40000);
-				GUI.showMessage("Dine samlede aktiver og passiver udgør: " + player.getTotalAssets()+player.getBalance() + " Og du har dermed vundet matadorlegatet!");
+				GUI.showMessage("Dine samlede aktiver og passiver udgør: " + (player.getTotalAssets()+player.getBalance()) + " Og du har dermed vundet matadorlegatet!");
 			}
 			else
-				GUI.showMessage("Dine samlede aktiver og passiver udgør: " + player.getTotalAssets()+player.getBalance() + " Og du har dermed desværre ikke vundet matadorlegatet!");
+				GUI.showMessage("Dine samlede aktiver og passiver udgør: " + (player.getTotalAssets()+player.getBalance()) + " Og du har dermed desværre ikke vundet matadorlegatet!");
 			break;
 		case 22:
 			player.depositBalance(3000);
