@@ -81,6 +81,7 @@ public class Player {
 	public int getShipping() {
 		return shipping;
 	}
+
 	public void setShipping() {
 		shipping++;
 	}
@@ -88,9 +89,11 @@ public class Player {
 	public int getBreweries() {
 		return breweries;
 	}
+
 	public void setBreweries() {
 		breweries++;
 	}
+
 	public int getFieldPos() {
 		return FieldPos;
 	}
