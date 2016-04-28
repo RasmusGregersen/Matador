@@ -20,6 +20,14 @@ public abstract class Ownable extends Field {
 	}
 
 	@Override
+	public void addHouses(int houses) {
+	}
+
+	@Override
+	public void setHouses(int houses) {
+	}
+
+	@Override
 	public int getPrice() {
 		return price;
 	}

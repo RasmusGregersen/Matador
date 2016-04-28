@@ -104,10 +104,9 @@ public class PlayerOptions {
 			}
 			int HouseChoice = GUI.getUserInteger(player.getName() + ": Husprisen er: " + houseprice + ", hvor mange vil du købe?",min,max);
 			if (player.getBalance() < (HouseChoice*houseprice)) {
-				GUI.showMessage(" " + player.getName() + "  har ikke råd!");
+				GUI.showMessage(player.getName() + ": du har ikke råd!");
 				Options(player);
 			}
-			player.setTotalAssets(houseprice*HouseChoice);
 			for (int i=0;i>HouseChoice;i++) {
 				if(felt3==0) {
 					if (Gameboard.getField(felt1).getHouses() == Gameboard.getField(felt2).getHouses()) {
@@ -129,6 +128,8 @@ public class PlayerOptions {
 					}
 				}
 			}
+			player.setTotalAssets(houseprice*HouseChoice);
+			player.withdrawBalance((houseprice*HouseChoice));
 			HouseorHotel(felt1);
 			HouseorHotel(felt2);
 			if (felt3 != 0)
