@@ -175,10 +175,8 @@ public class PlayerOptions {
 					String Yes = "Ja";
 					String No = "Nej";
 					if (TempTotal-HouseChoice < 2 && TempTotal-HouseChoice > 0) {
-						String result = GUI.getUserButtonPressed(player.getName() + "forsøger at sælge huse, så du kun har ét hus på en grund... Dette er i strid mod reglerne. Ønsker du, at sælge alle dine huse? ", Yes, No);
-						if(result.equals(Yes)) {
+						if(GUI.getUserLeftButtonPressed(player.getName() + " forsøger at sælge huse, så du kun har ét hus på en grund... Dette er i strid mod reglerne. Ønsker du, at sælge alle dine huse? ", Yes, No)) {
 							Gameboard.getField(felt2).addHouses(-1);
-							//evt fuldstændig fjern huse fra pågældende grunde.
 							HouseorHotel(felt2);
 							player.setTotalAssets(-(houseprice*1));
 							player.depositBalance((houseprice/2));
@@ -200,7 +198,7 @@ public class PlayerOptions {
 				}
 				else {
 					int TempTotal; 
-					TempTotal = Gameboard.getField(felt1).getHouses() + Gameboard.getField(felt2).getHouses();
+					TempTotal = Gameboard.getField(felt1).getHouses() + Gameboard.getField(felt2).getHouses() + Gameboard.getField(felt3).getHouses();
 					String Yes = "Ja";
 					String No = "Nej";
 					if (TempTotal-HouseChoice < 3 && TempTotal-HouseChoice > 0) {
@@ -275,12 +273,12 @@ public class PlayerOptions {
 				GUI.showMessage(" " + player.getName() + "  ejer ikke dette felt!");
 				Options(player);
 			}
-			else if (player == Gameboard.getField(field).getOwner() && Gameboard.getField(field).isPawned() == false) {
-				if (Gameboard.getField(field).isPawned() == false) {
+			else if (player == Gameboard.getField(field).getOwner() && !Gameboard.getField(field).isPawned()) {
+				if (!Gameboard.getField(field).isPawned()) {
 					GUI.showMessage(player.getName() + "denne grund er ikke pantsat...");
 					Options(player);
 				}
-			else if (player == Gameboard.getField(field).getOwner() && Gameboard.getField(field).isPawned() == true) {
+			else if (player == Gameboard.getField(field).getOwner() && Gameboard.getField(field).isPawned()) {
 				player.withdrawBalance(Gameboard.getField(field).getPrice());
 				player.setTotalAssets(Gameboard.getField(field).getPrice());
 				Gameboard.getField(field).setPawned(false);
