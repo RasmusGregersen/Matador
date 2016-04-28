@@ -149,8 +149,6 @@ public class ChanceDeck {
 		case 13:
 			player.setFieldPos(6);
 			Gameboard.setField(player.getFieldPos(), player);
-			if (player.getFieldPos() != 3)
-				player.depositBalance(4000);
 			break;
 		case 14:
 			player.setJailcard(1);	

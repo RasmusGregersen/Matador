@@ -66,8 +66,8 @@ public class PlayerOptions {
 
 
 	public static void BuyProperty (Player player) {
-		String Color1 = "Lyseblå",Color2 = "Orange",Color3 = "Grøn", Color4 = "Grå", Color5 = "Rød", Color6 = "Hvid", Color7 = "Gul", Color8 = "Mørkeblå";
-		String choice = GUI.getUserSelection(player.getName() + ": Hvilken farve ønsker at købe Hus(e) på? ",Color1,Color2,Color3,Color4,Color5,Color6,Color7,Color8);
+		String Color1 = "Lyseblå", Color2 = "Orange", Color3 = "Grøn", Color4 = "Grå", Color5 = "Rød", Color6 = "Hvid", Color7 = "Gul", Color8 = "Mørkeblå";
+		String choice = GUI.getUserSelection(player.getName() + ": Hvilken farve ønsker at købe Hus(e) på? ", Color1, Color2, Color3, Color4, Color5, Color6, Color7, Color8);
 		if (Gameboard.IsPropertyReady(player, choice)) {
 			int min;
 			int max;
@@ -76,11 +76,11 @@ public class PlayerOptions {
 			int felt1 = 0;
 			int felt2 = 0;
 			int felt3 = 0;
-			for (int i=1;i<41;i++) {
+			for (int i = 1; i < 41; i++) {
 				if (Gameboard.getField(i).getColor().equals(choice)) {
 					houses = Gameboard.getField(i).getHouses() + houses;
 					houseprice = Gameboard.getField(i).getHousePrice();
-					if (felt1 == 0) 
+					if (felt1 == 0)
 						felt1 = i;
 					else if (felt2 == 0 && felt1 != 0)
 						felt2 = i;
@@ -94,53 +94,49 @@ public class PlayerOptions {
 					min = 2;
 				else
 					min = 1;
-			}
-			else {
+			} else {
 				max = 15 - houses;
 				if (houses == 0)
 					min = 3;
 				else
 					min = 1;
 			}
-			int HouseChoice = GUI.getUserInteger(player.getName() + ": Husprisen er: " + houseprice + ", hvor mange vil du købe?",min,max);
-			if (player.getBalance() < (HouseChoice*houseprice)) {
+			int HouseChoice = GUI.getUserInteger(player.getName() + ": Husprisen er: " + houseprice + ", hvor mange vil du købe?", min, max);
+			if (player.getBalance() > (HouseChoice * houseprice)) {
+				for (int i = 0; i < HouseChoice; i++) {
+					if (felt3 == 0) {
+						if (Gameboard.getField(felt1).getHouses() == Gameboard.getField(felt2).getHouses()) {
+							Gameboard.getField(felt2).addHouses(1);
+							player.withdrawBalance((houseprice));
+						} else {
+							Gameboard.getField(felt1).addHouses(1);
+							player.withdrawBalance((houseprice));
+						}
+					} else {
+						if (Gameboard.getField(felt1).getHouses() == Gameboard.getField(felt2).getHouses() && Gameboard.getField(felt2).getHouses() == Gameboard.getField(felt3).getHouses()) {
+							Gameboard.getField(felt3).addHouses(1);
+							player.withdrawBalance((houseprice));
+						} else if (Gameboard.getField(felt1).getHouses() == Gameboard.getField(felt2).getHouses() && Gameboard.getField(felt3).getHouses() > Gameboard.getField(felt2).getHouses()) {
+							Gameboard.getField(felt2).addHouses(1);
+							player.withdrawBalance((houseprice));
+						} else if (Gameboard.getField(felt1).getHouses() < Gameboard.getField(felt2).getHouses()) {
+							Gameboard.getField(felt1).addHouses(1);
+							player.withdrawBalance((houseprice));
+						}
+					}
+				}
+				player.setTotalAssets(houseprice * HouseChoice);
+				HouseorHotel(felt1);
+				HouseorHotel(felt2);
+				if (felt3 != 0)
+					HouseorHotel(felt3);
+				Options(player);
+				}
+			else {
 				GUI.showMessage(player.getName() + ": du har ikke råd!");
 				Options(player);
 			}
-			for (int i=0;i<HouseChoice;i++) {
-				if(felt3==0) {
-					if (Gameboard.getField(felt1).getHouses() == Gameboard.getField(felt2).getHouses()) {
-						Gameboard.getField(felt2).addHouses(1);
-						player.withdrawBalance((houseprice));
-					}
-					else {
-						Gameboard.getField(felt1).addHouses(1);
-						player.withdrawBalance((houseprice));
-					}
-				}
-				else {
-					if (Gameboard.getField(felt1).getHouses() == Gameboard.getField(felt2).getHouses() && Gameboard.getField(felt2).getHouses() == Gameboard.getField(felt3).getHouses() ) {
-						Gameboard.getField(felt3).addHouses(1);
-						player.withdrawBalance((houseprice));
-					}
-					else if (Gameboard.getField(felt1).getHouses() == Gameboard.getField(felt2).getHouses() && Gameboard.getField(felt3).getHouses() > Gameboard.getField(felt2).getHouses()) {
-						Gameboard.getField(felt2).addHouses(1);
-						player.withdrawBalance((houseprice));
-					}
-					else if (Gameboard.getField(felt1).getHouses() < Gameboard.getField(felt2).getHouses()) {
-						Gameboard.getField(felt1).addHouses(1);
-						player.withdrawBalance((houseprice));
-					}
-				}
-			}
-			player.setTotalAssets(houseprice*HouseChoice);
-			HouseorHotel(felt1);
-			HouseorHotel(felt2);
-			if (felt3 != 0)
-				HouseorHotel(felt3);
-			Options(player);
 		}
-
 		else {
 			GUI.showMessage(player.getName() + ":  du ejer ikke nok grunde til at bygge hus(e)");
 			Options(player);
