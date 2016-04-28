@@ -32,7 +32,7 @@ public class PlayerOptions {
 					GUI.showMessage(player.getName() + "  slap ud!  " + player.getName() + "  rykker nu de antal øjne som du slog, og får yderligere et ekstra kast.");
 					player.setJailed(false);
 					player.moveToFieldPos(Rules.getDiceSum());
-					Gameboard.setField(player.getFieldPos());
+					Gameboard.setField(player.getFieldPos(), player);
 					Rules.ExtraTurn(player);
 					break;
 				}	
