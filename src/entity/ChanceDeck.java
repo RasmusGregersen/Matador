@@ -87,10 +87,10 @@ public class ChanceDeck {
 			player.depositBalance(1000);
 			break;
 		case 7:
-			//for (int i = 0; i < 6; i++) {
-			//Rules.getPlayer(i).withdrawBalance(200);
-			//}
-			//player.depositBalance(200*Rules.getPlayers());
+			for (int i = 0; i < 6; i++) {
+			Rules.getPlayer(i).withdrawBalance(200);
+			}
+			player.depositBalance(200*Rules.getPlayers());
 			break;
 		case 8:
 			player.depositBalance(200);
@@ -168,8 +168,11 @@ public class ChanceDeck {
 			Gameboard.setField(player.getFieldPos(), player);
 			break;
 		case 18:
-			//player.moveToFieldPos(-3);
-			//Gameboard.setField(player.getFieldPos(), player);
+			if (player.getFieldPos() == 3)
+				player.setFieldPos(40);
+			else
+			player.moveToFieldPos(-3);
+			Gameboard.setField(player.getFieldPos(), player);
 			break;
 		case 19:
 			housecounter = 0;
