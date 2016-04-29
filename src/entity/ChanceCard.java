@@ -1,5 +1,5 @@
 package entity;
-
+	//Chancecard class
 public class ChanceCard {
 	private String description;
 	private int effectnumber;

@@ -9,11 +9,12 @@ public class ChanceDeck {
 	private ChanceCard[] deck = new ChanceCard[33];
 	private int pickCount = 0;
 
+	//Constructor
 	public ChanceDeck() {
 		CreateCards();
 		ShuffleDeck();
 	}
-	
+	// Array list with all the ChanceCards within.
 	public void CreateCards() {
 		deck[0] = new ChanceCard("De modtager Deres aktieudbytte. Modtag 1000 kr,- fra Banken",1);
 		deck[1] = new ChanceCard("Ryk frem til start",2);
@@ -49,7 +50,7 @@ public class ChanceDeck {
 		deck[31] = new ChanceCard("De har kørt frem for Fuld Stop. Betal kr. 1000 i bøde.",9);
 		deck[32] = new ChanceCard("De har måttet vedtage en parkeringsbøde. Betal kr. 200 i bøde.",4);
 	}
-
+	// Shufflemethod for the ChanceDeck
 	public void ShuffleDeck() {
 		Collections.shuffle(Arrays.asList(deck));
 	}
@@ -65,7 +66,7 @@ public class ChanceDeck {
 		}
 			
 	}
-
+	// Swtich with all the ChanceCard effects within.
 	public void effect(Player player, int number) {
 		switch (number) {
 		case 1:
