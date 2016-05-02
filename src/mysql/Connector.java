@@ -7,34 +7,51 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Connector {
-	private Connection connection;
-	private final String connectionUrl = "jdbc:mysql://dtu.czx5ninmk2ar.eu-west-1.rds.amazonaws.com:3306/Matador";
-	private final String connectionUser = "cdio";
-	private final String connectionPassword = "matador.CDIO";
-	
-    public Connector() {
-        try {
-			Class.forName("com.mysql.jdbc.Driver");
-			connection = DriverManager.getConnection(connectionUrl, connectionUser, connectionPassword);
-		} 
-        catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
-			System.exit(1);
-		}
+	private static Connection con;
+    private static Statement stm;
+
+	private static String connectionUrl = "jdbc:mysql://dtu.czx5ninmk2ar.eu-west-1.rds.amazonaws.com:3306/Matador";
+	private static String connectionUser = "cdio";
+	private static String connectionPassword = "matador.CDIO";
+
+    public Connector()
+            throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException
+    {
+        con	= connectToDatabase();
+        stm	= con.createStatement();
     }
-    
-	public Connection getConnection() {
-    	return connection;
+
+
+    public static Connection connectToDatabase()
+            throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException
+    {
+        Class.forName("com.mysql.jdbc.Driver").newInstance();
+        return (Connection) DriverManager.getConnection(connectionUrl, connectionUser, connectionPassword);
     }
-	
-	public ResultSet doQuery(String query) throws SQLException {
-        Statement stmt = connection.createStatement();
-        ResultSet res = stmt.executeQuery(query);
-        return res;
+
+	public static ResultSet doQuery(String query)
+            throws DALException
+    {
+        try
+        {
+            return stm.executeQuery(query);
+        }
+        catch (SQLException e)
+        {
+            throw new DALException(e);
+        }
     }
-    
-    public void doUpdate(String query) throws SQLException {
-        Statement stmt = connection.createStatement();
-        stmt.executeUpdate(query);
+
+    public static void doUpdate(String query)
+            throws DALException
+    {
+        try
+        {
+            stm.executeUpdate(query);
+        }
+        catch  (SQLException e)
+        {
+            throw new DALException(e);
+        }
     }
 }
