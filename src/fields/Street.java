@@ -14,12 +14,10 @@ public class Street extends Ownable {
 	private int houses;
 	private String color;
 
-	@Override
 	public String getColor() {
 		return color;
 	}
 
-	@Override
 	public int getHousePrice() {
 		return houseprice;
 	}
@@ -36,19 +34,12 @@ public class Street extends Ownable {
 		this.hotelrent = hotelrent;
 	}
 
-	@Override
 	public int getHouses() {
 		return houses;
 	}
-	
-	//@Override
+
 	public void addHouses(int houses) {
 		this.houses = this.houses + houses;
-	}
-
-	@Override
-	public void setHouses(int houses) {
-		this.houses = houses;
 	}
 	
 	@Override

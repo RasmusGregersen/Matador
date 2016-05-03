@@ -2,9 +2,18 @@ package entity;
 
 import java.awt.Color;
 
-import fields.Ownable;
+import desktop_fields.Brewery;
+import desktop_fields.Chance;
+import desktop_fields.Field;
+import desktop_fields.Jail;
+import desktop_fields.Shipping;
+import desktop_fields.Start;
+import desktop_fields.Street;
+import desktop_fields.Tax;
+import fields.*;
 import desktop_fields.*;
 import desktop_resources.GUI;
+import fields.Ownable;
 
 
 public class Gameboard {
@@ -26,17 +35,19 @@ public class Gameboard {
 
 	public static boolean IsPropertyReady(Player player, String color)
 	{
+
+
 		int properties = 0;
 		boolean out = false;
 		for (int i=0;i<40;i++) {
-			if (fieldValue[i].getColor().equals(color) && !fieldValue[i].getColor().equals(""))
-			{
-				if (fieldValue[i].getOwner() == player && !fieldValue[i].isPawned()) {
-					properties++;
+			if (fieldValue[i] instanceof fields.Street) {
+				if (((fields.Street) fieldValue[i]).getColor().equals(color)) {
+					if (((Ownable) fieldValue[i]).getOwner() == player && !((Ownable) fieldValue[i]).isPawned()) {
+						properties++;
+					}
 				}
 			}
 		}
-		
 		if (color.equals("Lyseblå") || color.equals("Mørkeblå")) {
 			if (properties == 2)
 				out = true;

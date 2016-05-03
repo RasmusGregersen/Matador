@@ -9,7 +9,6 @@ public abstract class Ownable extends Field {
 	private Player owner;
 	private boolean pawned = false;
 
-	@Override
 	public Player getOwner() {
 		return owner;
 	}
@@ -18,27 +17,14 @@ public abstract class Ownable extends Field {
 		super(name);
 		this.price = price;
 	}
-
-	@Override
-	public void setHouses(int houses) {
-	}
-
-	@Override
 	public int getPrice() {
 		return price;
 	}
 
-	@Override
-	public int getHousePrice() {
-		return 0;
-	}
-
-	@Override
 	public boolean isPawned() {
 		return pawned;
 	}
-	
-	@Override
+
 	public void setPawned(boolean pawned) {
 		this.pawned = pawned;
 	}
@@ -64,7 +50,7 @@ public abstract class Ownable extends Field {
 		else if (player == owner) { // Checks if the actual player is the owner.
 			GUI.displayChanceCard(player.getName() + ": Velkommen tilbage!");
 		}
-		else if (Gameboard.IsPropertyReady(owner, getColor()) && getHouses() == 0) {
+		else if (Gameboard.IsPropertyReady(owner, ((Street) Gameboard.getField(player.getFieldPos())).getColor()) && ((Street) Gameboard.getField(player.getFieldPos())).getHouses() == 0) {
 				GUI.displayChanceCard(player.getName() + ": er landet på " + owner.getName() + "'s felt. Udlejen er " + (getRent()*2));
 				player.withdrawBalance((getRent()*2));
 				owner.depositBalance((getRent()*2));

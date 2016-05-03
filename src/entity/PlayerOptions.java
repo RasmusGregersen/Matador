@@ -1,6 +1,7 @@
 package entity;
 
 import desktop_resources.GUI;
+import fields.Ownable;
 import fields.Street;
 
 public class PlayerOptions {
@@ -78,9 +79,9 @@ public class PlayerOptions {
 			int felt2 = 0;
 			int felt3 = 0;
 			for (int i = 1; i < 41; i++) {
-				if (Gameboard.getField(i).getColor().equals(choice)) {
-					houses = Gameboard.getField(i).getHouses() + houses;
-					houseprice = Gameboard.getField(i).getHousePrice();
+				if (((Street) Gameboard.getField(i)).getColor().equals(choice)) {
+					houses = ((Street) Gameboard.getField(i)).getHouses() + houses;
+					houseprice = ((Street) Gameboard.getField(i)).getHousePrice();
 					if (felt1 == 0)
 						felt1 = i;
 					else if (felt2 == 0 && felt1 != 0)
@@ -106,7 +107,7 @@ public class PlayerOptions {
 			if (player.getBalance() > (HouseChoice * houseprice)) {
 				for (int i = 0; i < HouseChoice; i++) {
 					if (felt3 == 0) {
-						if (Gameboard.getField(felt1).getHouses() == Gameboard.getField(felt2).getHouses()) {
+						if (((Street) Gameboard.getField(felt1)).getHouses() == ((Street) Gameboard.getField(felt2)).getHouses()) {
 							((Street) Gameboard.getField(felt2)).addHouses(1);
 							player.withdrawBalance((houseprice));
 						} else {
@@ -114,13 +115,13 @@ public class PlayerOptions {
 							player.withdrawBalance((houseprice));
 						}
 					} else {
-						if (Gameboard.getField(felt1).getHouses() == Gameboard.getField(felt2).getHouses() && Gameboard.getField(felt2).getHouses() == Gameboard.getField(felt3).getHouses()) {
+						if (((Street) Gameboard.getField(felt1)).getHouses() == ((Street) Gameboard.getField(felt2)).getHouses() && ((Street) Gameboard.getField(felt2)).getHouses() == ((Street) Gameboard.getField(felt3)).getHouses()) {
 							((Street) Gameboard.getField(felt3)).addHouses(1);
 							player.withdrawBalance((houseprice));
-						} else if (Gameboard.getField(felt1).getHouses() == Gameboard.getField(felt2).getHouses() && Gameboard.getField(felt3).getHouses() > Gameboard.getField(felt2).getHouses()) {
+						} else if (((Street) Gameboard.getField(felt1)).getHouses() == ((Street) Gameboard.getField(felt2)).getHouses() && ((Street) Gameboard.getField(felt3)).getHouses() > ((Street) Gameboard.getField(felt2)).getHouses()) {
 							((Street) Gameboard.getField(felt2)).addHouses(1);
 							player.withdrawBalance((houseprice));
-						} else if (Gameboard.getField(felt1).getHouses() < Gameboard.getField(felt2).getHouses()) {
+						} else if (((Street) Gameboard.getField(felt1)).getHouses() < ((Street) Gameboard.getField(felt2)).getHouses()) {
 							((Street) Gameboard.getField(felt1)).addHouses(1);
 							player.withdrawBalance((houseprice));
 						}
@@ -155,9 +156,9 @@ public class PlayerOptions {
 			int felt2 = 0;
 			int felt3 = 0;
 			for (int i=1;i<41;i++) {
-				if (Gameboard.getField(i).getColor().equals(choice)) {
-					houses = Gameboard.getField(i).getHouses() + houses;
-					houseprice = Gameboard.getField(i).getHousePrice();
+				if (((Street) Gameboard.getField(i)).getColor().equals(choice)) {
+					houses = ((Street) Gameboard.getField(i)).getHouses() + houses;
+					houseprice = ((Street) Gameboard.getField(i)).getHousePrice();
 					if (felt1 == 0) 
 						felt1 = i;
 					else if (felt2 == 0 && felt1 > 0)
@@ -175,7 +176,7 @@ public class PlayerOptions {
 				if(felt3==0) {
 					if (houses-HouseChoice == 1) {
 						if(GUI.getUserLeftButtonPressed(player.getName() + ": du forsøger at sælge huse, så du kun har ét hus på en grund... Dette er i strid mod reglerne. Ønsker du, at sælge alle dine huse? ", "Yes", "No")) {
-							Gameboard.getField(felt2).setHouses(0);
+							((Street) Gameboard.getField(felt2)).addHouses(-1);
 							player.setTotalAssets(-(houseprice));
 							player.depositBalance((houseprice/2));
 						}
@@ -183,7 +184,7 @@ public class PlayerOptions {
 							BankruptOrOptions(player);
 					}
 
-					else if (Gameboard.getField(felt2).getHouses() == Gameboard.getField(felt1).getHouses()) {
+					else if (((Street) Gameboard.getField(felt2)).getHouses() == ((Street) Gameboard.getField(felt1)).getHouses()) {
 						((Street) Gameboard.getField(felt1)).addHouses(-1);
 					}
 					else {
@@ -201,13 +202,13 @@ public class PlayerOptions {
 						else
 							BankruptOrOptions(player);
 					}
-					if (Gameboard.getField(felt1).getHouses() == Gameboard.getField(felt2).getHouses() && Gameboard.getField(felt2).getHouses() == Gameboard.getField(felt3).getHouses() ) {
+					if (((Street) Gameboard.getField(felt1)).getHouses() == ((Street) Gameboard.getField(felt2)).getHouses() && ((Street) Gameboard.getField(felt2)).getHouses() == ((Street) Gameboard.getField(felt3)).getHouses() ) {
 						((Street) Gameboard.getField(felt1)).addHouses(-1);
 					}
-					else if (Gameboard.getField(felt2).getHouses()  > Gameboard.getField(felt1).getHouses() && Gameboard.getField(felt2).getHouses() == Gameboard.getField(felt3).getHouses() ) {
+					else if (((Street) Gameboard.getField(felt2)).getHouses()  > ((Street) Gameboard.getField(felt1)).getHouses() && ((Street) Gameboard.getField(felt2)).getHouses() == ((Street) Gameboard.getField(felt3)).getHouses() ) {
 						((Street) Gameboard.getField(felt2)).addHouses(-1);
 					}
-					else if (Gameboard.getField(felt1).getHouses() == Gameboard.getField(felt2).getHouses() && Gameboard.getField(felt2).getHouses() < Gameboard.getField(felt3).getHouses()) {
+					else if (((Street) Gameboard.getField(felt1)).getHouses() == ((Street) Gameboard.getField(felt2)).getHouses() && ((Street) Gameboard.getField(felt2)).getHouses() < ((Street) Gameboard.getField(felt3)).getHouses()) {
 						((Street) Gameboard.getField(felt3)).addHouses(-1);
 					}
 				}
@@ -231,22 +232,24 @@ public class PlayerOptions {
 	public static void SetPawned (Player player) {
 		while(true) {
 			int field = GUI.getUserInteger(player.getName() + ": Hvilken grund ønsker at pantsætte, indtast grundens nummer", 1, 40);
-			if (player != Gameboard.getField(field).getOwner()) {
+			if (player != ((Ownable) Gameboard.getField(field)).getOwner()) {
 				GUI.showMessage(player.getName() + "  ejer ikke dette felt!");
 				BankruptOrOptions(player);
                 break;
 			}
-			else if (player == Gameboard.getField(field).getOwner()) {
-				if (Gameboard.getField(field).getHouses() > 0) {
+			else if (player == ((Ownable) Gameboard.getField(field)).getOwner()) {
+				if (Gameboard.getField(field) instanceof fields.Street) {
+				if (((Street) Gameboard.getField(field)).getHouses() > 0) {
 					GUI.showMessage(player.getName() + ": du skal sælge dine huse, før du kan pantsætte din grund.");
 					BankruptOrOptions(player);
                     break;
 				}
+				}
 				if (GUI.getUserLeftButtonPressed(player.getName() + ": Vil du pantsætte " + Gameboard.getField(field).getName() + "?", "Ja", "Nej")) {
-					player.depositBalance((int) (Gameboard.getField(field).getPrice() * 0.9));
-					player.setTotalAssets(-(Gameboard.getField(field).getPrice()));
-					GUI.showMessage("Der blev indsat " + (int)(Gameboard.getField(field).getPrice() * 0.9) + " på din balance");
-					Gameboard.getField(field).setPawned(true);
+					player.depositBalance((int)(((Ownable) Gameboard.getField(field)).getPrice() * 0.9));
+					player.setTotalAssets(-(((Ownable) Gameboard.getField(field)).getPrice()));
+					GUI.showMessage("Der blev indsat " + (int)(((Ownable) Gameboard.getField(field)).getPrice() * 0.9) + " på din balance");
+					((Ownable) Gameboard.getField(field)).setPawned(true);
 					GUI.setSubText(field, "Pantsat!");
 					BankruptOrOptions(player);
                     break;
@@ -260,21 +263,21 @@ public class PlayerOptions {
 	public static void BuyPawned (Player player) {
 		while(true) {
 			int field = GUI.getUserInteger(player.getName() + ": Hvilken pantsat grund ønsker du at købe tilbage , indtast grundens nummer", 1, 40);
-			if (player != Gameboard.getField(field).getOwner()) {
+			if (player != ((Ownable) Gameboard.getField(field)).getOwner()) {
 				GUI.showMessage(" " + player.getName() + "  ejer ikke dette felt!");
 				Options(player);
 				break;
 			}
-			else if (player == Gameboard.getField(field).getOwner() && !Gameboard.getField(field).isPawned()) {
+			else if (player == ((Ownable) Gameboard.getField(field)).getOwner() && !((Ownable) Gameboard.getField(field)).isPawned()) {
 					GUI.showMessage(player.getName() + "denne grund er ikke pantsat...");
 					Options(player);
 					break;
 				}
-			else if (player == Gameboard.getField(field).getOwner() && Gameboard.getField(field).isPawned()) {
-				player.withdrawBalance(Gameboard.getField(field).getPrice());
-				player.setTotalAssets(Gameboard.getField(field).getPrice());
+			else if (player == ((Ownable) Gameboard.getField(field)).getOwner() && ((Ownable) Gameboard.getField(field)).isPawned()) {
+				player.withdrawBalance(((Ownable) Gameboard.getField(field)).getPrice());
+				player.setTotalAssets(((Ownable) Gameboard.getField(field)).getPrice());
 				GUI.setSubText(field, player.getName());
-				Gameboard.getField(field).setPawned(false);
+				(( Ownable) Gameboard.getField(field)).setPawned(false);
 				GUI.showMessage(player.getName() +": du er nu ejer igen af: " + Gameboard.getField(field).getName());
 				Options(player);
 				break;
@@ -284,8 +287,8 @@ public class PlayerOptions {
 
 
 	public static void HouseorHotel (int felt) {
-		if (Gameboard.getField(felt).getHouses() < 5){
-			GUI.setHouses(felt, Gameboard.getField(felt).getHouses());
+		if (((Street) Gameboard.getField(felt)).getHouses() < 5){
+			GUI.setHouses(felt, ((Street) Gameboard.getField(felt)).getHouses());
 		}
 		else {
 			GUI.setHotel(felt, true);

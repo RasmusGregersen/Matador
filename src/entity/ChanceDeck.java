@@ -1,6 +1,8 @@
 package entity;
 
 import desktop_resources.GUI;
+import fields.Ownable;
+import fields.Street;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -104,11 +106,11 @@ public class ChanceDeck {
 			int housecounter = 0;
 			int hotelcounter = 0;
 			for (int i = 1; i < 41;i++) {
-				if (Gameboard.getField(i).getOwner() == player) {
-					if (Gameboard.getField(i).getHouses() == 5)
+				if (((Ownable) Gameboard.getField(i)).getOwner() == player) {
+					if (((Street) Gameboard.getField(i)).getHouses() == 5)
 						hotelcounter++; 
-					else if (Gameboard.getField(i).getHouses() < 5)
-						housecounter = housecounter + Gameboard.getField(i).getHouses();
+					else if (((Street) Gameboard.getField(i)).getHouses() < 5)
+						housecounter = housecounter + ((Street) Gameboard.getField(i)).getHouses();
 				}
 			}
 			int total = 2300*hotelcounter + 800*housecounter;
@@ -125,26 +127,26 @@ public class ChanceDeck {
 			if (player.getFieldPos() == 37 || player.getFieldPos() == 3) {
 				player.setFieldPos(6);
 				Gameboard.setField(player.getFieldPos(), player);
-				if (Gameboard.getField(6).getOwner() != null && Gameboard.getField(6).getOwner() != player)
-					player.withdrawBalance(Gameboard.getField(6).getRent());
+				if (((Ownable)Gameboard.getField(6)).getOwner() != null && ((Ownable)Gameboard.getField(6)).getOwner() != player)
+					player.withdrawBalance(((Ownable)Gameboard.getField(6)).getRent());
 			}
 			else if (player.getFieldPos() == 8) {
 				player.setFieldPos(16);
 				Gameboard.setField(player.getFieldPos(), player);
-				if (Gameboard.getField(16).getOwner() != null && Gameboard.getField(16).getOwner() != player)
-					player.withdrawBalance(Gameboard.getField(16).getRent());
+				if (((Ownable)Gameboard.getField(16)).getOwner() != null && ((Ownable)Gameboard.getField(16)).getOwner() != player)
+					player.withdrawBalance(((Ownable)Gameboard.getField(16)).getRent());
 			}
 			else if (player.getFieldPos() == 18 || player.getFieldPos() == 23) {
 				player.setFieldPos(26);
 				Gameboard.setField(player.getFieldPos(), player);
-				if (Gameboard.getField(26).getOwner() != null && Gameboard.getField(26).getOwner() != player)
-					player.withdrawBalance(Gameboard.getField(26).getRent());
+				if (((Ownable)Gameboard.getField(26)).getOwner() != null && ((Ownable)Gameboard.getField(26)).getOwner() != player)
+					player.withdrawBalance(((Ownable)Gameboard.getField(26)).getRent());
 			}
 			else if (player.getFieldPos() == 34) {
 				player.setFieldPos(36);
 				Gameboard.setField(player.getFieldPos(), player);
-				if (Gameboard.getField(36).getOwner() != null && Gameboard.getField(36).getOwner() != player)
-					player.withdrawBalance(Gameboard.getField(36).getRent());
+				if (((Ownable)Gameboard.getField(36)).getOwner() != null && ((Ownable)Gameboard.getField(36)).getOwner() != player)
+					player.withdrawBalance(((Ownable)Gameboard.getField(36)).getRent());
 			}
 			break;
 		case 13:
@@ -178,11 +180,11 @@ public class ChanceDeck {
 			housecounter = 0;
 			hotelcounter = 0;
 			for (int i = 1; i < 41;i++) {
-				if (Gameboard.getField(i).getOwner() == player) {
-					if (Gameboard.getField(i).getHouses() == 5)
+				if (((Ownable)Gameboard.getField(i)).getOwner() == player) {
+					if (((Street)Gameboard.getField(i)).getHouses() == 5)
 						hotelcounter++; 
-					else if (Gameboard.getField(i).getHouses() < 5)
-						housecounter = housecounter + Gameboard.getField(i).getHouses();
+					else if (((Street)Gameboard.getField(i)).getHouses() < 5)
+						housecounter = housecounter + ((Street)Gameboard.getField(i)).getHouses();
 				}
 			}
 			total = 2000*hotelcounter + 500*housecounter;

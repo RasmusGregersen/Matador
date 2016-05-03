@@ -5,8 +5,9 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.ArrayList;
 
-public class PlayerDAO implements PlayerDAOInterface {
-
+public class PlayerDAO //implements PlayerDAOInterface
+{
+    /*
     public PlayerDTO getPlayer(int PlayerID) throws SQLException {
         ResultSet rs = Connector.doQuery("SELECT * FROM Player WHERE PlayerID = " + PlayerID);
         try {
@@ -46,4 +47,5 @@ public class PlayerDAO implements PlayerDAOInterface {
         catch (SQLException e) { throw new DALException(e); }
         return list;
     }
+    */
 }
