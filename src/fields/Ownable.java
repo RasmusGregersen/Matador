@@ -13,6 +13,10 @@ public abstract class Ownable extends Field {
 		return owner;
 	}
 
+	public void setOwner(Player player) {
+		owner = player;
+	}
+
 	public Ownable(String name, int price){
 		super(name);
 		this.price = price;

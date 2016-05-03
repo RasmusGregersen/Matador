@@ -35,8 +35,6 @@ public class Gameboard {
 
 	public static boolean IsPropertyReady(Player player, String color)
 	{
-
-
 		int properties = 0;
 		boolean out = false;
 		for (int i=0;i<40;i++) {
