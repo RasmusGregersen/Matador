@@ -1,6 +1,7 @@
 package entity;
 
 import desktop_resources.GUI;
+import fields.Street;
 
 public class PlayerOptions {
 
@@ -106,21 +107,21 @@ public class PlayerOptions {
 				for (int i = 0; i < HouseChoice; i++) {
 					if (felt3 == 0) {
 						if (Gameboard.getField(felt1).getHouses() == Gameboard.getField(felt2).getHouses()) {
-							Gameboard.getField(felt2).addHouses(1);
+							((Street) Gameboard.getField(felt2)).addHouses(1);
 							player.withdrawBalance((houseprice));
 						} else {
-							Gameboard.getField(felt1).addHouses(1);
+							((Street) Gameboard.getField(felt1)).addHouses(1);
 							player.withdrawBalance((houseprice));
 						}
 					} else {
 						if (Gameboard.getField(felt1).getHouses() == Gameboard.getField(felt2).getHouses() && Gameboard.getField(felt2).getHouses() == Gameboard.getField(felt3).getHouses()) {
-							Gameboard.getField(felt3).addHouses(1);
+							((Street) Gameboard.getField(felt3)).addHouses(1);
 							player.withdrawBalance((houseprice));
 						} else if (Gameboard.getField(felt1).getHouses() == Gameboard.getField(felt2).getHouses() && Gameboard.getField(felt3).getHouses() > Gameboard.getField(felt2).getHouses()) {
-							Gameboard.getField(felt2).addHouses(1);
+							((Street) Gameboard.getField(felt2)).addHouses(1);
 							player.withdrawBalance((houseprice));
 						} else if (Gameboard.getField(felt1).getHouses() < Gameboard.getField(felt2).getHouses()) {
-							Gameboard.getField(felt1).addHouses(1);
+							((Street) Gameboard.getField(felt1)).addHouses(1);
 							player.withdrawBalance((houseprice));
 						}
 					}
@@ -183,17 +184,17 @@ public class PlayerOptions {
 					}
 
 					else if (Gameboard.getField(felt2).getHouses() == Gameboard.getField(felt1).getHouses()) {
-						Gameboard.getField(felt1).addHouses(-1);
+						((Street) Gameboard.getField(felt1)).addHouses(-1);
 					}
 					else {
-						Gameboard.getField(felt2).addHouses(-1);
+						((Street) Gameboard.getField(felt2)).addHouses(-1);
 					}
 				}
 				else {
 					if (houses-HouseChoice < 3 && houses-HouseChoice > 0) {
 						if(GUI.getUserLeftButtonPressed(player.getName() + ": du forsøger at sælge huse, så du kun har to huse på to grunde... Dette er i strid mod reglerne. Ønsker du, at sælge alle dine huse? ", "Yes", "No")) {
-							Gameboard.getField(felt2).addHouses(-1);
-							Gameboard.getField(felt3).addHouses(-1);
+							((Street) Gameboard.getField(felt2)).addHouses(-1);
+							((Street) Gameboard.getField(felt3)).addHouses(-1);
 							player.setTotalAssets(-(houseprice*2));
 							player.depositBalance((houseprice*2/2));
 						}
@@ -201,13 +202,13 @@ public class PlayerOptions {
 							BankruptOrOptions(player);
 					}
 					if (Gameboard.getField(felt1).getHouses() == Gameboard.getField(felt2).getHouses() && Gameboard.getField(felt2).getHouses() == Gameboard.getField(felt3).getHouses() ) {
-						Gameboard.getField(felt1).addHouses(-1);
+						((Street) Gameboard.getField(felt1)).addHouses(-1);
 					}
 					else if (Gameboard.getField(felt2).getHouses()  > Gameboard.getField(felt1).getHouses() && Gameboard.getField(felt2).getHouses() == Gameboard.getField(felt3).getHouses() ) {
-						Gameboard.getField(felt2).addHouses(-1);
+						((Street) Gameboard.getField(felt2)).addHouses(-1);
 					}
 					else if (Gameboard.getField(felt1).getHouses() == Gameboard.getField(felt2).getHouses() && Gameboard.getField(felt2).getHouses() < Gameboard.getField(felt3).getHouses()) {
-						Gameboard.getField(felt3).addHouses(-1);
+						((Street) Gameboard.getField(felt3)).addHouses(-1);
 					}
 				}
 			}

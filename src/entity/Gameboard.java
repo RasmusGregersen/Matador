@@ -45,7 +45,6 @@ public class Gameboard {
 			if (properties == 3)
 				out = true;
 		}
-			
 		return out;
 	}
 

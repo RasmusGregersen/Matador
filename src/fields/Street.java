@@ -41,7 +41,7 @@ public class Street extends Ownable {
 		return houses;
 	}
 	
-	@Override
+	//@Override
 	public void addHouses(int houses) {
 		this.houses = this.houses + houses;
 	}

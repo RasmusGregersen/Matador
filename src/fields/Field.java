@@ -47,10 +47,6 @@ public abstract class Field {
 		return 0;
 	}
 
-	public void addHouses(int houses) {
-	}
-
-	public void setHouses(int houses) {
-	}
+    public void setHouses(int houses) {	}
 
 }
