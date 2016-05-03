@@ -10,7 +10,7 @@ public class PlayerDTO {
     boolean jailed;
     int Jailturns;
     int TotalAssets;
-    int ExtraTurns; // Behøves ikke hvis vi kun gemmer efter hver omgang.
+    // int ExtraTurns; Behøves ikke hvis vi kun gemmer efter hver omgang.
 
     public PlayerDTO(String name, int balance, int breweries, int shipping, int FieldPos, int jailcard,
                      boolean jailed, int Jailturns,  int TotalAssets)
@@ -61,10 +61,6 @@ public class PlayerDTO {
 
     public int getJailcard() {
         return jailcard;
-    }
-
-    public int getExtraTurns() {
-        return ExtraTurns;
     }
 
     public boolean isJailed() {
