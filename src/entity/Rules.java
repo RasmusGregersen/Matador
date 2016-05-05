@@ -16,9 +16,9 @@ public class Rules {
 		return players[playernumber];
 	}
 
-	public static int getPlayers() {
-		return playerCount;
-	}
+//	public static int getPlayers() {
+//		return playerCount;
+//	}
 
 	// Turn Method
 
