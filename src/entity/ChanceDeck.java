@@ -75,6 +75,7 @@ public class ChanceDeck {
 			player.depositBalance(1000);
 			break;
 		case 2:
+			GUI.showMessage("Læs dit chancekort");
 			player.setFieldPos(1);
 			break;
 		case 3:
@@ -118,12 +119,14 @@ public class ChanceDeck {
 			GUI.showMessage(player.getName() + housecounter + " huse og " + hotelcounter + " hoteller. Derfor skal du betale " + total + " kr,- til Banken");
 			break;
 		case 11:
+			GUI.showMessage("Læs dit chancekort");
 			if (player.getFieldPos() == 34 || player.getFieldPos() == 37)
 				player.depositBalance(4000);
 			player.setFieldPos(25);
 			Gameboard.setField(player.getFieldPos(), player);
 			break;
 		case 12:
+			GUI.showMessage("Læs dit chancekort");
 			if (player.getFieldPos() == 37 || player.getFieldPos() == 3) {
 				player.setFieldPos(6);
 				Gameboard.setField(player.getFieldPos(), player);
@@ -150,6 +153,7 @@ public class ChanceDeck {
 			}
 			break;
 		case 13:
+			GUI.showMessage("Læs dit chancekort");
 			player.setFieldPos(6);
 			Gameboard.setField(player.getFieldPos(), player);
 			break;
@@ -157,6 +161,7 @@ public class ChanceDeck {
 			player.setJailcard(1);	
 			break;
 		case 15:
+			GUI.showMessage("Læs dit chancekort");
 			if (player.getFieldPos() == 18 || player.getFieldPos() == 23 || player.getFieldPos() == 34 || player.getFieldPos() == 37)
 				player.depositBalance(4000);
 			player.setFieldPos(12);
@@ -166,10 +171,12 @@ public class ChanceDeck {
 			player.depositBalance(500);
 			break;
 		case 17:
+			GUI.showMessage("Læs dit chancekort");
 			player.setFieldPos(39);
 			Gameboard.setField(player.getFieldPos(), player);
 			break;
 		case 18:
+			GUI.showMessage("Læs dit chancekort");
 			if (player.getFieldPos() == 3)
 				player.setFieldPos(40);
 			else
