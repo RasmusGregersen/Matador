@@ -23,6 +23,7 @@ public class Rules {
 	// Turn Method
 
 	public static void Turn(Player player) {
+		if (!CheckWinConditions(player)) {
 		SaveGame();
 		PlayerOptions.Options(player);
 		Rules.rollDice();
@@ -31,8 +32,7 @@ public class Rules {
 		if (player.getBalance() <= 0)
 			PlayerOptions.Bankrupt(player);
 		Rules.ExtraTurn(player);
-		CheckWinConditions(player);
-
+		}
 	}
 
 	public static void GoToJail (Player player) {
@@ -63,11 +63,14 @@ public class Rules {
 	public static boolean getWin() {
 		return win;
 	}
-	public static void CheckWinConditions(Player player) {
+	public static boolean CheckWinConditions(Player player) {
+		boolean out = false;
 		if(playerCount == 1) {
 			win = true;
-			GUI.showMessage("Alle dine modstandere er slået ud og du har vundet spillet");
+			GUI.showMessage("Alle dine modstandere er slået ud og "+ player.getName() + " har vundet spillet");
+			out = true;
 		}
+		return out;
 	}	
 
 	// Lose Condition
