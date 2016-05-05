@@ -155,6 +155,7 @@ public class PlayerOptions {
 			int felt1 = 0;
 			int felt2 = 0;
 			int felt3 = 0;
+			int min = 1;
 			for (int i=1;i<41;i++) {
 				if (((Street) Gameboard.getField(i)).getColor().equals(choice)) {
 					houses = ((Street) Gameboard.getField(i)).getHouses() + houses;
@@ -171,7 +172,11 @@ public class PlayerOptions {
 				GUI.showMessage(player.getName() + ": du har ikke nogle huse at sælge...");
 				BankruptOrOptions(player);
 			}
-			int HouseChoice = GUI.getUserInteger(player.getName() +": Husprisen er: " + houseprice + " og du kan sælge dem for halvdelen. Hvor mange vil sælge?",1,houses);
+			if (houses == 10 && felt3 == 0)
+				min = 2;
+			if (houses == 15)
+				min = 3;
+			int HouseChoice = GUI.getUserInteger(player.getName() +": Husprisen er: " + houseprice + " og du kan sælge dem for halvdelen. Hvor mange vil sælge?",min,houses);
 			for (int i=0;i<HouseChoice;i++) {
 				if(felt3==0) {
 					if (houses-HouseChoice == 1) {
