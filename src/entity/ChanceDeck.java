@@ -106,7 +106,7 @@ public class ChanceDeck {
 			int housecounter = 0;
 			int hotelcounter = 0;
 			for (int i = 1; i < 41;i++) {
-				if (((Ownable) Gameboard.getField(i)).getOwner() == player) {
+				if (((Ownable) Gameboard.getField(i)).getOwner() == player && Gameboard.getField(i) instanceof Street) {
 					if (((Street) Gameboard.getField(i)).getHouses() == 5)
 						hotelcounter++; 
 					else if (((Street) Gameboard.getField(i)).getHouses() < 5)
@@ -180,7 +180,7 @@ public class ChanceDeck {
 			housecounter = 0;
 			hotelcounter = 0;
 			for (int i = 1; i < 41;i++) {
-				if (((Ownable)Gameboard.getField(i)).getOwner() == player) {
+				if (((Ownable)Gameboard.getField(i)).getOwner() == player && Gameboard.getField(i) instanceof Street) {
 					if (((Street)Gameboard.getField(i)).getHouses() == 5)
 						hotelcounter++; 
 					else if (((Street)Gameboard.getField(i)).getHouses() < 5)
