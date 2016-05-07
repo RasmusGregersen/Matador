@@ -16,9 +16,9 @@ public class Rules {
 		return players[playernumber];
 	}
 
-//	public static int getPlayers() {
-//		return playerCount;
-//	}
+public static int getPlayers() {
+		return playerCount;
+	}
 
 	// Turn Method
 
@@ -91,7 +91,7 @@ public class Rules {
 
 			// Name Check	
 			for (int i=0; i < playerCount; i++) {
-				Player tmp = new Player("");
+				Player tmp = new Player("",30000,0,0,1,0,false,0,0);
 				EnterName:	
 					while (true) {
 						String name = GUI.getUserString("Indtast navnet på Player" + (i+1)).trim();
