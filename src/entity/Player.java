@@ -5,24 +5,25 @@ import desktop_resources.GUI;
 public class Player {
 	private String name;
 	private int balance;
+    private int TotalAssets;
+    private int FieldPos;
 	private int breweries;
 	private int shipping;
-	private int FieldPos;
 	private int jailcard;
-	private int ExtraTurns;
-	private boolean jailed;
 	private int Jailturns;
-	private int TotalAssets;
+    private boolean jailed;
+    private int ExtraTurns;
 
-	public Player(String name, int balance, int breweries, int shipping, int FieldPos, int jailcard, boolean jailed, int Jailturns, int TotalAssets){
+	public Player(String name, int balance, int TotalAssets, int FieldPos, int breweries, int shipping, int jailcard, int Jailturns, boolean jailed){
 		this.name = name;
+        this.balance = balance;
+        this.TotalAssets = TotalAssets;
+        this.FieldPos = FieldPos;
         this.breweries = breweries;
         this.shipping = shipping;
-        this.FieldPos = FieldPos;
         this.jailcard = jailcard;
-        this.jailed = jailed;
         this.Jailturns = Jailturns;
-        this.TotalAssets = TotalAssets;
+        this.jailed = jailed;
 	}
 
     public int getJailturns() {

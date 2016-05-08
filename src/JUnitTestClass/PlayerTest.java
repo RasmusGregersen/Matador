@@ -14,7 +14,7 @@ public class PlayerTest {
 
     @Before
     public void setUp() throws Exception {
-        p = new Player("Test");
+        p = new Player("Test",30000,0,1,0,0,0,0,false);
     }
 
     @Test

@@ -21,7 +21,7 @@ public class GameBoardTest {
     @Before
     public void setUp() throws Exception {
     Gameboard.CreateGUI();
-       player = new Player("Test");
+       player = new Player("Test",30000,0,1,0,0,0,0,false);
     }
 
     @Test

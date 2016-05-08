@@ -2,22 +2,31 @@ package entity;
 
 import java.awt.Color;
 import java.lang.reflect.Array;
+import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.Collections;
+
 import entity.Gameboard;
 import desktop_codebehind.Car;
 import desktop_resources.GUI;
+import mysql.Connector;
 
 public class Rules {
 
 	private static Car[] cars = new Car[6];
 	private static Player[] players = new Player[6];
-	private static int playerCount;
+	private static int playerCount = 0;
 
 	public static Player getPlayer(int playernumber) { // getter for the array
 		return players[playernumber];
 	}
 
-public static int getPlayers() {
+	public static int getPlayers() {
 		return playerCount;
+	}
+
+	public static void setPlayer(int index, Player player) {
+		players[index] = player;
 	}
 
 	// Turn Method
@@ -91,7 +100,7 @@ public static int getPlayers() {
 
 			// Name Check	
 			for (int i=0; i < playerCount; i++) {
-				Player tmp = new Player("",30000,0,0,1,0,false,0,0);
+				Player tmp = new Player("",30000,0,1,0,0,0,0,false);
 				EnterName:	
 					while (true) {
 						String name = GUI.getUserString("Indtast navnet på Player" + (i+1)).trim();
@@ -118,7 +127,7 @@ public static int getPlayers() {
 			}
 		}
 		else {
-			LoadGame();
+			//LoadGame();
 		}
 	}
 
@@ -130,11 +139,12 @@ public static int getPlayers() {
 		}
 	}
 
-	public static void LoadGame() {
+	public static void LoadGame() throws InstantiationException,IllegalAccessException,ClassNotFoundException,SQLException {
+		Connector con = new Connector();
 		for (int i=0; i<6; i++) {
-			if (players[i] != null) {
-				//Indlæs Player variabler fra DB
-			}
+			players[i] = con.getPlayer(i);
+			if (players[i] instanceof Player)
+			playerCount = playerCount++;
 		}
 	}
 
