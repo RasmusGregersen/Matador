@@ -3,6 +3,7 @@ package controller;
 import entity.Gameboard;
 import entity.PlayerOptions;
 import entity.Rules;
+import mysql.Connector;
 
 
 public class Game {
@@ -15,6 +16,7 @@ public class Game {
 		//This is the while loop, that will run until. someone has the game.
 		while (!Rules.getWin())
 		{
+			Rules.SaveGame();
 			for (int i=0;i<6;i++)
 			{
 				if (Rules.getPlayer(i) != null)

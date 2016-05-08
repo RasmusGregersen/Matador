@@ -6,11 +6,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 
+import JUnitTestClass.SQL;
 import entity.Player;
 import entity.Rules;
 
 public class Connector implements DAO,DTO {
-	private Connection con;
+	private static Connection con;
     private PreparedStatement psstm;
 
 	private final String connectionUrl = "jdbc:mysql://dtu.czx5ninmk2ar.eu-west-1.rds.amazonaws.com:3306/Matador";
@@ -18,9 +19,22 @@ public class Connector implements DAO,DTO {
 	private final String connectionPassword = "matador.CDIO";
 
     public Connector()
-            throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException
     {
-        con	= connectToDatabase();
+        try {
+            con	= connectToDatabase();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        catch (InstantiationException e) {
+            e.printStackTrace();
+        }
+        catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
 

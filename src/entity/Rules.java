@@ -2,17 +2,15 @@ package entity;
 
 import java.awt.Color;
 import java.lang.reflect.Array;
+import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.Collections;
 
-import entity.Gameboard;
 import desktop_codebehind.Car;
 import desktop_resources.GUI;
 import mysql.Connector;
 
 public class Rules {
-
+	private static Connector con = new Connector();
 	private static Car[] cars = new Car[6];
 	private static Player[] players = new Player[6];
 	private static int playerCount = 0;
@@ -33,7 +31,6 @@ public class Rules {
 
 	public static void Turn(Player player) {
 		if (!CheckWinConditions(player)) {
-		SaveGame();
 		PlayerOptions.Options(player);
 		Rules.rollDice();
 		player.moveToFieldPos(Rules.getDiceSum());
@@ -132,15 +129,22 @@ public class Rules {
 	}
 
 	public static void SaveGame() {
-		for (int i=0; i<6; i++) {
-			if (players[i] != null) {
-				//Gem Player variabler i DB 
+		try {
+			for (int i = 0; i < 6; i++) {
+				if (players[i] != null) {
+					con.updatePlayer(i);
+				}
 			}
+			for (int i = 0; i < 40; i++) {
+
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
 		}
 	}
 
 	public static void LoadGame() throws InstantiationException,IllegalAccessException,ClassNotFoundException,SQLException {
-		Connector con = new Connector();
 		for (int i=0; i<6; i++) {
 			players[i] = con.getPlayer(i);
 			if (players[i] instanceof Player)
