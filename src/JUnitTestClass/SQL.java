@@ -29,4 +29,9 @@ public class SQL {
         String result = p2.getName();
         assertEquals(expected, result);
     }
+
+    @Test
+    public void getFieldTest() throws SQLException {
+
+    }
 }

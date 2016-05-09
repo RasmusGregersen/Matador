@@ -2,7 +2,6 @@ package entity;
 
 import java.awt.Color;
 import java.lang.reflect.Array;
-import java.sql.Connection;
 import java.sql.SQLException;
 
 import desktop_codebehind.Car;
@@ -93,7 +92,7 @@ public class Rules {
 		if (GUI.getUserLeftButtonPressed("Vil du starte et nyt spil eller indlæse et gammelt?", "Nyt Spil", "Indlæs Spil")) 
 		{
 			playerCount = GUI.getUserInteger("Hvor mange spillere ønsker i at spille?", 2 , 6);	
-			CarBuilder(playerCount);
+			CarBuilder();
 
 			// Name Check	
 			for (int i=0; i < playerCount; i++) {
@@ -124,7 +123,7 @@ public class Rules {
 			}
 		}
 		else {
-			//LoadGame();
+			LoadGame();
 		}
 	}
 
@@ -133,10 +132,8 @@ public class Rules {
 			for (int i = 0; i < 6; i++) {
 				if (players[i] != null) {
 					con.updatePlayer(i);
+					con.updateField(i);
 				}
-			}
-			for (int i = 0; i < 40; i++) {
-
 			}
 		}
 		catch (SQLException e) {
@@ -144,17 +141,32 @@ public class Rules {
 		}
 	}
 
-	public static void LoadGame() throws InstantiationException,IllegalAccessException,ClassNotFoundException,SQLException {
-		for (int i=0; i<6; i++) {
-			players[i] = con.getPlayer(i);
-			if (players[i] instanceof Player)
-			playerCount = playerCount++;
+	public static void LoadGame() {
+		try {
+			CarBuilder();
+			for (int i=0; i<6; i++) {
+				players[i] = con.getPlayer(i);
+				if (players[i] instanceof Player) {
+					playerCount = playerCount++;
+					GUI.addPlayer(players[i].getName(), players[i].getBalance(), cars[i]);
+					GUI.setCar(players[i].getFieldPos(), players[i].getName());
+				}
+			}
+			for (int i=0; i<40; i++) {
+				con.updateField(i);
+				Gameboard.CreateGUI();
+			}
+			// Field Loading
+
 		}
+	catch (SQLException e) {
+		e.printStackTrace();
+	}
 	}
 
 	// Car Builder
 
-	public static void CarBuilder(int playerCount) {
+	public static void CarBuilder() {
 		cars[0] = new Car.Builder()
 				.primaryColor(Color.BLUE)
 				.secondaryColor(Color.BLUE)

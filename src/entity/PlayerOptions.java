@@ -1,6 +1,7 @@
 package entity;
 
 import desktop_resources.GUI;
+import fields.Brewery;
 import fields.Ownable;
 import fields.Street;
 

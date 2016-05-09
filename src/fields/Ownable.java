@@ -54,11 +54,13 @@ public abstract class Ownable extends Field {
 		else if (player == owner) { // Checks if the actual player is the owner.
 			GUI.displayChanceCard(player.getName() + ": Velkommen tilbage!");
 		}
-		else if (Gameboard.IsPropertyReady(owner, ((Street) Gameboard.getField(player.getFieldPos())).getColor()) && ((Street) Gameboard.getField(player.getFieldPos())).getHouses() == 0) {
-				GUI.displayChanceCard(player.getName() + ": er landet på " + owner.getName() + "'s felt. Udlejen er " + (getRent()*2));
-				player.withdrawBalance((getRent()*2));
-				owner.depositBalance((getRent()*2));
+		else if (Gameboard.getField(player.getFieldPos()) instanceof Street) {
+			if (Gameboard.IsPropertyReady(owner, ((Street) Gameboard.getField(player.getFieldPos())).getColor()) && ((Street) Gameboard.getField(player.getFieldPos())).getHouses() == 0) {
+				GUI.displayChanceCard(player.getName() + ": er landet på " + owner.getName() + "'s felt. Udlejen er " + (getRent() * 2));
+				player.withdrawBalance((getRent() * 2));
+				owner.depositBalance((getRent() * 2));
 				GUI.setBalance(owner.getName(), owner.getBalance());
+			}
 		}
 		else {
 				GUI.displayChanceCard(player.getName() + ": er landet på " + owner.getName() + "'s felt. Udlejen er " + getRent());
