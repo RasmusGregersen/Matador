@@ -55,7 +55,6 @@ public class Connector implements DAO,DTO {
             psstm.execute();
             psstm = con.prepareStatement(FieldDDL);
             psstm.execute();
-            con.commit();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -170,24 +169,33 @@ public class Connector implements DAO,DTO {
     }
 
     public void updateField(int PlayerID) throws SQLException {
-        String SQL = "INSERT INTO Matador.Field " +
-                "SET FieldID = ? ON DUPLICATE KEY UPDATE " +
-                "Owner = ?, Houses = ?, Pawned = ?";
-        psstm = con.prepareStatement(SQL);
-        for (int i = 1; i<41; i++) {
-            if (Gameboard.getField(i) instanceof Street || Gameboard.getField(i) instanceof Shipping || Gameboard.getField(i) instanceof Brewery) {
-                if ((((Ownable) Gameboard.getField(i)).getOwner() == Rules.getPlayer(PlayerID))) {
-                    psstm.setInt(1, i);
-                    psstm.setInt(2, PlayerID);
-                    if (Gameboard.getField(i) instanceof Street)
-                        psstm.setInt(3, ((Street) Gameboard.getField(i)).getHouses());
-                    else
-                        psstm.setInt(3, 0);
-                    psstm.setBoolean(4, ((Ownable) Gameboard.getField(i)).isPawned());
-                    psstm.executeUpdate();
+        try {
+            String SQL = "INSERT INTO Matador.Field " +
+                    "SET FieldID = ? ON DUPLICATE KEY UPDATE " +
+                    "Owner = ?, Houses = ?, Pawned = ?";
+            psstm = con.prepareStatement(SQL);
+            for (int i = 1; i<41; i++) {
+                if (Gameboard.getField(i) instanceof Street || Gameboard.getField(i) instanceof Shipping || Gameboard.getField(i) instanceof Brewery) {
+                    if ((((Ownable) Gameboard.getField(i)).getOwner() == Rules.getPlayer(PlayerID))) {
+                        psstm.setInt(1, i);
+                        psstm.setInt(2, PlayerID);
+                        if (Gameboard.getField(i) instanceof Street)
+                            psstm.setInt(3, ((Street) Gameboard.getField(i)).getHouses());
+                        else
+                            psstm.setInt(3, 0);
+                        psstm.setBoolean(4, ((Ownable) Gameboard.getField(i)).isPawned());
+                        psstm.executeUpdate();
+                    }
                 }
             }
         }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            psstm.close();
+        }
+
     }
 
 }
