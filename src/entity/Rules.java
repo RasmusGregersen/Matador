@@ -169,27 +169,27 @@ public class Rules {
 	public static void CarBuilder() {
 		cars[0] = new Car.Builder()
 				.primaryColor(Color.BLUE)
-				.secondaryColor(Color.BLUE)
+				.secondaryColor(Color.WHITE)
 				.typeCar()
 				.patternFill()
 				.build();
 		cars[1] = new Car.Builder() // chaining
 				.primaryColor(Color.GREEN)
-				.secondaryColor(Color.GREEN)
+				.secondaryColor(Color.WHITE)
 				.typeCar()
 				.patternFill()
 				.build();
 		if (playerCount > 2) {
 			cars[2] = new Car.Builder() // chaining
 					.primaryColor(Color.ORANGE)
-					.secondaryColor(Color.ORANGE)
+					.secondaryColor(Color.WHITE)
 					.typeCar()
 					.patternFill()
 					.build();
 			if (playerCount > 3) {
 				cars[3] = new Car.Builder() // chaining
 						.primaryColor(Color.YELLOW)
-						.secondaryColor(Color.YELLOW)
+						.secondaryColor(Color.WHITE)
 						.typeCar()
 						.patternFill()
 						.build();
@@ -203,7 +203,7 @@ public class Rules {
 					if (playerCount > 5) {
 						cars[5] = new Car.Builder() // chaining
 								.primaryColor(Color.CYAN)
-								.secondaryColor(Color.CYAN)
+								.secondaryColor(Color.WHITE)
 								.typeCar()
 								.patternFill()
 								.build();
