@@ -133,25 +133,25 @@ public class ChanceDeck {
 				player.setFieldPos(6);
 				Gameboard.setField(player.getFieldPos(), player);
 				if (((Ownable)Gameboard.getField(6)).getOwner() != null && ((Ownable)Gameboard.getField(6)).getOwner() != player)
-					player.withdrawBalance(((Ownable)Gameboard.getField(6)).getRent());
+					player.withdrawBalance(((Ownable)Gameboard.getField(6)).getRent()*2);
 			}
 			else if (player.getFieldPos() == 8) {
 				player.setFieldPos(16);
 				Gameboard.setField(player.getFieldPos(), player);
 				if (((Ownable)Gameboard.getField(16)).getOwner() != null && ((Ownable)Gameboard.getField(16)).getOwner() != player)
-					player.withdrawBalance(((Ownable)Gameboard.getField(16)).getRent());
+					player.withdrawBalance(((Ownable)Gameboard.getField(16)).getRent()*2);
 			}
 			else if (player.getFieldPos() == 18 || player.getFieldPos() == 23) {
 				player.setFieldPos(26);
 				Gameboard.setField(player.getFieldPos(), player);
 				if (((Ownable)Gameboard.getField(26)).getOwner() != null && ((Ownable)Gameboard.getField(26)).getOwner() != player)
-					player.withdrawBalance(((Ownable)Gameboard.getField(26)).getRent());
+					player.withdrawBalance(((Ownable)Gameboard.getField(26)).getRent()*2);
 			}
 			else if (player.getFieldPos() == 34) {
 				player.setFieldPos(36);
 				Gameboard.setField(player.getFieldPos(), player);
 				if (((Ownable)Gameboard.getField(36)).getOwner() != null && ((Ownable)Gameboard.getField(36)).getOwner() != player)
-					player.withdrawBalance(((Ownable)Gameboard.getField(36)).getRent());
+					player.withdrawBalance(((Ownable)Gameboard.getField(36)).getRent()*2);
 			}
 			break;
 		case 13:

@@ -239,30 +239,35 @@ public class PlayerOptions {
 	public static void SetPawned (Player player) {
 		while(true) {
 			int field = GUI.getUserInteger(player.getName() + ": Hvilken grund ønsker at pantsætte, indtast grundens nummer", 1, 40);
-			if (player != ((Ownable) Gameboard.getField(field)).getOwner()) {
-				GUI.showMessage(player.getName() + "  ejer ikke dette felt!");
-				BankruptOrOptions(player);
-                break;
-			}
-			else if (player == ((Ownable) Gameboard.getField(field)).getOwner()) {
-				if (Gameboard.getField(field) instanceof fields.Street) {
-				if (((Street) Gameboard.getField(field)).getHouses() > 0) {
-					GUI.showMessage(player.getName() + ": du skal sælge dine huse, før du kan pantsætte din grund.");
+			if (Gameboard.getField(field) instanceof fields.Ownable) {
+				if (player != ((Ownable) Gameboard.getField(field)).getOwner()) {
+					GUI.showMessage(player.getName() + "  ejer ikke dette felt!");
 					BankruptOrOptions(player);
-                    break;
-				}
-				}
-				if (GUI.getUserLeftButtonPressed(player.getName() + ": Vil du pantsætte " + Gameboard.getField(field).getName() + "?", "Ja", "Nej")) {
-					player.depositBalance((int)(((Ownable) Gameboard.getField(field)).getPrice() * 0.9));
-					player.setTotalAssets(-(((Ownable) Gameboard.getField(field)).getPrice()));
-					GUI.showMessage("Der blev indsat " + (int)(((Ownable) Gameboard.getField(field)).getPrice() * 0.9) + " på din balance");
-					((Ownable) Gameboard.getField(field)).setPawned(true);
-					GUI.setSubText(field, "Pantsat!");
-					BankruptOrOptions(player);
-                    break;
-				}
-				else
 					break;
+				} else if (player == ((Ownable) Gameboard.getField(field)).getOwner()) {
+					if (Gameboard.getField(field) instanceof fields.Street) {
+						if (((Street) Gameboard.getField(field)).getHouses() > 0) {
+							GUI.showMessage(player.getName() + ": du skal sælge dine huse, før du kan pantsætte din grund.");
+							BankruptOrOptions(player);
+							break;
+						}
+					}
+					if (GUI.getUserLeftButtonPressed(player.getName() + ": Vil du pantsætte " + Gameboard.getField(field).getName() + "?", "Ja", "Nej")) {
+						player.depositBalance((int) (((Ownable) Gameboard.getField(field)).getPrice() * 0.9));
+						player.setTotalAssets(-(((Ownable) Gameboard.getField(field)).getPrice()));
+						GUI.showMessage("Der blev indsat " + (int) (((Ownable) Gameboard.getField(field)).getPrice() * 0.9) + " på din balance");
+						((Ownable) Gameboard.getField(field)).setPawned(true);
+						GUI.setSubText(field, "Pantsat!");
+						BankruptOrOptions(player);
+						break;
+					} else
+						break;
+				}
+			}
+			else {
+				GUI.showMessage(player.getName() + " dette felt kan ej ejes!");
+				BankruptOrOptions(player);
+				break;
 			}
 		}
 	}
