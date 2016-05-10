@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 
-import JUnitTestClass.SQL;
 import desktop_resources.GUI;
 import entity.Gameboard;
 import entity.Player;
@@ -18,12 +17,58 @@ import fields.Street;
 import fields.Ownable;
 
 public class Connector implements DAO,DTO {
-	private static Connection con;
+    private static Connection con;
     private PreparedStatement psstm;
 
-	private final String connectionUrl = "jdbc:mysql://dtu.czx5ninmk2ar.eu-west-1.rds.amazonaws.com:3306/Matador";
-	private final String connectionUser = "cdio";
-	private final String connectionPassword = "matador.CDIO";
+    private final String connectionUrl = "jdbc:mysql://dtu.czx5ninmk2ar.eu-west-1.rds.amazonaws.com:3306/Matador";
+    private final String connectionUser = "cdio";
+    private final String connectionPassword = "matador.CDIO";
+
+    public void ResetDatabase() throws SQLException {
+        try {
+            con.setAutoCommit(false);
+            String PlayerDDL =
+                    "DROP TABLE IF EXISTS Matador.Field;  \n" +
+                    "DROP TABLE IF EXISTS Matador.Player;\n" +
+                    "CREATE TABLE Matador.Player (\n" +
+                    "  PlayerID INT(1) NOT NULL,\n" +
+                    "  Name VARCHAR(20),\n" +
+                    "  Balance INT,\n" +
+                    "  TotalAssets INT,\n" +
+                    "  FieldPos INT(2),\n" +
+                    "  Breweries INT(1),\n" +
+                    "  Shipping INT(1),  \n" +
+                    "  JailCards INT(1),\n" +
+                    "  JailTurns INT(1),\n" +
+                    "  Jailed BIT(1),\n" +
+                    "  PRIMARY KEY (`PlayerID`),\n" +
+                    "  UNIQUE INDEX `PlayerID_UNIQUE` (`PlayerID` ASC));";
+            String FieldDDL =
+                    "  CREATE TABLE Matador.Field (\n" +
+                    "  FieldID INT(2) NOT NULL,\n" +
+                    "  Owner INT(1),\n" +
+                    "  FOREIGN KEY (`Owner`) REFERENCES Player(PlayerID),\n" +
+                    "  Houses VARCHAR(20) DEFAULT NULL,\n" +
+                    "  Pawned BIT(1),\n" +
+                    "  PRIMARY KEY (`FieldID`),\n" +
+                    "  UNIQUE INDEX `FieldID_UNIQUE` (`FieldID` ASC));";
+            psstm = con.prepareStatement(PlayerDDL);
+            psstm.execute();
+            psstm = con.prepareStatement(FieldDDL);
+            psstm.execute();
+            con.commit();
+        } catch (SQLException e) {
+            if (con != null) {
+                con.rollback();
+            }
+        }
+        finally {
+            if (psstm != null) {
+                psstm.close();
+            }
+            con.setAutoCommit(true);
+        }
+    }
 
     public Connector()
     {
@@ -43,6 +88,7 @@ public class Connector implements DAO,DTO {
             e.printStackTrace();
         }
     }
+
 
 
     private Connection connectToDatabase()
@@ -109,14 +155,16 @@ public class Connector implements DAO,DTO {
         psstm = con.prepareStatement(SQL);
         for (int i = 1; i<41; i++) {
             if (Gameboard.getField(i) instanceof Street || Gameboard.getField(i) instanceof Shipping || Gameboard.getField(i) instanceof Brewery) {
-                psstm.setInt(1, i);
-                psstm.setInt(2, PlayerID);
-                if (Gameboard.getField(i) instanceof Street)
-                psstm.setInt(3, ((Street) Gameboard.getField(i)).getHouses());
-                else
-                    psstm.setInt(3, 0);
-                psstm.setBoolean(4, ((Ownable) Gameboard.getField(i)).isPawned());
-                psstm.executeUpdate();
+                if ((((Ownable) Gameboard.getField(i)).getOwner() == Rules.getPlayer(PlayerID))) {
+                    psstm.setInt(1, i);
+                    psstm.setInt(2, PlayerID);
+                    if (Gameboard.getField(i) instanceof Street)
+                        psstm.setInt(3, ((Street) Gameboard.getField(i)).getHouses());
+                    else
+                        psstm.setInt(3, 0);
+                    psstm.setBoolean(4, ((Ownable) Gameboard.getField(i)).isPawned());
+                    psstm.executeUpdate();
+                }
             }
         }
     }

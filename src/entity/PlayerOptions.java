@@ -52,6 +52,7 @@ public class PlayerOptions {
 		String SetPawned = "Pantsæt grund(e)";
 		String BuyPawned = "Køb pantsatte grunde tilbage";
 		String option = GUI.getUserSelection(player.getName() + ": Hvilke af følgende ting vil foretage sig?",Roll,BuyProperty,SellProperty,SetPawned,BuyPawned);
+
 		if (option.equals(BuyProperty)) {
 			BuyProperty(player);
 		}

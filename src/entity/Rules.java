@@ -31,9 +31,9 @@ public class Rules {
 	public static void Turn(Player player) {
 		if (!CheckWinConditions(player)) {
 		PlayerOptions.Options(player);
-		Rules.rollDice();
-		player.moveToFieldPos(Rules.getDiceSum());
-		Gameboard.setField(player.getFieldPos(), player);
+			Rules.rollDice();
+			player.moveToFieldPos(Rules.getDiceSum());
+			Gameboard.setField(player.getFieldPos(), player);
 		if (player.getBalance() <= 0)
 			PlayerOptions.Bankrupt(player);
 		Rules.ExtraTurn(player);
@@ -91,6 +91,11 @@ public class Rules {
 	public static void SetupGame() {
 		if (GUI.getUserLeftButtonPressed("Vil du starte et nyt spil eller indlæse et gammelt?", "Nyt Spil", "Indlæs Spil")) 
 		{
+			try {
+				con.ResetDatabase();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 			playerCount = GUI.getUserInteger("Hvor mange spillere ønsker i at spille?", 2 , 6);	
 			CarBuilder();
 
