@@ -91,6 +91,7 @@ public class Rules {
 	public static void SetupGame() {
 		if (GUI.getUserLeftButtonPressed("Vil du starte et nyt spil eller indlæse et gammelt?", "Nyt Spil", "Indlæs Spil")) 
 		{
+			con.setDBname(GUI.getUserSelection("Vælg en af de gemte spil at overskrive", "Matador1", "Matador2", "Matador3", "Matador4", "Matador5"));
 			try {
 				con.ResetDatabase();
 			} catch (SQLException e) {
@@ -147,22 +148,19 @@ public class Rules {
 	}
 
 	public static void LoadGame() {
+		con.setDBname(GUI.getUserSelection("Vælg en af de gemte spil at indlæse", "Matador1", "Matador2", "Matador3", "Matador4", "Matador5"));
 		try {
 			CarBuilder();
 			for (int i=0; i<6; i++) {
 				players[i] = con.getPlayer(i);
+				con.updateField(i);
 				if (players[i] instanceof Player) {
 					playerCount = playerCount++;
 					GUI.addPlayer(players[i].getName(), players[i].getBalance(), cars[i]);
 					GUI.setCar(players[i].getFieldPos(), players[i].getName());
 				}
 			}
-			for (int i=0; i<40; i++) {
-				con.updateField(i);
-				Gameboard.CreateGUI();
-			}
-			// Field Loading
-
+			Gameboard.CreateGUI();
 		}
 	catch (SQLException e) {
 		e.printStackTrace();

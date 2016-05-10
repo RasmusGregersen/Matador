@@ -17,16 +17,21 @@ public class Connector implements DAO,DTO {
     private PreparedStatement psstm;
     private Statement stm;
 
-    private final String connectionUrl = "jdbc:mysql://dtu.czx5ninmk2ar.eu-west-1.rds.amazonaws.com:3306/Matador";
+    private String DBname = "";
+    private String connectionUrl = "jdbc:mysql://dtu.czx5ninmk2ar.eu-west-1.rds.amazonaws.com:3306/";
     private final String connectionUser = "cdio";
     private final String connectionPassword = "matador.CDIO";
 
+    public void setDBname(String DBname) {
+    this.DBname = DBname;
+    }
+
     public void ResetDatabase() throws SQLException {
         try {
-            String DropField = "DROP TABLE IF EXISTS Matador.Field";
-            String DropPlayer = "DROP TABLE IF EXISTS Matador.Player";
+            String DropField = "DROP TABLE IF EXISTS "+DBname+".Field";
+            String DropPlayer = "DROP TABLE IF EXISTS "+DBname+".Player";
             String PlayerDDL =
-                    "CREATE TABLE Matador.Player (\n" +
+                    "CREATE TABLE $DBname.Player (\n" +
                     "  PlayerID INT(1) NOT NULL,\n" +
                     "  Name VARCHAR(20),\n" +
                     "  Balance INT,\n" +
@@ -40,14 +45,16 @@ public class Connector implements DAO,DTO {
                     "  PRIMARY KEY (`PlayerID`),\n" +
                     "  UNIQUE INDEX `PlayerID_UNIQUE` (`PlayerID` ASC));";
             String FieldDDL =
-                    "  CREATE TABLE Matador.Field (\n" +
+                    "CREATE TABLE $DBname.Field (\n" +
                     "  FieldID INT(2) NOT NULL,\n" +
                     "  Owner INT(1),\n" +
-                    "  FOREIGN KEY (`Owner`) REFERENCES Player(PlayerID),\n" +
+                    "  FOREIGN KEY (`Owner`) REFERENCES "+DBname+".Player(PlayerID),\n" +
                     "  Houses VARCHAR(20) DEFAULT NULL,\n" +
                     "  Pawned BIT(1),\n" +
                     "  PRIMARY KEY (`FieldID`),\n" +
                     "  UNIQUE INDEX `FieldID_UNIQUE` (`FieldID` ASC));";
+            PlayerDDL = PlayerDDL.replace("$DBname",DBname);
+            FieldDDL = FieldDDL.replace("$DBname",DBname);
             stm = con.createStatement();
             stm.execute(DropField);
             stm.execute(DropPlayer);
@@ -89,15 +96,21 @@ public class Connector implements DAO,DTO {
             throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException
     {
         Class.forName("com.mysql.jdbc.Driver").newInstance();
-        return DriverManager.getConnection(connectionUrl, connectionUser, connectionPassword);
+        return DriverManager.getConnection(connectionUrl+DBname, connectionUser, connectionPassword);
     }
 
     public Player getPlayer(int PlayerID) throws SQLException {
-        String SQL = "SELECT * FROM Player WHERE PlayerID = ?";
+        String SQL = "SELECT * FROM $DBname.Player WHERE PlayerID = ?";
+        Player player = null;
+        ResultSet result = null;
         try {
+            SQL = SQL.replace("$DBname",DBname);
             psstm = con.prepareStatement(SQL);
             psstm.setInt(1, PlayerID);
-
+            result = psstm.executeQuery();
+            if (result.next())
+            player = new Player(result.getString("Name"),result.getInt("Balance"),result.getInt("TotalAssets"),result.getInt("FieldPos"),
+                    result.getInt("Breweries"),result.getInt("Shipping"), result.getInt("JailCards"),result.getInt("JailTurns"),result.getBoolean("Jailed"));
         }
         catch (SQLException e){
             e.printStackTrace();
@@ -105,18 +118,18 @@ public class Connector implements DAO,DTO {
         finally {
             psstm.close();
         }
-        ResultSet result = psstm.executeQuery();
-        result.next();
-        return new Player(result.getString("Name"),result.getInt("Balance"),result.getInt("TotalAssets"),result.getInt("FieldPos"),
-                result.getInt("Breweries"),result.getInt("Shipping"), result.getInt("JailCards"),result.getInt("JailTurns"),result.getBoolean("Jailed"));
+
+        return player;
     }
 
     public void updatePlayer(int PlayerID) throws SQLException{
         try {
             Player p = Rules.getPlayer(PlayerID);
-            String SQL = "INSERT INTO Matador.Player " +
-                    "SET PlayerID = ? ON DUPLICATE KEY UPDATE " +
-                    "Name = ?, Balance = ?, TotalAssets = ?, FieldPos = ?, Breweries = ?, Shipping = ?, JailCards = ?, JailTurns = ?, Jailed = ?";
+            String SQL =
+                    "INSERT INTO $DBname.Player (PlayerID,Name,Balance,TotalAssets,FieldPos,Breweries,Shipping,JailCards,JailTurns,Jailed)" +
+                    "VALUES (?,?,?,?,?,?,?,?,?,?)\n" +
+                    "ON DUPLICATE KEY UPDATE PlayerID=VALUES(PlayerID),Name=VALUES(Name),Balance=VALUES(Balance),TotalAssets=VALUES(TotalAssets), FieldPos=VALUES(FieldPos), Breweries=VALUES(Breweries),Shipping=VALUES(Shipping),JailCards=VALUES(JailCards),JailTurns=VALUES(JailTurns), Jailed=VALUES(Jailed);";
+            SQL = SQL.replace("$DBname",DBname);
             psstm = con.prepareStatement(SQL);
             psstm.setInt(1, PlayerID);
             psstm.setString(2, p.getName());
@@ -136,12 +149,12 @@ public class Connector implements DAO,DTO {
         finally {
             psstm.close();
         }
-
     }
 
     public void getField(int PlayerID) throws SQLException {
         try {
-            String SQL = "SELECT * FROM Field WHERE Owner = ?";
+            String SQL = "SELECT * FROM $DBname.Field WHERE Owner = ?";
+            SQL = SQL.replace("$DBname",DBname);
             psstm = con.prepareStatement(SQL);
             psstm.setInt(1, PlayerID);
             ResultSet result = psstm.executeQuery();
@@ -165,14 +178,13 @@ public class Connector implements DAO,DTO {
         finally {
             psstm.close();
         }
-
     }
 
     public void updateField(int PlayerID) throws SQLException {
+        String SQL = "INSERT INTO $DBname.Field (FieldID,Owner,Houses,Pawned) VALUES (?,?,?,?)\n" +
+                "ON DUPLICATE KEY UPDATE FieldID=VALUES(FieldID),Owner=VALUES(Owner),Houses=VALUES(Houses),Pawned=VALUES(Pawned);";
         try {
-            String SQL = "INSERT INTO Matador.Field " +
-                    "SET FieldID = ? ON DUPLICATE KEY UPDATE " +
-                    "Owner = ?, Houses = ?, Pawned = ?";
+            SQL = SQL.replace("$DBname",DBname);
             psstm = con.prepareStatement(SQL);
             for (int i = 1; i<41; i++) {
                 if (Gameboard.getField(i) instanceof Street || Gameboard.getField(i) instanceof Shipping || Gameboard.getField(i) instanceof Brewery) {
@@ -195,7 +207,5 @@ public class Connector implements DAO,DTO {
         finally {
             psstm.close();
         }
-
     }
-
 }
