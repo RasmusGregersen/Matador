@@ -1,10 +1,6 @@
 package mysql;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.PreparedStatement;
+import java.sql.*;
 
 import desktop_resources.GUI;
 import entity.Gameboard;
@@ -19,6 +15,7 @@ import fields.Ownable;
 public class Connector implements DAO,DTO {
     private static Connection con;
     private PreparedStatement psstm;
+    private Statement stm;
 
     private final String connectionUrl = "jdbc:mysql://dtu.czx5ninmk2ar.eu-west-1.rds.amazonaws.com:3306/Matador";
     private final String connectionUser = "cdio";
@@ -26,10 +23,9 @@ public class Connector implements DAO,DTO {
 
     public void ResetDatabase() throws SQLException {
         try {
-            con.setAutoCommit(false);
+            String DropField = "DROP TABLE IF EXISTS Matador.Field";
+            String DropPlayer = "DROP TABLE IF EXISTS Matador.Player";
             String PlayerDDL =
-                    "DROP TABLE IF EXISTS Matador.Field;  \n" +
-                    "DROP TABLE IF EXISTS Matador.Player;\n" +
                     "CREATE TABLE Matador.Player (\n" +
                     "  PlayerID INT(1) NOT NULL,\n" +
                     "  Name VARCHAR(20),\n" +
@@ -52,21 +48,20 @@ public class Connector implements DAO,DTO {
                     "  Pawned BIT(1),\n" +
                     "  PRIMARY KEY (`FieldID`),\n" +
                     "  UNIQUE INDEX `FieldID_UNIQUE` (`FieldID` ASC));";
+            stm = con.createStatement();
+            stm.execute(DropField);
+            stm.execute(DropPlayer);
             psstm = con.prepareStatement(PlayerDDL);
             psstm.execute();
             psstm = con.prepareStatement(FieldDDL);
             psstm.execute();
             con.commit();
         } catch (SQLException e) {
-            if (con != null) {
-                con.rollback();
-            }
+            e.printStackTrace();
         }
         finally {
-            if (psstm != null) {
-                psstm.close();
-            }
-            con.setAutoCommit(true);
+            stm.close();
+            psstm.close();
         }
     }
 
@@ -99,53 +94,79 @@ public class Connector implements DAO,DTO {
     }
 
     public Player getPlayer(int PlayerID) throws SQLException {
-            String SQL = "SELECT * FROM Player WHERE PlayerID = ?";
+        String SQL = "SELECT * FROM Player WHERE PlayerID = ?";
+        try {
             psstm = con.prepareStatement(SQL);
             psstm.setInt(1, PlayerID);
-            ResultSet result = psstm.executeQuery();
-            result.next();
-            Player player = new Player(result.getString("Name"),result.getInt("Balance"),result.getInt("TotalAssets"),result.getInt("FieldPos"),
-                    result.getInt("Breweries"),result.getInt("Shipping"), result.getInt("JailCards"),result.getInt("JailTurns"),result.getBoolean("Jailed"));
-            return player;
+
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        finally {
+            psstm.close();
+        }
+        ResultSet result = psstm.executeQuery();
+        result.next();
+        return new Player(result.getString("Name"),result.getInt("Balance"),result.getInt("TotalAssets"),result.getInt("FieldPos"),
+                result.getInt("Breweries"),result.getInt("Shipping"), result.getInt("JailCards"),result.getInt("JailTurns"),result.getBoolean("Jailed"));
     }
 
     public void updatePlayer(int PlayerID) throws SQLException{
-        Player p = Rules.getPlayer(PlayerID);
-        String SQL = "INSERT INTO Matador.Player " +
-                "SET PlayerID = ? ON DUPLICATE KEY UPDATE " +
-                "Name = ?, Balance = ?, TotalAssets = ?, FieldPos = ?, Breweries = ?, Shipping = ?, JailCards = ?, JailTurns = ?, Jailed = ?";
-      psstm = con.prepareStatement(SQL);
-        psstm.setInt(1, PlayerID);
-        psstm.setString(2, p.getName());
-        psstm.setInt(3, p.getBalance());
-        psstm.setInt(4, p.getTotalAssets());
-        psstm.setInt(5, p.getFieldPos());
-        psstm.setInt(6, p.getBreweries());
-        psstm.setInt(7, p.getShipping());
-        psstm.setInt(8, p.getJailcard());
-        psstm.setInt(9, p.getJailturns());
-        psstm.setBoolean(10, p.isJailed());
-        psstm.executeUpdate();
+        try {
+            Player p = Rules.getPlayer(PlayerID);
+            String SQL = "INSERT INTO Matador.Player " +
+                    "SET PlayerID = ? ON DUPLICATE KEY UPDATE " +
+                    "Name = ?, Balance = ?, TotalAssets = ?, FieldPos = ?, Breweries = ?, Shipping = ?, JailCards = ?, JailTurns = ?, Jailed = ?";
+            psstm = con.prepareStatement(SQL);
+            psstm.setInt(1, PlayerID);
+            psstm.setString(2, p.getName());
+            psstm.setInt(3, p.getBalance());
+            psstm.setInt(4, p.getTotalAssets());
+            psstm.setInt(5, p.getFieldPos());
+            psstm.setInt(6, p.getBreweries());
+            psstm.setInt(7, p.getShipping());
+            psstm.setInt(8, p.getJailcard());
+            psstm.setInt(9, p.getJailturns());
+            psstm.setBoolean(10, p.isJailed());
+            psstm.executeUpdate();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            psstm.close();
+        }
+
     }
 
     public void getField(int PlayerID) throws SQLException {
-        String SQL = "SELECT * FROM Field WHERE Owner = ?";
-        psstm = con.prepareStatement(SQL);
-        psstm.setInt(1, PlayerID);
-        ResultSet result = psstm.executeQuery();
-        while (result.next()) {
-            int FieldID = result.getInt("FieldID");
-            ((Ownable) Gameboard.getField(FieldID)).setOwner(Rules.getPlayer(PlayerID));
-            GUI.setOwner(FieldID, Rules.getPlayer(PlayerID).getName());
-            if (result.getBoolean("Pawned")) {
-                ((Ownable) Gameboard.getField(FieldID)).setPawned(true);
-                GUI.setSubText(FieldID, "Pantsat!");
-            }
-            if (Gameboard.getField(FieldID) instanceof Street) {
-                ((Street) Gameboard.getField(FieldID)).addHouses(result.getInt("Houses"));
-                PlayerOptions.HouseorHotel(FieldID);
+        try {
+            String SQL = "SELECT * FROM Field WHERE Owner = ?";
+            psstm = con.prepareStatement(SQL);
+            psstm.setInt(1, PlayerID);
+            ResultSet result = psstm.executeQuery();
+            while (result.next()) {
+                int FieldID = result.getInt("FieldID");
+                ((Ownable) Gameboard.getField(FieldID)).setOwner(Rules.getPlayer(PlayerID));
+                GUI.setOwner(FieldID, Rules.getPlayer(PlayerID).getName());
+                if (result.getBoolean("Pawned")) {
+                    ((Ownable) Gameboard.getField(FieldID)).setPawned(true);
+                    GUI.setSubText(FieldID, "Pantsat!");
+                }
+                if (Gameboard.getField(FieldID) instanceof Street) {
+                    ((Street) Gameboard.getField(FieldID)).addHouses(result.getInt("Houses"));
+                    PlayerOptions.HouseorHotel(FieldID);
+                }
             }
         }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            psstm.close();
+        }
+
     }
 
     public void updateField(int PlayerID) throws SQLException {
