@@ -109,7 +109,7 @@ public class Gameboard {
 				.setRent("Leje: 500 * [Antal rederier]")
 				.setPicture(null)
 				.setFgColor(null)
-				.setBgColor(Color.GREEN)
+				.setBgColor(Color.magenta)
 				.build();
 
 		fieldValue[6] = new fields.Street("Roskildevej","Orange", 2000, 100, 600, 1800, 5400, 8000, 11000, 1000);
@@ -152,7 +152,9 @@ public class Gameboard {
 				.setDescription("På besøg i fængslet")
 				.setSubText(fieldValue[10].getName())
 				.setPicture(null)
-				.build();	
+				.setFgColor(Color.white)
+				.setBgColor(Color.darkGray)
+				.build();
 
 		fieldValue[11] = new fields.Street("Frederiksberg Allé", "Grøn", 2800, 200, 1000, 3000, 9000, 12500, 15000, 2000);
 		fieldGUI[11] = new Street.Builder()
@@ -172,7 +174,7 @@ public class Gameboard {
 				.setRent("100 x [Terningslag]")
 				.setPicture(null)
 				.setFgColor(null)
-				.setBgColor(null)
+				.setBgColor(Color.PINK)
 				.build();	
 
 		fieldValue[13] = new fields.Street("Bülowsvej", "Grøn", 2800, 200, 1000, 3000, 9000, 12500, 15000, 2000);
@@ -203,7 +205,7 @@ public class Gameboard {
 				.setRent("Leje: 500 * [Antal rederier]")
 				.setPicture(null) // Billede kan filføjes
 				.setFgColor(null)
-				.setBgColor(Color.GREEN)
+				.setBgColor(Color.magenta)
 				.build();
 
 		fieldValue[16] = new fields.Street("Bernstorfsvej", "Grå", 3600, 300, 1400, 4000, 11000, 15000, 19000, 2000);
@@ -292,7 +294,7 @@ public class Gameboard {
 				.setRent("Leje: 500 * [Antal rederier]")
 				.setPicture(null)
 				.setFgColor(null)
-				.setBgColor(Color.GREEN)
+				.setBgColor(Color.magenta)
 				.build();
 
 		fieldValue[26] = new fields.Street("Bredgade", "Hvid", 5200, 450, 2200, 6600, 16000, 19500, 23000, 3000);
@@ -323,7 +325,7 @@ public class Gameboard {
 				.setRent("100 x [Terningslag]")
 				.setPicture(null)
 				.setFgColor(null)
-				.setBgColor(null)
+				.setBgColor(Color.PINK)
 				.build();
 
 		fieldValue[29] = new fields.Street("Østergade", "Hvid", 5600, 500, 2400, 7200, 17000, 20500, 24000, 3000);
@@ -342,6 +344,8 @@ public class Gameboard {
 				.setDescription("De fængsles! Slå to ens for at komme ud")
 				.setSubText(fieldValue[30].getName())
 				.setPicture(null)
+				.setFgColor(Color.white)
+				.setBgColor(Color.darkGray)
 				.build();
 
 		fieldValue[31] = new fields.Street("Amagertorv", "Gul", 6000, 550, 2600, 7800, 18000, 22000, 25000, 4000);
@@ -378,7 +382,7 @@ public class Gameboard {
 				.setBgColor(Color.YELLOW)
 				.build();
 
-		fieldValue[35] = new fields.Shipping("Skandinavisk Linietrafik A/S", 4000);
+		fieldValue[35] = new fields.Shipping("S.Linietrafik", 4000);
 		fieldGUI[35] = new Shipping.Builder()
 				.setTitle(fieldValue[35].getName())
 				.setDescription(fieldValue[35].getName())
@@ -386,7 +390,7 @@ public class Gameboard {
 				.setRent("Leje: 500 * [Antal rederier]")
 				.setPicture(null) // Billede kan filføjes
 				.setFgColor(null)
-				.setBgColor(Color.GREEN)
+				.setBgColor(Color.magenta)
 				.build();
 
 		fieldValue[36] = new fields.Chance("Chancen6");
