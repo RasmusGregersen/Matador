@@ -89,7 +89,7 @@ public class Rules {
 		GUI.removeAllCars(player.getName());
 
 		for (int i = 0;i<6;i++) {
-			if (player == players[i]) {
+			if (player.getName() == players[i].getName()) {
 				try {
 					for (int f = 1;f<41;i++) {
 						if (Gameboard.getField(f) instanceof Street || Gameboard.getField(f) instanceof Shipping || Gameboard.getField(f) instanceof Brewery) {
@@ -101,13 +101,12 @@ public class Rules {
 					}
 					con.updateField(i);
 					con.removePlayer(i);
+					players[i] = null;
 				}
 				catch (SQLException e) {
 					e.printStackTrace();
 				}
-				players[i] = null;
 			}
-
 		}
 	}
 
@@ -122,7 +121,7 @@ public class Rules {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			playerCount = GUI.getUserInteger("Hvor mange spillere ønsker i at spille?", 2 , 6);	
+			playerCount = GUI.getUserInteger("Hvor mange spillere ønsker i at spille?", 2 , 6);
 			CarBuilder();
 
 			// Name Check	
