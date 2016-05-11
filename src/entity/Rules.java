@@ -17,6 +17,7 @@ public class Rules {
 	private static Connector con = new Connector();
 	private static Car[] cars = new Car[6];
 	private static Player[] players = new Player[6];
+
 	private static int playerCount = 0;
 
 	public static Player getPlayer(int playernumber) { // getter for the array
@@ -29,6 +30,10 @@ public class Rules {
 
 	public static void setPlayer(int index, Player player) {
 		players[index] = player;
+	}
+
+	public static void setPlayerCount(int playerCount) {
+		Rules.playerCount = playerCount;
 	}
 
 	// Turn Method

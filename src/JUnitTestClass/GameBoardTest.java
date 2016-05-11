@@ -1,8 +1,10 @@
 package JUnitTestClass;
 
+import com.sun.tools.javac.comp.Check;
 import entity.Gameboard;
 import entity.Rules;
 import fields.Ownable;
+import fields.Shipping;
 import fields.Street;
 import org.junit.After;
 import org.junit.Before;
@@ -74,14 +76,66 @@ public class GameBoardTest {
     }
 
     @Test
-    public void LandonFieldStreet () {
-        Player Test = new Player("Thomas",30000,0,0,0,0,0,0,false);
+    public void LandonFieldStreetTest () {
+        Player Test = new Player("Test",30000,0,0,0,0,0,0,false);
         ((Ownable) Gameboard.getField(10)).setOwner(Test);
         player.setFieldPos(10);
         Gameboard.setField(player.getFieldPos(), player);
         int expected = 30000 - ((Street) Gameboard.getField(10)).getRent();
         int actual = this.player.getBalance();
         assertEquals(expected, actual);
+    }
+
+    @Test
+    public void LandonFieldStreetHousesTest () {
+        Player Test = new Player("Test",30000,0,0,0,0,0,0,false);
+        ((Ownable) Gameboard.getField(14)).setOwner(Test);
+        ((Street) Gameboard.getField(14)).addHouses(3);
+        player.setFieldPos(14);
+        Gameboard.setField(player.getFieldPos(), player);
+        int expected = 30000 - ((Ownable) Gameboard.getField(14)).getRent();
+        int actual = this.player.getBalance();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void LandonFieldShippingTest () {
+        Player Test = new Player("Test",30000,0,0,0,2,0,0,false);
+        ((Ownable) Gameboard.getField(6)).setOwner(Test);
+        player.setFieldPos(6);
+        Gameboard.setField(player.getFieldPos(), player);
+        int expected = 30000 - ((Ownable) Gameboard.getField(6)).getRent();
+        int actual = this.player.getBalance();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void LandonFieldParkingTest () {
+        player.setFieldPos(21);
+        Gameboard.setField(player.getFieldPos(), player);
+        int expected = 30000;
+        int actual = this.player.getBalance();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void MoveToFieldTest () {
+        player.setFieldPos(37);
+        player.moveToFieldPos(10);
+        int expected = 30000 + 4000;
+        int actual = this.player.getBalance();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void CheckWinConditionTest () {
+       Player player1 = new Player("Test2",-1000,0,0,0,0,0,0,false);
+       Player player2 = new Player("Test3",-1000,0,0,0,0,0,0,false);
+        Rules.setPlayer(0,player); Rules.setPlayer(1,player1); Rules.setPlayer(2,player2);
+        Rules.setPlayerCount(3);
+        Rules.LoseCondition(player1);
+        Rules.LoseCondition(player2);
+        Rules.CheckWinConditions(player);
     }
 
     @After
