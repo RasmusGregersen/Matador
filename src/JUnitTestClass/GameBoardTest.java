@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import entity.Player;
 import static org.junit.Assert.*;
+import desktop_resources.GUI;
 
 /**
  * Created by Moulvad on 03/05/16.
@@ -70,6 +71,17 @@ public class GameBoardTest {
         int Expected = Rules.getDiceSum() * 200;
         int Result = ((Ownable) Gameboard.getField(13)).getRent();
         assertEquals(Expected, Result);
+    }
+
+    @Test
+    public void LandonFieldStreet () {
+        Player Test = new Player("Thomas",30000,0,0,0,0,0,0,false);
+        ((Ownable) Gameboard.getField(10)).setOwner(Test);
+        player.setFieldPos(10);
+        Gameboard.setField(player.getFieldPos(), player);
+        int expected = 30000 - ((Street) Gameboard.getField(10)).getRent();
+        int actual = this.player.getBalance();
+        assertEquals(expected, actual);
     }
 
     @After
