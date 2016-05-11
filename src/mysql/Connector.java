@@ -153,14 +153,16 @@ public class Connector implements DAO,DTO {
 
     public void removePlayer(int PlayerID) throws SQLException{
         try {
-            Player p = Rules.getPlayer(PlayerID);
-            String SQL =
-                    "DELETE FROM $DBname.Player WHERE PlayerID=?;" +
-                    "DELETE FROM $DBname.Player WHERE Owner =?";
-            SQL = SQL.replace("$DBname",DBname);
-            psstm = con.prepareStatement(SQL);
-            psstm.setInt(1, PlayerID);
-            psstm.setInt(2, PlayerID);
+            String stm1 = "DELETE FROM $DBname.Field WHERE Owner = ?;";
+            stm1 = stm1.replace("$DBname",DBname);
+            psstm = con.prepareStatement(stm1);
+            psstm.setInt(1,PlayerID);
+            psstm.executeUpdate();
+
+            String stm2 = "DELETE FROM $DBname.Player WHERE PlayerID = ?;";
+            stm2 = stm2.replace("$DBname",DBname);
+            psstm = con.prepareStatement(stm2);
+            psstm.setInt(1,PlayerID);
             psstm.executeUpdate();
         }
         catch (SQLException e) {

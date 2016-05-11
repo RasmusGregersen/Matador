@@ -28,8 +28,8 @@ public class PlayerOptions {
 				Rules.Turn(player);
 			}
 		}
-		else if(player.getBalance() >= 1000){
-			if(GUI.getUserLeftButtonPressed(player.getName() + ": Vil du betale en bøde på 1000 og komme ud af fængsel","Ja","Nej")) {
+		else if(GUI.getUserLeftButtonPressed(player.getName() + ": Vil du betale en bøde på 1000 og komme ud af fængsel","Ja","Nej")){
+			if(player.getBalance() >= 1000) {
 				player.withdrawBalance(1000);
 				player.setJailed(false);
 			}

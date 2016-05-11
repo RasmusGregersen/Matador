@@ -88,9 +88,10 @@ public class Rules {
 		playerCount = playerCount - 1;
 		GUI.setBalance(player.getName(), 0);
 		GUI.removeAllCars(player.getName());
+		int PlayerID;
 		for (int i = 0;i<6;i++) {
-			if (player.getName().equals(players[i].getName())) {
-				for (int f=1;f<41;i++) {
+			if (players[i] != null && player == players[i]) {
+				for (int f=1;f<41;f++) {
 					if (Gameboard.getField(f) instanceof Street || Gameboard.getField(f) instanceof Shipping || Gameboard.getField(f) instanceof Brewery) {
 						if (((Ownable) Gameboard.getField(f)).getOwner() == player) {
 							((Ownable) Gameboard.getField(f)).setOwner(null);
