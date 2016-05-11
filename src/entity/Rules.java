@@ -6,7 +6,10 @@ import java.sql.SQLException;
 
 import desktop_codebehind.Car;
 import desktop_resources.GUI;
+import fields.Brewery;
 import fields.Ownable;
+import fields.Shipping;
+import fields.Street;
 import mysql.Connector;
 
 public class Rules {
@@ -89,11 +92,12 @@ public class Rules {
 			if (player == players[i]) {
 				try {
 					for (int f = 1;f<41;i++) {
-						if ( ((Ownable) Gameboard.getField(f)).getOwner() == player) {
-							((Ownable) Gameboard.getField(f)).setOwner(null);
-							GUI.removeOwner(f);
+						if (Gameboard.getField(f) instanceof Street || Gameboard.getField(f) instanceof Shipping || Gameboard.getField(f) instanceof Brewery) {
+							if (((Ownable) Gameboard.getField(f)).getOwner() == player) {
+								((Ownable) Gameboard.getField(f)).setOwner(null);
+								GUI.removeOwner(f);
+							}
 						}
-
 					}
 					con.updateField(i);
 					con.removePlayer(i);
