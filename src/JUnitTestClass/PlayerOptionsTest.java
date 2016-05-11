@@ -1,7 +1,9 @@
 package JUnitTestClass;
 
 import com.sun.tools.javac.comp.Check;
+import controller.Game;
 import entity.Gameboard;
+import entity.PlayerOptions;
 import entity.Rules;
 import fields.Ownable;
 import fields.Shipping;
@@ -23,8 +25,35 @@ public class PlayerOptionsTest {
     @Before
     public void setUp() throws Exception {
         Gameboard.CreateGUI();
-        player = new Player("Test", 30000, 0, 1, 0, 0, 0, 0, false);
+        player = new Player("Test", 30000, 0, 0, 0, 0, 0, 0, false);
     }
+
+    @Test
+    //BuyPropertyTest, we want to buy 2 houses on the "Lyseblå" field. We expect the BuyProperty method to place the houses best strategicly
+    //and withdraw the correct amount to the player
+    public void BuyPropertyTest () {
+        ((Ownable) Gameboard.getField(2)).setOwner(player); ((Ownable) Gameboard.getField(4)).setOwner(player);
+        ((Street) Gameboard.getField(2)).addHouses(2);  ((Street) Gameboard.getField(4)).addHouses(3);
+        PlayerOptions.HouseorHotel(2);  PlayerOptions.HouseorHotel(4);
+        PlayerOptions.BuyProperty(player);
+        int expected = 30000 - (((Street) Gameboard.getField(2)).getHousePrice() * 2);
+        int actual = player.getBalance();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    //SellPropertyTest, we want to sell 4 houses on the "Mørkeblå" field. We expect the SellProperty method to substract the houses best strategicly
+    //and deposit the correct amount to the player
+    public void SellPropertyTest () {
+        ((Ownable) Gameboard.getField(38)).setOwner(player); ((Ownable) Gameboard.getField(40)).setOwner(player);
+        ((Street) Gameboard.getField(38)).addHouses(2);  ((Street) Gameboard.getField(40)).addHouses(2);
+        PlayerOptions.HouseorHotel(38);  PlayerOptions.HouseorHotel(40);
+        PlayerOptions.SellProperty(player);
+        int expected = 30000 +((((Street) Gameboard.getField(40)).getHousePrice() * 4)/2);
+        int actual = player.getBalance();
+        assertEquals(expected, actual);
+    }
+
 
     @After
     public void TearDown() throws Exception {

@@ -127,7 +127,7 @@ public class GameBoardTest {
         assertEquals(expected, actual);
     }
 
-    @Test
+    /*@Test
     public void CheckWinConditionTest () {
        Player player1 = new Player("Test2",-1000,0,0,0,0,0,0,false);
        Player player2 = new Player("Test3",-1000,0,0,0,0,0,0,false);
@@ -136,7 +136,7 @@ public class GameBoardTest {
         Rules.LoseCondition(player1);
         Rules.LoseCondition(player2);
         Rules.CheckWinConditions(player);
-    }
+    }*/
 
     @After
     public void TearDown() throws Exception {
