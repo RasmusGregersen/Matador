@@ -189,7 +189,19 @@ public class Rules {
 					GUI.setCar(players[i].getFieldPos(), players[i].getName());
 				}
 			}
-			Gameboard.CreateGUI();
+			for (int i=1;i<41;i++) {
+				if (Gameboard.getField(i) instanceof Street || Gameboard.getField(i) instanceof Brewery || Gameboard.getField(i) instanceof Shipping) {
+					if (((Ownable) Gameboard.getField(i)).getOwner() != null) {
+						GUI.setOwner(i, ((Ownable) Gameboard.getField(i)).getOwner().getName());
+						if (((Ownable) Gameboard.getField(i)).isPawned()) {
+							GUI.setSubText(i, "Pantsat!");
+						}
+						if (Gameboard.getField(i) instanceof Street) {
+							PlayerOptions.HouseorHotel(i);
+						}
+					}
+				}
+			}
 		}
 	catch (SQLException e) {
 		e.printStackTrace();

@@ -102,7 +102,7 @@ public class Connector implements DAO,DTO {
     public Player getPlayer(int PlayerID) throws SQLException {
         String SQL = "SELECT * FROM $DBname.Player WHERE PlayerID = ?";
         Player player = null;
-        ResultSet result = null;
+        ResultSet result;
         try {
             SQL = SQL.replace("$DBname",DBname);
             psstm = con.prepareStatement(SQL);
@@ -183,14 +183,11 @@ public class Connector implements DAO,DTO {
             while (result.next()) {
                 int FieldID = result.getInt("FieldID");
                 ((Ownable) Gameboard.getField(FieldID)).setOwner(Rules.getPlayer(PlayerID));
-                GUI.setOwner(FieldID, Rules.getPlayer(PlayerID).getName());
                 if (result.getBoolean("Pawned")) {
                     ((Ownable) Gameboard.getField(FieldID)).setPawned(true);
-                    GUI.setSubText(FieldID, "Pantsat!");
                 }
                 if (Gameboard.getField(FieldID) instanceof Street) {
                     ((Street) Gameboard.getField(FieldID)).addHouses(result.getInt("Houses"));
-                    PlayerOptions.HouseorHotel(FieldID);
                 }
             }
         }
