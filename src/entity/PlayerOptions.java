@@ -2,6 +2,7 @@ package entity;
 
 import desktop_resources.GUI;
 import fields.Brewery;
+import fields.Field;
 import fields.Ownable;
 import fields.Street;
 
@@ -11,10 +12,15 @@ public class PlayerOptions {
 		if (player.getJailturns() == 3) {
 			player.setJailed(false);
 			GUI.showMessage(player.getName() + ": har nu været i fængsel i tre turer, og bliver derfor løsladt, men  " + player.getName() + "  er tvunget til, at betale en bøde på 1000 kr,-");
-			player.withdrawBalance(1000);
-			Rules.Turn(player);
+			if (player.getBalance() < 1000) {
+				player.withdrawBalance(1000);
+				BankruptOrOptions(player);
+			}
+			else {
+				player.withdrawBalance(1000);
+				Rules.Turn(player);
+			}
 		}
-
 		else if (player.getJailcard() > 0) {
 			if (GUI.getUserLeftButtonPressed(player.getName() + ": Vil du bruge dit Chancekort til at komme ud af fængslet?", "Ja", "Nej")) {
 				player.setJailcard(player.getJailcard()-1);
@@ -22,9 +28,14 @@ public class PlayerOptions {
 				Rules.Turn(player);
 			}
 		}
-		else if (GUI.getUserLeftButtonPressed(player.getName() + ": Vil du betale en bøde på 1000 og komme ud af fængsel","Ja","Nej") && player.getBalance() > 1000) {
-			player.withdrawBalance(1000);
-			player.setJailed(false);
+		else if(GUI.getUserLeftButtonPressed(player.getName() + ": Vil du betale en bøde på 1000 og komme ud af fængsel","Ja","Nej")){
+			if(player.getBalance() > 1000) {
+				player.withdrawBalance(1000);
+				player.setJailed(false);
+			}
+			else
+				GUI.showMessage("Du har ikke råd og bliver sendt tilbage til dine valg");
+				Jailturn(player);
 		}
 		else {
 			GUI.showMessage(player.getName() + ": du har nu 3 forsøg til at slå dobbelt, og komme ud af fængsel");
@@ -38,7 +49,7 @@ public class PlayerOptions {
 					Gameboard.setField(player.getFieldPos(), player);
 					Rules.ExtraTurn(player);
 					break;
-				}	
+				}
 			}
 			if (player.isJailed())
 				player.setJailturns(player.getJailturns()+1);
@@ -81,15 +92,17 @@ public class PlayerOptions {
 			int felt2 = 0;
 			int felt3 = 0;
 			for (int i = 1; i < 41; i++) {
-				if (((Street) Gameboard.getField(i)).getColor().equals(choice)) {
-					houses = ((Street) Gameboard.getField(i)).getHouses() + houses;
-					houseprice = ((Street) Gameboard.getField(i)).getHousePrice();
-					if (felt1 == 0)
-						felt1 = i;
-					else if (felt2 == 0 && felt1 != 0)
-						felt2 = i;
-					else if (felt3 == 0 && felt2 != 0)
-						felt3 = i;
+				if (Gameboard.getField(i) instanceof Street) {
+					if (((Street) Gameboard.getField(i)).getColor().equals(choice)) {
+						houses = ((Street) Gameboard.getField(i)).getHouses() + houses;
+						houseprice = ((Street) Gameboard.getField(i)).getHousePrice();
+						if (felt1 == 0)
+							felt1 = i;
+						else if (felt2 == 0 && felt1 != 0)
+							felt2 = i;
+						else if (felt3 == 0 && felt2 != 0)
+							felt3 = i;
+					}
 				}
 			}
 			if (choice.equals(Color1) || choice.equals(Color8)) {
@@ -159,15 +172,17 @@ public class PlayerOptions {
 			int felt3 = 0;
 			int min = 1;
 			for (int i=1;i<41;i++) {
-				if (((Street) Gameboard.getField(i)).getColor().equals(choice)) {
-					houses = ((Street) Gameboard.getField(i)).getHouses() + houses;
-					houseprice = ((Street) Gameboard.getField(i)).getHousePrice();
-					if (felt1 == 0) 
-						felt1 = i;
-					else if (felt2 == 0 && felt1 > 0)
-						felt2 = i;
-					else if (felt3 == 0 && felt2 > 0)
-						felt3 = i;
+				if (Gameboard.getField(i) instanceof Street) {
+					if (((Street) Gameboard.getField(i)).getColor().equals(choice)) {
+						houses = ((Street) Gameboard.getField(i)).getHouses() + houses;
+						houseprice = ((Street) Gameboard.getField(i)).getHousePrice();
+						if (felt1 == 0)
+							felt1 = i;
+						else if (felt2 == 0 && felt1 > 0)
+							felt2 = i;
+						else if (felt3 == 0 && felt2 > 0)
+							felt3 = i;
+					}
 				}
 			}
 			if (houses == 0) {
