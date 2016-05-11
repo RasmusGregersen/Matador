@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.lang.reflect.Array;
 import java.sql.SQLException;
 
+import com.sun.tools.javac.util.ArrayUtils;
 import desktop_codebehind.Car;
 import desktop_resources.GUI;
 import fields.Brewery;
@@ -87,18 +88,17 @@ public class Rules {
 		playerCount = playerCount - 1;
 		GUI.setBalance(player.getName(), 0);
 		GUI.removeAllCars(player.getName());
-
 		for (int i = 0;i<6;i++) {
 			if (player.getName().equals(players[i].getName())) {
-				try {
-					for (int f = 1;f<41;i++) {
-						if (Gameboard.getField(f) instanceof Street || Gameboard.getField(f) instanceof Shipping || Gameboard.getField(f) instanceof Brewery) {
-							if (((Ownable) Gameboard.getField(f)).getOwner() == player) {
-								((Ownable) Gameboard.getField(f)).setOwner(null);
-								GUI.removeOwner(f);
-							}
+				for (int f=1;f<41;i++) {
+					if (Gameboard.getField(f) instanceof Street || Gameboard.getField(f) instanceof Shipping || Gameboard.getField(f) instanceof Brewery) {
+						if (((Ownable) Gameboard.getField(f)).getOwner() == player) {
+							((Ownable) Gameboard.getField(f)).setOwner(null);
+							GUI.removeOwner(f);
 						}
 					}
+				}
+				try {
 					con.updateField(i);
 					con.removePlayer(i);
 					players[i] = null;
