@@ -78,14 +78,19 @@ public class Rules {
 	}	
 
 	// Lose Condition
-	public static void LoseCondition(Player player) throws SQLException {
+	public static void LoseCondition(Player player) {
 		GUI.showMessage(player.getName() + " har forladt spillet");
 		playerCount = playerCount - 1;
 		GUI.setBalance(player.getName(), 0);
 		GUI.removeAllCars(player.getName());
 		for (int i = 0;i<6;i++) {
 			if (player == players[i]) {
-				con.removePlayer(i);
+				try {
+					con.removePlayer(i);
+				}
+				catch (SQLException e) {
+					e.printStackTrace();
+				}
 				players[i] = null;
 			}
 
