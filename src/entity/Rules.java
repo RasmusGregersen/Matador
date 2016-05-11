@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 import desktop_codebehind.Car;
 import desktop_resources.GUI;
+import fields.Ownable;
 import mysql.Connector;
 
 public class Rules {
@@ -83,9 +84,18 @@ public class Rules {
 		playerCount = playerCount - 1;
 		GUI.setBalance(player.getName(), 0);
 		GUI.removeAllCars(player.getName());
+
 		for (int i = 0;i<6;i++) {
 			if (player == players[i]) {
 				try {
+					for (int f = 1;f<41;i++) {
+						if ( ((Ownable) Gameboard.getField(f)).getOwner() == player) {
+							((Ownable) Gameboard.getField(f)).setOwner(null);
+							GUI.removeOwner(f);
+						}
+
+					}
+					con.updateField(i);
 					con.removePlayer(i);
 				}
 				catch (SQLException e) {
