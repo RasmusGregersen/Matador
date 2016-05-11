@@ -1,5 +1,6 @@
 package JUnitTestClass;
 
+import com.sun.tools.classfile.Field;
 import com.sun.tools.javac.comp.Check;
 import controller.Game;
 import entity.Gameboard;
@@ -45,11 +46,34 @@ public class PlayerOptionsTest {
     //SellPropertyTest, we want to sell 4 houses on the "Mørkeblå" field. We expect the SellProperty method to substract the houses best strategicly
     //and deposit the correct amount to the player
     public void SellPropertyTest () {
-        ((Ownable) Gameboard.getField(38)).setOwner(player); ((Ownable) Gameboard.getField(40)).setOwner(player);
-        ((Street) Gameboard.getField(38)).addHouses(2);  ((Street) Gameboard.getField(40)).addHouses(2);
-        PlayerOptions.HouseorHotel(38);  PlayerOptions.HouseorHotel(40);
+        ((Ownable) Gameboard.getField(2)).setOwner(player); ((Ownable) Gameboard.getField(4)).setOwner(player);
+        ((Street) Gameboard.getField(2)).addHouses(3);  ((Street) Gameboard.getField(4)).addHouses(4);
+        PlayerOptions.HouseorHotel(2);  PlayerOptions.HouseorHotel(4);
         PlayerOptions.SellProperty(player);
-        int expected = 30000 +((((Street) Gameboard.getField(40)).getHousePrice() * 4)/2);
+        int expected = 30000 +((((Street) Gameboard.getField(2)).getHousePrice() * 2)/2);
+        int actual = player.getBalance();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    //SetPawnedTest, we want to pledge field nr. 26. We expect to see the GUI. show that the field is pawned.
+    //And afterwards deposit the correct amount to the players balance.
+    public void SetPawnedTest () {
+        ((Ownable) Gameboard.getField(26)).setOwner(player);
+        PlayerOptions.SetPawned(player);
+        int expected = (int) (30000 + (((Ownable) Gameboard.getField(26)).getPrice() * 0.9));
+        int actual = player.getBalance();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    //BuyPawnedTest, we want to buy back the pledged field nr. 26. We expect to see the GUI. show that the field is no longer pawned.
+    //And afterwards withdraw the correct amount to the players balance.
+    public void BuyPawnedTest () {
+        ((Ownable) Gameboard.getField(26)).setOwner(player);
+        ((Ownable) Gameboard.getField(26)).setPawned(true);
+        PlayerOptions.BuyPawned(player);
+        int expected = 30000 - ((Ownable) Gameboard.getField(26)).getPrice();
         int actual = player.getBalance();
         assertEquals(expected, actual);
     }
