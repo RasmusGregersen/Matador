@@ -34,11 +34,11 @@ public class Rules {
 
 	public static void Turn(Player player) {
 		if (!CheckWinConditions(player)) {
-		PlayerOptions.Options(player);
+			PlayerOptions.Options(player);
 			Rules.rollDice();
 			player.moveToFieldPos(Rules.getDiceSum());
 			Gameboard.setField(player.getFieldPos(), player);
-		if (player.getBalance() < 0)
+			if (player.getBalance() < 0)
 			PlayerOptions.Bankrupt(player);
 		}
 	}

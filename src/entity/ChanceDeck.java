@@ -174,7 +174,7 @@ public class ChanceDeck {
 			break;
 		case 17:
 			GUI.showMessage("Læs dit chancekort");
-			player.setFieldPos(39);
+			player.setFieldPos(40);
 			Gameboard.setField(player.getFieldPos(), player);
 			break;
 		case 18:

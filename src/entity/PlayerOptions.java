@@ -28,14 +28,14 @@ public class PlayerOptions {
 				Rules.Turn(player);
 			}
 		}
-		else if(GUI.getUserLeftButtonPressed(player.getName() + ": Vil du betale en bøde på 1000 og komme ud af fængsel","Ja","Nej")){
-			if(player.getBalance() >= 1000) {
+		else if(player.getBalance() >= 1000){
+			if(GUI.getUserLeftButtonPressed(player.getName() + ": Vil du betale en bøde på 1000 og komme ud af fængsel","Ja","Nej")) {
 				player.withdrawBalance(1000);
 				player.setJailed(false);
 			}
-			else
+			else {
 				GUI.showMessage("Du har ikke råd og bliver sendt tilbage til dine valg");
-				Jailturn(player);
+				Jailturn(player); }
 		}
 		else {
 			GUI.showMessage(player.getName() + ": du har nu 3 forsøg til at slå dobbelt, og komme ud af fængsel");
@@ -337,7 +337,6 @@ public class PlayerOptions {
 			else if (option.equals(Surrender)) {
 				Rules.LoseCondition(player);
 			}
-
 		}
 
 	public static void BankruptOrOptions (Player player) {
