@@ -89,7 +89,7 @@ public class Rules {
 		GUI.removeAllCars(player.getName());
 
 		for (int i = 0;i<6;i++) {
-			if (player.getName() == players[i].getName()) {
+			if (player.getName().equals(players[i].getName())) {
 				try {
 					for (int f = 1;f<41;i++) {
 						if (Gameboard.getField(f) instanceof Street || Gameboard.getField(f) instanceof Shipping || Gameboard.getField(f) instanceof Brewery) {
