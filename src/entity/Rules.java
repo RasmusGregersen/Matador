@@ -82,7 +82,10 @@ public class Rules {
 		GUI.showMessage(player.getName() + " har forladt spillet");
 		playerCount = playerCount - 1;
 		GUI.removeAllCars(player.getName());
-		player = null;
+		for (int i = 0;i<6;i++) {
+			if (player == players[i])
+				players[i] = null;
+		}
 	}
 
 	// Game Setup
