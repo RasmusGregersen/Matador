@@ -177,13 +177,13 @@ public class Rules {
 	}
 
 	public static void LoadGame() {
+		CarBuilder();
 		con.setDBname(GUI.getUserSelection("Vælg en af de gemte spil at indlæse", "Matador1", "Matador2", "Matador3", "Matador4", "Matador5"));
 		try {
-			CarBuilder();
 			for (int i=0; i<6; i++) {
 				players[i] = con.getPlayer(i);
-				con.updateField(i);
-				if (players[i] instanceof Player) {
+				con.getField(i);
+				if (players[i] != null) {
 					playerCount = playerCount++;
 					GUI.addPlayer(players[i].getName(), players[i].getBalance(), cars[i]);
 					GUI.setCar(players[i].getFieldPos(), players[i].getName());

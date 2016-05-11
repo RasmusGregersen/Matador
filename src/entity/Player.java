@@ -135,7 +135,6 @@ public class Player {
 		}
 		GUI.removeAllCars(name);
 		GUI.setCar(this.FieldPos, name);
-
 	}
 
 	public int getTotalAssets() {
@@ -145,6 +144,5 @@ public class Player {
 	public void setTotalAssets(int totalAssets) {
 		TotalAssets = totalAssets + TotalAssets;
 	}
-	
-	
+
 }
