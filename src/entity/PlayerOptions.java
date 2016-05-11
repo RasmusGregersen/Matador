@@ -12,7 +12,7 @@ public class PlayerOptions {
 		if (player.getJailturns() == 3) {
 			player.setJailed(false);
 			GUI.showMessage(player.getName() + ": har nu været i fængsel i tre turer, og bliver derfor løsladt, men  " + player.getName() + "  er tvunget til, at betale en bøde på 1000 kr,-");
-			if (player.getBalance() < 1000) {
+			if (player.getBalance() <= 1000) {
 				player.withdrawBalance(1000);
 				BankruptOrOptions(player);
 			}
@@ -29,7 +29,7 @@ public class PlayerOptions {
 			}
 		}
 		else if(GUI.getUserLeftButtonPressed(player.getName() + ": Vil du betale en bøde på 1000 og komme ud af fængsel","Ja","Nej")){
-			if(player.getBalance() > 1000) {
+			if(player.getBalance() >= 1000) {
 				player.withdrawBalance(1000);
 				player.setJailed(false);
 			}
