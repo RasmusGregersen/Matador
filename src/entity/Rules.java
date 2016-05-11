@@ -211,38 +211,30 @@ public class Rules {
 				.typeCar()
 				.patternFill()
 				.build();
-		if (playerCount > 2) {
 			cars[2] = new Car.Builder() // chaining
 					.primaryColor(Color.ORANGE)
 					.secondaryColor(Color.WHITE)
 					.typeCar()
 					.patternFill()
 					.build();
-			if (playerCount > 3) {
 				cars[3] = new Car.Builder() // chaining
 						.primaryColor(Color.YELLOW)
 						.secondaryColor(Color.WHITE)
 						.typeCar()
 						.patternFill()
 						.build();
-				if (playerCount > 4) {
 					cars[4] = new Car.Builder() // chaining
 							.primaryColor(Color.WHITE)
 							.secondaryColor(Color.WHITE)
 							.typeCar()
 							.patternFill()
 							.build();
-					if (playerCount > 5) {
 						cars[5] = new Car.Builder() // chaining
 								.primaryColor(Color.CYAN)
 								.secondaryColor(Color.WHITE)
 								.typeCar()
 								.patternFill()
 								.build();
-					}
-				}
-			}
-		}
 	}
 
 	// Dice
