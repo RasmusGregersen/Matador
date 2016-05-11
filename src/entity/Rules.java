@@ -36,7 +36,6 @@ public class Rules {
 			Gameboard.setField(player.getFieldPos(), player);
 		if (player.getBalance() <= 0)
 			PlayerOptions.Bankrupt(player);
-		Rules.ExtraTurn(player);
 		}
 	}
 
@@ -102,7 +101,7 @@ public class Rules {
 
 			// Name Check	
 			for (int i=0; i < playerCount; i++) {
-				Player tmp = new Player("",30000,0,1,0,0,0,0,false);
+				Player tmp = new Player("",3000,0,1,0,0,0,0,false);
 				EnterName:	
 					while (true) {
 						String name = GUI.getUserString("Indtast navnet på Player" + (i+1)).trim();
