@@ -38,7 +38,7 @@ public class Rules {
 			Rules.rollDice();
 			player.moveToFieldPos(Rules.getDiceSum());
 			Gameboard.setField(player.getFieldPos(), player);
-		if (player.getBalance() <= 0)
+		if (player.getBalance() < 0)
 			PlayerOptions.Bankrupt(player);
 		}
 	}
