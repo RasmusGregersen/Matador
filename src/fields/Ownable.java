@@ -68,7 +68,7 @@ public abstract class Ownable extends Field {
 				GUI.setBalance(owner.getName(), owner.getBalance());
 			}
 		}
-		else {
+		else  {
 				GUI.displayChanceCard(player.getName() + ": er landet på " + owner.getName() + "'s felt. Udlejen er " + getRent());
 				player.withdrawBalance(getRent());
 				owner.depositBalance(getRent());

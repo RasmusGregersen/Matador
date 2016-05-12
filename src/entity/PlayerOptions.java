@@ -61,7 +61,8 @@ public class PlayerOptions {
 		String SellProperty = "Sælg hus eller hotel";
 		String SetPawned = "Pantsæt grund(e)";
 		String BuyPawned = "Køb pantsatte grunde tilbage";
-		String option = GUI.getUserSelection(player.getName() + ": Hvilke af følgende ting vil foretage sig?",Roll,BuyProperty,SellProperty,SetPawned,BuyPawned);
+		String QuitGame = "Afslut spil";
+		String option = GUI.getUserSelection(player.getName() + ": Hvilke af følgende ting vil foretage sig?",Roll,BuyProperty,SellProperty,SetPawned,BuyPawned,QuitGame);
 
 		if (option.equals(BuyProperty)) {
 			BuyProperty(player);
@@ -74,6 +75,9 @@ public class PlayerOptions {
 		}
 		else if (option.equals(BuyPawned)) {
 			BuyPawned(player);
+		}
+		else if (option.equals(QuitGame)) {
+			  Quitgame(player);
 		}
 	}
 
@@ -343,6 +347,13 @@ public class PlayerOptions {
 			Bankrupt(player);
 		}
 		else 
+			Options(player);
+	}
+	public static void Quitgame (Player player) {
+		if (GUI.getUserLeftButtonPressed(player.getName() + ": Vil du afslutte og gemme? (Spil bliver gemt pr. runde) " + "?", "Ja", "Nej")) {
+        System.exit(0);
+        }
+		else
 			Options(player);
 	}
 

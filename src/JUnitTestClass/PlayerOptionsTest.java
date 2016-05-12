@@ -19,7 +19,7 @@ import desktop_resources.GUI;
 /**
  * Created by Moulvad on 11/05/16.
  */
-public class PlayerOptionsTest {
+public class    PlayerOptionsTest {
 
     Player player;
 

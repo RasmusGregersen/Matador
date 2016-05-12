@@ -16,7 +16,7 @@ public class Player {
 
 	public Player(String name, int balance, int TotalAssets, int FieldPos, int breweries, int shipping, int jailcard, int Jailturns, boolean jailed){
 		this.name = name;
-        this.balance = balance;
+        this.balance = balance = 30000;
         this.TotalAssets = TotalAssets;
         this.FieldPos = FieldPos;
         this.breweries = breweries;
