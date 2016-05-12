@@ -21,12 +21,14 @@ public class PlayerOptions {
 				Rules.Turn(player);
 			}
 		}
-		else if (player.getJailcard() > 0 && GUI.getUserLeftButtonPressed(player.getName() + ": Vil du bruge dit Chancekort til at komme ud af fængslet?", "Ja", "Nej")) {
+		else if (player.getJailcard() > 0) {
+			if (GUI.getUserLeftButtonPressed(player.getName() + ": Vil du bruge dit Chancekort til at komme ud af fængslet?", "Ja", "Nej")) {
 				player.setJailcard(player.getJailcard()-1);
 				player.setJailed(false);
 				Rules.Turn(player);
+			}
 		}
-		else if(GUI.getUserLeftButtonPressed(player.getName() + ": Vil du betale en bøde på 1000 og komme ud af fængsel","Ja","Nej")) {
+		else if(GUI.getUserLeftButtonPressed(player.getName() + ": Vil du betale en bøde på 1000 og komme ud af fængsel","Ja","Nej")){
 			if(player.getBalance() >= 1000) {
 				player.withdrawBalance(1000);
 				player.setJailed(false);
@@ -265,7 +267,7 @@ public class PlayerOptions {
 							break;
 						}
 					}
-					if (GUI.getUserLeftButtonPressed(player.getName() + ": Vil du pantsætte " + Gameboard.getField(field).getName() + "?", "Ja", "Nej") && !((Ownable) Gameboard.getField(field)).isPawned()) {
+					if (GUI.getUserLeftButtonPressed(player.getName() + ": Vil du pantsætte " + Gameboard.getField(field).getName() + "?", "Ja", "Nej")) {
 						player.depositBalance((int) (((Ownable) Gameboard.getField(field)).getPrice() * 0.9));
 						player.setTotalAssets(-(((Ownable) Gameboard.getField(field)).getPrice()));
 						GUI.showMessage("Der blev indsat " + (int) (((Ownable) Gameboard.getField(field)).getPrice() * 0.9) + " på din balance");
@@ -274,8 +276,6 @@ public class PlayerOptions {
 						BankruptOrOptions(player);
 						break;
 					} else
-						GUI.showMessage("Du kan ikke pantsætte en allerede pantsat grund.");
-						BankruptOrOptions(player);
 						break;
 				}
 			}
