@@ -9,50 +9,48 @@ import fields.Street;
 public class PlayerOptions {
 
 	public static void Jailturn(Player player) {
-		if (player.getJailturns() == 3) {
-			player.setJailed(false);
-			GUI.showMessage(player.getName() + ": har nu været i fængsel i tre turer, og bliver derfor løsladt, men  " + player.getName() + "  er tvunget til, at betale en bøde på 1000 kr,-");
-			if (player.getBalance() <= 1000) {
-				player.withdrawBalance(1000);
-				BankruptOrOptions(player);
-			}
-			else {
-				player.withdrawBalance(1000);
-				Rules.Turn(player);
-			}
-		}
-		else if (player.getJailcard() > 0) {
-			if (GUI.getUserLeftButtonPressed(player.getName() + ": Vil du bruge dit Chancekort til at komme ud af fængslet?", "Ja", "Nej")) {
-				player.setJailcard(player.getJailcard()-1);
+		if (!Rules.CheckWinConditions(player)) {
+			if (player.getJailturns() == 3) {
 				player.setJailed(false);
-				Rules.Turn(player);
-			}
-		}
-		else if(GUI.getUserLeftButtonPressed(player.getName() + ": Vil du betale en bøde på 1000 og komme ud af fængsel","Ja","Nej")){
-			if(player.getBalance() >= 1000) {
-				player.withdrawBalance(1000);
-				player.setJailed(false);
-			}
-			else {
-				GUI.showMessage("Du har ikke råd og bliver sendt tilbage til dine valg");
-				Jailturn(player); }
-		}
-		else {
-			GUI.showMessage(player.getName() + ": du har nu 3 forsøg til at slå dobbelt, og komme ud af fængsel");
-			for (int i=0;i<3;i++) {
-				GUI.getUserButtonPressed(player.getName() + ": Det er din tur", "Rul terningen");
-				Rules.rollDice();
-				if (Rules.getDie1() == Rules.getDie2()) {
-					GUI.showMessage(player.getName() + "  slap ud!  " + player.getName() + ": rykker nu de antal øjne som du slog, og får yderligere et ekstra kast.");
-					player.setJailed(false);
-					player.moveToFieldPos(Rules.getDiceSum());
-					Gameboard.setField(player.getFieldPos(), player);
-					Rules.ExtraTurn(player);
-					break;
+				GUI.showMessage(player.getName() + ": har nu været i fængsel i tre turer, og bliver derfor løsladt, men  " + player.getName() + "  er tvunget til, at betale en bøde på 1000 kr,-");
+				if (player.getBalance() <= 1000) {
+					player.withdrawBalance(1000);
+					BankruptOrOptions(player);
+				} else {
+					player.withdrawBalance(1000);
+					Rules.Turn(player);
 				}
+			} else if (player.getJailcard() > 0) {
+				if (GUI.getUserLeftButtonPressed(player.getName() + ": Vil du bruge dit Chancekort til at komme ud af fængslet?", "Ja", "Nej")) {
+					player.setJailcard(player.getJailcard() - 1);
+					player.setJailed(false);
+					Rules.Turn(player);
+				}
+			} else if (GUI.getUserLeftButtonPressed(player.getName() + ": Vil du betale en bøde på 1000 og komme ud af fængsel", "Ja", "Nej")) {
+				if (player.getBalance() >= 1000) {
+					player.withdrawBalance(1000);
+					player.setJailed(false);
+				} else {
+					GUI.showMessage("Du har ikke råd og bliver sendt tilbage til dine valg");
+					Jailturn(player);
+				}
+			} else {
+				GUI.showMessage(player.getName() + ": du har nu 3 forsøg til at slå dobbelt, og komme ud af fængsel");
+				for (int i = 0; i < 3; i++) {
+					GUI.getUserButtonPressed(player.getName() + ": Det er din tur", "Rul terningen");
+					Rules.rollDice();
+					if (Rules.getDie1() == Rules.getDie2()) {
+						GUI.showMessage(player.getName() + "  slap ud!  " + player.getName() + ": rykker nu de antal øjne som du slog, og får yderligere et ekstra kast.");
+						player.setJailed(false);
+						player.moveToFieldPos(Rules.getDiceSum());
+						Gameboard.setField(player.getFieldPos(), player);
+						Rules.ExtraTurn(player);
+						break;
+					}
+				}
+				if (player.isJailed())
+					player.setJailturns(player.getJailturns() + 1);
 			}
-			if (player.isJailed())
-				player.setJailturns(player.getJailturns()+1);
 		}
 	}
 
