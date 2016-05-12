@@ -5,6 +5,7 @@ import fields.Brewery;
 import fields.Field;
 import fields.Ownable;
 import fields.Street;
+import sun.awt.SubRegionShowable;
 
 public class PlayerOptions {
 

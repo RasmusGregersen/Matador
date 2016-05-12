@@ -32,10 +32,6 @@ public class Rules {
 		players[index] = player;
 	}
 
-	public static void setPlayerCount(int playerCount) {
-		Rules.playerCount = playerCount;
-	}
-
 	// Turn Method
 
 	public static void Turn(Player player) {
