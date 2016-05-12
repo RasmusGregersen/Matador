@@ -129,7 +129,7 @@ public class Player {
 		this.FieldPos = FieldPos + this.FieldPos;
 		if (this.FieldPos > 40) {
 			this.FieldPos = this.FieldPos - 40;
-			GUI.showMessage("Du modtager hermed kr. 4000,- for at passere start");
+			GUI.showMessage(name+ " modtager hermed kr. 4000,- for at passere start");
 			balance = balance + 4000;
 			GUI.setBalance(name, balance);
 		}

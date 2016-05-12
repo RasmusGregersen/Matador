@@ -101,6 +101,12 @@ public class Rules {
 							((Ownable) Gameboard.getField(f)).setOwner(null);
 							GUI.removeOwner(f);
 						}
+						if (Gameboard.getField(f) instanceof Street){
+							if ( ((Street)Gameboard.getField(f)).getHouses() != 0) {
+							((Street) Gameboard.getField(f)).RemoveHouses();
+							PlayerOptions.HouseorHotel(f);
+							}
+						}
 					}
 				}
 				try {

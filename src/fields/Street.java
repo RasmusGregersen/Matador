@@ -38,6 +38,8 @@ public class Street extends Ownable {
 		return houses;
 	}
 
+	public void RemoveHouses() {houses=0;}
+
 	public void addHouses(int houses) {
 		this.houses = this.houses + houses;
 	}
