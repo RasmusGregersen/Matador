@@ -11,9 +11,17 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * Player Option Test class that runs Player Option Junit tests.
+ */
+
 public class PlayerOptionsTest {
 
     private Player player;
+
+    /**
+     * Setup method that runs before each test.
+     */
 
     @Before
     public void setUp() throws Exception {
@@ -22,8 +30,12 @@ public class PlayerOptionsTest {
     }
 
     @Test
-    //BuyPropertyTest, we want to buy 2 houses on the "Lyseblå" field. We expect the BuyProperty method to place the houses best strategicly
-    //and withdraw the correct amount to the player
+
+    /**
+     *BuyPropertyTest, we want to buy 2 houses on the "Lyseblå" field.
+     *We expect the BuyProperty method to place the houses best strategicly
+     *and withdraw the correct amount to the player
+     */
     public void BuyPropertyTest() {
         ((Ownable) Gameboard.getField(2)).setOwner(player);
         ((Ownable) Gameboard.getField(4)).setOwner(player);
@@ -38,8 +50,15 @@ public class PlayerOptionsTest {
     }
 
     @Test
-    //SellPropertyTest, we want to sell 2 houses on the "Lyseblå" field. We expect the SellProperty method to substract the houses best strategicly
-    //and deposit the correct amount to the player
+
+    /**
+     *SellPropertyTest, we want to sell 2 houses on the "Lyseblå" field.
+     *We expect the SellProperty method to subtract the houses best strategicly
+     *and deposit the correct amount to the player
+     *and withdraw the correct amount to the player
+     */
+
+
     public void SellPropertyTest() {
         ((Ownable) Gameboard.getField(2)).setOwner(player);
         ((Ownable) Gameboard.getField(4)).setOwner(player);
@@ -54,8 +73,12 @@ public class PlayerOptionsTest {
     }
 
     @Test
-    //SetPawnedTest, we want to pledge field nr. 26. We expect to see the GUI. show that the field is pawned.
-    //And afterwards deposit the correct amount to the players balance.
+
+    /**
+     *SetPawnedTest, we want to pledge field nr. 26.
+     *We expect to see the GUI. show that the field is pawned.
+     *And afterwards deposit the correct amount to the players balance.
+     */
     public void SetPawnedTest() {
         ((Ownable) Gameboard.getField(26)).setOwner(player);
         PlayerOptions.SetPawned(player);
@@ -65,8 +88,14 @@ public class PlayerOptionsTest {
     }
 
     @Test
-    //BuyPawnedTest, we want to buy back the pledged field nr. 26. We expect to see the GUI. show that the field is no longer pawned.
-    //And afterwards withdraw the correct amount to the players balance.
+
+    /**
+     *BuyPawnedTest, we want to buy back the pledged field nr. 26.
+     *We expect to see the GUI. show that the field is no longer pawned.
+     *And afterwards withdraw the correct amount to the players balance.
+     */
+
+
     public void BuyPawnedTest() {
         ((Ownable) Gameboard.getField(26)).setOwner(player);
         ((Ownable) Gameboard.getField(26)).setPawned(true);
@@ -76,6 +105,9 @@ public class PlayerOptionsTest {
         assertEquals(expected, actual);
     }
 
+    /**
+     * Teardown method. That runs after each test.
+     */
 
     @After
     public void TearDown() throws Exception {

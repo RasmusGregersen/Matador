@@ -11,10 +11,18 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * GameboardTest class that runs Gameboard Junit tests.
+ */
+
 public class GameBoardTest {
 
 
     private Player player;
+
+    /**
+     * Setup method that runs before each test.
+     */
 
     @Before
     public void setUp() throws Exception {
@@ -122,6 +130,10 @@ public class GameBoardTest {
         int actual = this.player.getBalance();
         assertEquals(expected, actual);
     }
+
+    /**
+     * Teardown method. That runs after each test.
+     */
 
     @After
     public void TearDown() throws Exception {

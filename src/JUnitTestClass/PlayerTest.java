@@ -11,8 +11,16 @@ import java.sql.SQLException;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * Player Test class that runs Player Junit tests.
+ */
+
 public class PlayerTest {
     private Player p;
+
+    /**
+     * Setup method that runs before each test.
+     */
 
     @Before
     public void setUp() throws Exception {
@@ -65,6 +73,10 @@ public class PlayerTest {
         String result = p.getName();
         assertEquals(expected, result);
     }
+
+    /**
+     * Teardown method. That runs after each test.
+     */
 
     @After
     public void TearDown() throws Exception {
