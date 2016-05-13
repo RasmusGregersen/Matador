@@ -1,5 +1,6 @@
 package mysql;
 
+import java.net.UnknownHostException;
 import java.sql.*;
 
 import desktop_resources.GUI;
@@ -14,6 +15,7 @@ import fields.Ownable;
 
 public class Connector implements DAO,DTO {
     private static Connection con;
+    private static boolean offline = false;
     private PreparedStatement psstm;
     private Statement stm;
 
@@ -21,6 +23,10 @@ public class Connector implements DAO,DTO {
     private String connectionUrl = "jdbc:mysql://dtu.czx5ninmk2ar.eu-west-1.rds.amazonaws.com:3306/";
     private final String connectionUser = "cdio";
     private final String connectionPassword = "matador.CDIO";
+
+    public static boolean isOffline() {
+        return offline;
+    }
 
     public void setDBname(String DBname) {
     this.DBname = DBname;
@@ -62,11 +68,13 @@ public class Connector implements DAO,DTO {
             psstm.execute();
             psstm = con.prepareStatement(FieldDDL);
             psstm.execute();
-        } catch (SQLException e) {
+        } catch (SQLException|NullPointerException e) {
             e.printStackTrace();
         }
         finally {
+            if (stm != null)
             stm.close();
+            if (psstm != null)
             psstm.close();
         }
     }
@@ -95,8 +103,16 @@ public class Connector implements DAO,DTO {
     private Connection connectToDatabase()
             throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException
     {
-        Class.forName("com.mysql.jdbc.Driver").newInstance();
-        return DriverManager.getConnection(connectionUrl+DBname, connectionUser, connectionPassword);
+        Connection conn = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+            conn = DriverManager.getConnection(connectionUrl+DBname, connectionUser, connectionPassword);
+        }
+        catch (SQLException e) {
+            offline = true;
+            GUI.showMessage("Kan ikke forbinde til Databasen, vil du fortsætte offline? Bemærk du vil ikke kunne gemme eller indlæse.");
+        }
+        return conn;
     }
 
     public Player getPlayer(int PlayerID) throws SQLException {

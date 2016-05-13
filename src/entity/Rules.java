@@ -121,13 +121,15 @@ public class Rules {
 	// Game Setup
 
 	public static void SetupGame() {
-		if (GUI.getUserLeftButtonPressed("Vil du starte et nyt spil eller indlæse et gammelt?", "Nyt Spil", "Indlæs Spil")) 
+		if (GUI.getUserLeftButtonPressed("Vil du starte et nyt spil eller indlæse et gammelt?", "Nyt Spil", "Indlæs Spil"))
 		{
-			con.setDBname(GUI.getUserSelection("Vælg en af de gemte spil at overskrive", "Matador1", "Matador2", "Matador3", "Matador4", "Matador5"));
-			try {
-				con.ResetDatabase();
-			} catch (SQLException e) {
-				e.printStackTrace();
+			if (!con.isOffline()) {
+				con.setDBname(GUI.getUserSelection("Vælg en af de gemte spil at overskrive", "Matador1", "Matador2", "Matador3", "Matador4", "Matador5"));
+				try {
+					con.ResetDatabase();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
 			playerCount = GUI.getUserInteger("Hvor mange spillere ønsker i at spille?", 2 , 6);
 			CarBuilder();
@@ -161,11 +163,18 @@ public class Rules {
 			}
 		}
 		else {
+			if (!con.isOffline())
 			LoadGame();
+			else
+			{
+				GUI.showMessage("Du kan ikke indlæse et spil, da du ikke har forbindelse til databasen!");
+				System.exit(1);
+			}
 		}
 	}
 
 	public static void SaveGame() {
+		if (!con.isOffline()) {
 		try {
 			for (int i = 0; i < 6; i++) {
 				if (players[i] != null) {
@@ -176,6 +185,7 @@ public class Rules {
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
+		}
 		}
 	}
 
