@@ -1,21 +1,18 @@
 package JUnitTestClass;
 
+import entity.Player;
 import entity.Rules;
 import mysql.Connector;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import entity.Player;
 
 import java.sql.SQLException;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
-/**
- * Created by Moulvad on 03/05/16.
- */
 public class PlayerTest {
-    Player p;
+    private Player p;
 
     @Before
     public void setUp() throws Exception {
@@ -57,12 +54,12 @@ public class PlayerTest {
     @Test
     public void getPlayerTest() throws SQLException {
         Connector con = new Connector();
-        if (!con.isOffline()) {
+        if (!Connector.isOffline()) {
             con.setDBname("Test");
             con.ResetDatabase();
             Rules.setPlayer(0, p);
             con.updatePlayer(0);
-            Player p = con.getPlayer(0);
+            p = con.getPlayer(0);
         }
         String expected = "Test";
         String result = p.getName();
