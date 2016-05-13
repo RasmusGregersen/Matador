@@ -21,7 +21,6 @@ public class PlayerTest {
     @Before
     public void setUp() throws Exception {
         p = new Player("Test", 30000, 0, 0, 0, 0, 0, 0, false);
-        con = new Connector();
     }
 
     @Test
@@ -58,11 +57,14 @@ public class PlayerTest {
 
     @Test
     public void getPlayerTest() throws SQLException {
-        con.setDBname("Test");
-        con.ResetDatabase();
-        Rules.setPlayer(0, p);
-        con.updatePlayer(0);
-        Player p = con.getPlayer(0);
+        if (!con.isOffline()) {
+            con = new Connector();
+            con.setDBname("Test");
+            con.ResetDatabase();
+            Rules.setPlayer(0, p);
+            con.updatePlayer(0);
+            Player p = con.getPlayer(0);
+        }
         String expected = "Test";
         String result = p.getName();
         assertEquals(expected, result);
