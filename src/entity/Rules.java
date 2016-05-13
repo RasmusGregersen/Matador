@@ -13,8 +13,22 @@ import java.lang.reflect.Array;
 import java.sql.SQLException;
 
 public class Rules {
+
+    /**
+     * Start Creates the connection.
+     */
+
     private static Connector con = new Connector();
+
+    /**
+     * Creates an array with six slots for cars.
+     */
     private static Car[] cars = new Car[6];
+
+    /**
+     * Creates an array with six slots for player.
+     */
+
     private static Player[] players = new Player[6];
 
     private static int playerCount = 0;
@@ -31,7 +45,9 @@ public class Rules {
         players[index] = player;
     }
 
-    // Turn Method
+    /**
+     * Turn which every player gets to. If they're not in jail.
+     */
 
     public static void Turn(Player player) {
         if (!CheckWinConditions(player)) {
@@ -45,11 +61,18 @@ public class Rules {
         }
     }
 
+    /**
+     * Puts the player in jail.
+     */
+
     public static void GoToJail(Player player) {
         GUI.removeAllCars(player.getName());
         player.setJailed(true);
     }
 
+    /**
+     * Gives the player an extra turn if the conditions are true.
+     */
 
     public static void ExtraTurn(Player player) {
         if (Rules.getDie1() == Rules.getDie2()) {
@@ -65,13 +88,17 @@ public class Rules {
             player.setExtraTurns(0);
     }
 
-    // Win Conditions
 
     private static boolean win = false;
 
     public static boolean getWin() {
         return win;
     }
+
+    /**
+     * Checks if the there is only one player left in the game.
+     * If so it prints our a GUI.showMessage and tells the last player that he won.
+     */
 
     public static boolean CheckWinConditions(Player player) {
         boolean out = false;
@@ -83,7 +110,12 @@ public class Rules {
         return out;
     }
 
-    // Lose Condition
+    /**
+     * Lose condition runs when a player presses surrender.
+     * This methods removes the player from the array list.
+     * Removes all his houses, and sets owner back to null and updates in on the GUI.
+     */
+
     public static void LoseCondition(Player player) {
         GUI.showMessage(player.getName() + " har forladt spillet");
         playerCount = playerCount - 1;
@@ -116,7 +148,12 @@ public class Rules {
         }
     }
 
-    // Game Setup
+    /**
+     * Setup game is the method to setup the game.
+     * It gives the actors the choice to enter their desired name.
+     * It also gives the actors the choice of do they wanna load- or start a new game.
+     * There after it gives the actor a choice of how many players he wish to be.
+     */
 
     public static void SetupGame() {
         if (GUI.getUserLeftButtonPressed("Vil du starte et nyt spil eller indlæse et gammelt?", "Nyt Spil", "Indlæs Spil")) {
@@ -131,7 +168,11 @@ public class Rules {
             playerCount = GUI.getUserInteger("Hvor mange spillere ønsker i at spille?", 2, 6);
             CarBuilder();
 
-            // Name Check
+            /**
+             * Name check within the setup game.
+             * It checks for a valid name, and two players cannot have the same name.
+             */
+
             for (int i = 0; i < playerCount; i++) {
                 Player tmp = new Player("", 30000, 0, 1, 0, 0, 0, 0, false);
                 EnterName:
@@ -168,6 +209,11 @@ public class Rules {
         }
     }
 
+    /**
+     * Method to save the game to the database.
+     * If the person playing the game is online.
+     */
+
     public static void SaveGame() {
         if (!Connector.isOffline()) {
             try {
@@ -182,6 +228,11 @@ public class Rules {
             }
         }
     }
+
+    /**
+     * Loads the game from the database.
+     * Depending on which game you chose to load from.
+     */
 
     private static void LoadGame() {
         CarBuilder();
@@ -214,7 +265,10 @@ public class Rules {
         }
     }
 
-    // Car Builder
+    /**
+     * Creates six cars in the GUI. But doesn't place them before there
+     * is a player who owns the car.
+     */
 
     private static void CarBuilder() {
         cars[0] = new Car.Builder()
@@ -255,23 +309,40 @@ public class Rules {
                 .build();
     }
 
-    // Dice
+    /**
+     * Static roll dice method. Which rolls the dice
+     * and returns the dice sum.
+     */
 
     private static int[] dice = new int[2];
-
     public static void rollDice() {
         dice[0] = (int) Math.ceil(Math.random() * 6);
         dice[1] = (int) Math.ceil(Math.random() * 6);
         GUI.setDice(Rules.getDie1(), Rules.getDie2());
     }
 
+    /**
+     * Die one value
+     * @return returns die value.
+     */
+
     public static int getDie1() {
         return Array.getInt(dice, 0);
     }
 
+    /**
+     * Die two value
+     * @return returns die value.
+     */
+
     public static int getDie2() {
         return Array.getInt(dice, 1);
     }
+
+    /**
+     * Dice sum of the two die
+     * @return returns dice sum.
+     */
 
     public static int getDiceSum() {
         return dice[0] + dice[1];
