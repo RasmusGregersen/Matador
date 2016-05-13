@@ -1,5 +1,9 @@
 package fields;
 
+/**
+ * Street field class.
+ */
+
 public class Street extends Ownable {
 
     private final int baserent;
@@ -20,6 +24,20 @@ public class Street extends Ownable {
         return houseprice;
     }
 
+    /**
+     * Street constructor. Name is inherited from Field and price is inherited from Ownable.
+     * @param name this parameter is for giving the field its name.
+     * @param price this parameter is for giving the field its price.
+     * @param color this parameter gives the field its color.
+     * @param baserent this parameter gives the fields its baserent.
+     * @param houserent1 this parameter gives the field its rent with 1 house.
+     * @param houserent2 this parameter gives the field its rent with 2 house.
+     * @param houserent3 this parameter gives the field its rent with 3 house.
+     * @param houserent4 this parameter gives the field its rent with 4 house.
+     * @param hotelrent this parameter gives the field its rent with 1 hotel.
+     * @param houseprice this parameter tells what the price of a house is on the field.
+     */
+
     public Street(String name, String color, int price, int baserent, int houserent1, int houserent2, int houserent3, int houserent4, int hotelrent, int houseprice) {
         super(name, price);
         this.color = color;
@@ -36,13 +54,28 @@ public class Street extends Ownable {
         return houses;
     }
 
+    /**
+     * This method removes all houses from a field.
+     */
+
     public void RemoveHouses() {
         houses = 0;
     }
 
+    /**
+     * This method adds houses to a field.
+     */
+
     public void addHouses(int houses) {
         this.houses = this.houses + houses;
     }
+
+    /**
+     * Overrides the inherited LandOnField method so when you land on the field you will
+     * pay rent depending on how many houses or field you own.
+     * @return returns the rent depending on the above.
+     *
+     */
 
     @Override
     public int getRent() {
