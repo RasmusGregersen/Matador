@@ -3,13 +3,27 @@ package fields;
 import desktop_resources.GUI;
 import entity.Player;
 
+/**
+ * Tax field class.
+ */
+
 public class Tax extends Field {
 
     private final int tax = 2000;
 
+    /**
+     * Tax field constructor with inherited name from superclass Field.
+     * @param name this parameter for giving the field its name.
+     */
+
     public Tax(String name) {
         super(name);
     }
+
+    /**
+     * Overrides the inherited LandOnField method so when you land on the field you will
+     * either pay two different tax depending on field you landed on.
+     */
 
     @Override
     public void landOnField(Player player) {

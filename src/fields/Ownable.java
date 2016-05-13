@@ -4,6 +4,10 @@ import desktop_resources.GUI;
 import entity.Gameboard;
 import entity.Player;
 
+/**
+ * Ownable class with its abstract methods.
+ */
+
 public abstract class Ownable extends Field {
     private final int price;
     private Player owner;
@@ -16,6 +20,12 @@ public abstract class Ownable extends Field {
     public void setOwner(Player player) {
         owner = player;
     }
+
+    /**
+     * Ownable constructor. Name is inherited from Field and price is given to all the subclasses.
+     * @param name this parameter for giving the field its name.
+     * @param price this parameter is inherited to all subclasses.
+     */
 
     public Ownable(String name, int price) {
         super(name);
@@ -33,6 +43,11 @@ public abstract class Ownable extends Field {
     public void setPawned(boolean pawned) {
         this.pawned = pawned;
     }
+
+    /**
+     * Overrides the inherited LandOnField method so when you land on the field you will
+     * either be able to buy or pay rent.
+     */
 
     @Override
     public void landOnField(Player player) {
@@ -72,7 +87,11 @@ public abstract class Ownable extends Field {
         }
     }
 
-    public abstract int getRent(); // Abstract method declared, to be inherited by child classes.
+    /**
+     * Abstract method declared, to be inherited by subclasses.
+     */
+
+    public abstract int getRent();
 
 
 }

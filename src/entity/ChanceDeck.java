@@ -3,21 +3,31 @@ package entity;
 import desktop_resources.GUI;
 import fields.Ownable;
 import fields.Street;
-
 import java.util.Arrays;
 import java.util.Collections;
 
+/**
+ * Our ChanceDeck class
+ */
 class ChanceDeck {
+    /**
+     * Array for our ChanceCards and a counter which keeps track of the number of cards revealed.
+     */
     private ChanceCard[] deck = new ChanceCard[33];
     private int pickCount = 0;
 
-    //Constructor
+    /**
+     * The constructor for our ChanceDeck. This constructor automatically creates the ChanceCards
+     * and and Shuffles the deck.
+     */
     public ChanceDeck() {
         CreateCards();
         ShuffleDeck();
     }
 
-    // Array list with all the ChanceCards within.
+    /**
+     * CreateCards method, which creates our ChanceCards and fills the array.
+     */
     private void CreateCards() {
         deck[0] = new ChanceCard("De modtager Deres aktieudbytte. Modtag 1000 kr,- fra Banken", 1);
         deck[1] = new ChanceCard("Ryk frem til start", 2);
@@ -54,11 +64,17 @@ class ChanceDeck {
         deck[32] = new ChanceCard("De har måttet vedtage en parkeringsbøde. Betal kr. 200 i bøde.", 4);
     }
 
-    // Shufflemethod for the ChanceDeck
+    /**
+     * Our method for shufling the array. We use Collections to shuffle the array as an arraylist.
+     */
     private void ShuffleDeck() {
         Collections.shuffle(Arrays.asList(deck));
     }
 
+    /**
+     * This is our method which is called when a player lands on the Chance field.
+     * The method shows the message as a ChanceCard and triggers the effect.
+     */
     public void DrawCard(Player player) {
         GUI.showMessage("Træk et \"prøv lykken\"-kort");
         GUI.displayChanceCard(deck[pickCount].getDescription());
@@ -71,7 +87,9 @@ class ChanceDeck {
 
     }
 
-    // Swtich with all the ChanceCard effects within.
+    /**
+     * Our effect method. We have grouped all the chancecards methods in this switch.
+     */
     private void effect(Player player, int number) {
         switch (number) {
             case 1:
