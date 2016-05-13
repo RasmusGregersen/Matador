@@ -43,7 +43,7 @@ public class    PlayerOptionsTest {
     }
 
     @Test
-    //SellPropertyTest, we want to sell 4 houses on the "Mørkeblå" field. We expect the SellProperty method to substract the houses best strategicly
+    //SellPropertyTest, we want to sell 2 houses on the "Lyseblå" field. We expect the SellProperty method to substract the houses best strategicly
     //and deposit the correct amount to the player
     public void SellPropertyTest () {
         ((Ownable) Gameboard.getField(2)).setOwner(player); ((Ownable) Gameboard.getField(4)).setOwner(player);

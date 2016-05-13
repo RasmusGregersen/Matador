@@ -127,17 +127,6 @@ public class GameBoardTest {
         assertEquals(expected, actual);
     }
 
-    /*@Test
-    public void CheckWinConditionTest () {
-       Player player1 = new Player("Test2",-1000,0,0,0,0,0,0,false);
-       Player player2 = new Player("Test3",-1000,0,0,0,0,0,0,false);
-        Rules.setPlayer(0,player); Rules.setPlayer(1,player1); Rules.setPlayer(2,player2);
-        Rules.setPlayerCount(3);
-        Rules.LoseCondition(player1);
-        Rules.LoseCondition(player2);
-        Rules.CheckWinConditions(player);
-    }*/
-
     @After
     public void TearDown() throws Exception {
         player = null;
