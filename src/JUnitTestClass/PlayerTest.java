@@ -16,7 +16,6 @@ import static org.junit.Assert.*;
  */
 public class PlayerTest {
     Player p;
-    private Connector con;
 
     @Before
     public void setUp() throws Exception {
@@ -57,8 +56,8 @@ public class PlayerTest {
 
     @Test
     public void getPlayerTest() throws SQLException {
+        Connector con = new Connector();
         if (!con.isOffline()) {
-            con = new Connector();
             con.setDBname("Test");
             con.ResetDatabase();
             Rules.setPlayer(0, p);
