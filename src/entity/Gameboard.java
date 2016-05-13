@@ -6,17 +6,29 @@ import fields.Ownable;
 
 import java.awt.*;
 
-
+/**
+ * Our GameBoard class.
+ */
 public class Gameboard {
-    private static fields.Field[] fieldValue = new fields.Field[40]; // Field array created
+    /**
+     * The 2 arrays used for our GameBoard.
+     * The first is used for Field and subclasses. Which contains names, prices etc for the different Field.
+     * The second array is for the GUI.
+     * Then initializes our ChanceDeck.
+     */
+    private static fields.Field[] fieldValue = new fields.Field[40];
     private static desktop_fields.Field[] fieldGUI = new desktop_fields.Field[40];
     private static ChanceDeck chancedeck = new ChanceDeck();
 
+    /**
+     * DrawCard method is called from the fields.Chance class, when a player triggers it's landOnField method.
+     */
     public static void DrawCard(Player player) {
         chancedeck.DrawCard(player);
     }
 
-    public static fields.Field getField(int fieldID) { // getter for the array
+
+    public static fields.Field getField(int fieldID) {
         return fieldValue[fieldID - 1];
     }
 
@@ -24,6 +36,12 @@ public class Gameboard {
         fieldValue[fieldID - 1].landOnField(player);
     }
 
+
+    /**
+     * Our IsPropertyReady method checks if a player owns all Streets of the color specified.
+     * And called when landOnField is triggered (To check for double rent) or when a player tries
+     * to buy property on Streets.
+     */
     public static boolean IsPropertyReady(Player player, String color) {
         int properties = 0;
         boolean out = false;
@@ -46,6 +64,9 @@ public class Gameboard {
         return out;
     }
 
+    /**
+     * Our CreateGUI method, is used to fill both arrays and Create the GUI.
+     */
     public static void CreateGUI() {
         fieldValue[0] = new fields.Start("START");
         fieldGUI[0] = new Start.Builder()

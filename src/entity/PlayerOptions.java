@@ -6,6 +6,11 @@ import fields.Street;
 
 public class PlayerOptions {
 
+
+    /**
+     * JailTurn provides the player with different choices from a normal turn.
+     * But is only triggered when the player is jailed.
+     */
     public static void Jailturn(Player player) {
         if (!Rules.CheckWinConditions(player)) {
             if (player.getJailturns() == 3) {
@@ -77,7 +82,12 @@ public class PlayerOptions {
         }
     }
 
-
+    /**
+     * Buy property method.
+     * From this method the player can 'try' to buy properties on his Streets. In the code we have limitted the players choice,
+     * so it cannot chose any invalid answers, if the player doesn't own all Streets, he's returned to the Option menu.
+     * The code also automatically places the properties, to maximize the value.
+     */
     public static void BuyProperty(Player player) {
         String Color1 = "Lyseblå", Color2 = "Orange", Color3 = "Grøn", Color4 = "Grå", Color5 = "Rød", Color6 = "Hvid", Color7 = "Gul", Color8 = "Mørkeblå";
         String choice = GUI.getUserSelection(player.getName() + ": Hvilken farve ønsker at købe Hus(e) på? ", Color1, Color2, Color3, Color4, Color5, Color6, Color7, Color8);
@@ -156,7 +166,11 @@ public class PlayerOptions {
         }
     }
 
-
+    /**
+     * SellProperty
+     * Is the reversed method used for removing properties again. Which houses to remove is also happens automatically
+     * to maximize the value.
+     */
     public static void SellProperty(Player player) {
         String Color1 = "Lyseblå", Color2 = "Orange", Color3 = "Grøn", Color4 = "Grå", Color5 = "Rød", Color6 = "Hvid", Color7 = "Gul", Color8 = "Mørkeblå";
         String choice = GUI.getUserSelection(player.getName() + ": Hvilken farve ønsker at sælge Hus(e) fra? ", Color1, Color2, Color3, Color4, Color5, Color6, Color7, Color8);
@@ -236,6 +250,11 @@ public class PlayerOptions {
         }
     }
 
+    /**
+     * SetPawned method.
+     * Is the method to Pawn ownable fields.
+     * The player supplies the number to field, the code checks if he owns it, and refunds him 90% of the price.
+     */
     public static void SetPawned(Player player) {
         while (true) {
             int field = GUI.getUserInteger(player.getName() + ": Hvilken grund ønsker at pantsætte, indtast grundens nummer", 1, 40);
@@ -271,6 +290,10 @@ public class PlayerOptions {
         }
     }
 
+    /**
+     * BuyPawned method.
+     * The players are able to buy back Pawned Fields at any time doing their turn, thru this method.
+     */
     public static void BuyPawned(Player player) {
         while (true) {
             int field = GUI.getUserInteger(player.getName() + ": Hvilken pantsat grund ønsker du at købe tilbage , indtast grundens nummer", 1, 40);
@@ -294,7 +317,9 @@ public class PlayerOptions {
         }
     }
 
-
+    /**
+     * HouseorHotel is small method, to update the field with houses or hotels depending on the house variable on the Street
+     */
     public static void HouseorHotel(int felt) {
         if (((Street) Gameboard.getField(felt)).getHouses() < 5) {
             GUI.setHouses(felt, ((Street) Gameboard.getField(felt)).getHouses());
@@ -303,6 +328,11 @@ public class PlayerOptions {
         }
     }
 
+    /**
+     * Bankrupt method is used when a player has negative balance.
+     * The players options are reduced to only selling properties, pawning fields or giving up.
+     * If the player sells enough to get back to a positiv balance, he's returned to the full Options method.
+     */
     public static void Bankrupt(Player player) {
         String Pledge = "Pantsætte grund(e)";
         String Auction = "Sælge Huse";
@@ -318,6 +348,9 @@ public class PlayerOptions {
         }
     }
 
+    /**
+     * This is the method used to check if player should be forced to the limited Bankrupt method or the full Options method.
+     */
     private static void BankruptOrOptions(Player player) {
         if (player.getBalance() < 0) {
             Bankrupt(player);
