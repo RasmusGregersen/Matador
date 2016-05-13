@@ -1,9 +1,14 @@
 package JUnitTestClass;
 
+import entity.Rules;
+import mysql.Connector;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import entity.Player;
+
+import java.sql.SQLException;
+
 import static org.junit.Assert.*;
 
 /**
@@ -11,10 +16,12 @@ import static org.junit.Assert.*;
  */
 public class PlayerTest {
     Player p;
+    private Connector con;
 
     @Before
     public void setUp() throws Exception {
-        p = new Player("Test",30000,0,1,0,0,0,0,false);
+        p = new Player("Test", 30000, 0, 0, 0, 0, 0, 0, false);
+        con = new Connector();
     }
 
     @Test
@@ -24,6 +31,7 @@ public class PlayerTest {
         assertEquals(Expected, Result);
 
     }
+
     @Test
     public void DepositBalanceTest() {
         p.depositBalance(1000);
@@ -48,9 +56,20 @@ public class PlayerTest {
         assertEquals(Expected, Result);
     }
 
+    @Test
+    public void getPlayerTest() throws SQLException {
+        con.setDBname("Test");
+        con.ResetDatabase();
+        Rules.setPlayer(0, p);
+        con.updatePlayer(0);
+        Player p = con.getPlayer(0);
+        String expected = "Test";
+        String result = p.getName();
+        assertEquals(expected, result);
+    }
 
     @After
     public void TearDown() throws Exception {
-        p =null;
+        p = null;
     }
 }

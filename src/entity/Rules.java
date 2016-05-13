@@ -42,6 +42,7 @@ public class Rules {
 			Gameboard.setField(player.getFieldPos(), player);
 			if (player.getBalance() < 0)
 			PlayerOptions.Bankrupt(player);
+			ExtraTurn(player);
 		}
 	}
 
