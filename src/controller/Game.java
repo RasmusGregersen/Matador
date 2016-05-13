@@ -13,7 +13,7 @@ public class Game {
 		Gameboard.CreateGUI();
 		Rules.SetupGame();
 
-		//This is the while loop, that will run until. someone has won the game.
+		//This is the while loop, that will run until. Someone wins the game.
 		while (!Rules.getWin())
 		{
 			Rules.SaveGame();
