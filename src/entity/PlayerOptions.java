@@ -77,7 +77,11 @@ public class PlayerOptions {
 			BuyPawned(player);
 		}
 		else if (option.equals(QuitGame)) {
-			  Quitgame(player);
+            if (GUI.getUserLeftButtonPressed(player.getName() + ": Vil du afslutte og gemme? (Spil bliver gemt pr. runde) " + "?", "Ja", "Nej")) {
+                System.exit(0);
+            }
+            else
+                Options(player);
 		}
 	}
 
@@ -349,13 +353,5 @@ public class PlayerOptions {
 		else 
 			Options(player);
 	}
-	public static void Quitgame (Player player) {
-		if (GUI.getUserLeftButtonPressed(player.getName() + ": Vil du afslutte og gemme? (Spil bliver gemt pr. runde) " + "?", "Ja", "Nej")) {
-        System.exit(0);
-        }
-		else
-			Options(player);
-	}
-
 
 }
