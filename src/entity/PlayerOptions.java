@@ -271,7 +271,12 @@ public class PlayerOptions {
                             break;
                         }
                     }
-                    if (GUI.getUserLeftButtonPressed(player.getName() + ": Vil du pantsætte " + Gameboard.getField(field).getName() + "?", "Ja", "Nej")) {
+                    if (((Ownable) Gameboard.getField(field)).isPawned()) {
+                        GUI.showMessage("Denne grund er allerede pantsat");
+                        BankruptOrOptions(player);
+                        break;
+                    }
+                    else if (GUI.getUserLeftButtonPressed(player.getName() + ": Vil du pantsætte " + Gameboard.getField(field).getName() + "?", "Ja", "Nej")) {
                         player.depositBalance((int) (((Ownable) Gameboard.getField(field)).getPrice() * 0.9));
                         player.setTotalAssets(-(((Ownable) Gameboard.getField(field)).getPrice()));
                         GUI.showMessage("Der blev indsat " + (int) (((Ownable) Gameboard.getField(field)).getPrice() * 0.9) + " på din balance");
